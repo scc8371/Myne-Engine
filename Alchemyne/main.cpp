@@ -1,22 +1,19 @@
 #include <iostream>
-using namespace std;
+#include "src/App.h"
 
-//memory management
-#define _CRTDBG_MAP_ALLOC  
-#include <stdlib.h>  
-#include <crtdbg.h>
+using namespace std;
 
 void wrapper();
 
 int main()
 {
-   cout << "test works!" << endl; 
-   wrapper();
-
-   _CrtDumpMemoryLeaks();
+    wrapper();
 }
 
-//holds main execution for the program
-void wrapper(){
-    cout << "test" << endl;
+/// <summary>
+/// wrapper function for main execution of alchemyne
+/// </summary>
+void wrapper() {  
+    App* app = new App();
 }
+
