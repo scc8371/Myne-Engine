@@ -16,14 +16,20 @@
 #include "Texture.h"
 #include "Vertex.h"
 #include "TextureManager.h"
+#include "ResourceManager.h"
+#include "InputManager.h"
 
 
 class App
 {
 public:
 	App();
-private:
+	~App();
+	private:
 	TextureManager* textureManager;
+	ResourceManager* resourceManager;
+	InputManager* inputManager;
 	void resizeBuffer(Shader program);
+	
 };
 

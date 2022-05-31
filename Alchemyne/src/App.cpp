@@ -14,6 +14,9 @@ const int WINDOW_Y = 800;
 App::App()
 {
 	textureManager = TextureManager::getInstance();
+	resourceManager = ResourceManager::GetInstance();
+	inputManager = InputManager::GetInstance();
+
 	glfwInit();
 
 	//lets compliler know which version of gl I am using
@@ -23,7 +26,7 @@ App::App()
 
 	//creates window
 	GLFWwindow* window = glfwCreateWindow(WINDOW_X, WINDOW_Y, "Alchemyne", NULL, NULL);
-	
+	resourceManager->setWindow(window);
 
 	if (window == NULL)
 	{
@@ -52,11 +55,11 @@ App::App()
 		textureManager->addTexture(Texture("resources/bearger.png", 
 			Vertex(20.0f, 20.0f, 100.0f)), shaderProgram);
 
-			textureManager->addTexture(Texture("resources/bearger.png", 
+		textureManager->addTexture(Texture("resources/bearger.png", 
 			Vertex(500.0f, 20.0f, 600.0f)), shaderProgram);
 	}	
 	catch(int i){
-		std::cout << "gottem" << std::endl;
+		std::cout << "Textures not loaded properly." << std::endl;
 	}
 	
 	EBO EBO1(indices, sizeof(indices));
@@ -79,6 +82,11 @@ App::App()
 		glfwSwapBuffers(window);
 
 		glfwPollEvents();
+
+		//testing mouse position tracking
+		Vector2 mousePos = inputManager->getMousePosition();
+
+		std::cout << mousePos.x() << ", " << mousePos.y() << std::endl;
 	}
 
 	//deletes objects
@@ -100,6 +108,12 @@ void App::resizeBuffer(Shader program)
 	GLuint projID = glGetUniformLocation(program.ID, "projection");
 
 	glUniformMatrix4fv(projID, 1, GL_FALSE, value_ptr(projection));
+}
+
+App::~App(){
+	delete inputManager;
+	delete resourceManager;
+	delete textureManager;
 }
 
 

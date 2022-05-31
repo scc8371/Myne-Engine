@@ -19,10 +19,10 @@ Vertex::Vertex(GLfloat x, GLfloat y, GLfloat offset)
 GLfloat* Vertex::generateVertices()
 {
 	GLfloat* vertices = new GLfloat[]{ 
-		x, y, z,								0.0f, 1.0f,
-		x, y + (offset * 2), z,					0.0f, 0.0f,
-		x + (offset * 2), y + (offset * 2), z,	1.0f, 0.0f,
-		x + (offset * 2), y, z,					1.0f, 1.0f
+		x, y, z,								0.0f, 0.0f,
+		x, y + (offset * 2), z,					0.0f, 1.0f,
+		x + (offset * 2), y + (offset * 2), z,	1.0f, 1.0f,
+		x + (offset * 2), y, z,					1.0f, 0.0f
 	};
 
 	std::cout << std::endl;

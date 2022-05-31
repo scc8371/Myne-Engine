@@ -14,6 +14,6 @@ int main()
 /// wrapper function for main execution of alchemyne
 /// </summary>
 void wrapper() {  
-    App* app = new App();
+    App app;
 }
 

@@ -1,2 +1,2 @@
-g++.exe main.cpp src/App.cpp src/EBO.cpp src/Enemy.cpp src/Entity.cpp src/IDamageable.cpp src/IDescription.cpp src/IHostile.cpp src/Item.cpp src/stb.cpp src/IUsable_Weapon.cpp src/IUsable.cpp src/LivingEntity.cpp src/Material.cpp src/Player.cpp src/Shader.cpp src/Texture.cpp src/TextureManager.cpp src/VAO.cpp src/VBO.cpp src/Vertex.cpp src/Weapon.cpp src/World.cpp glad.c -o main.exe -I../library -L ../library -lglfw3 -lgdi32 -lopengl32
+g++.exe main.cpp src/App.cpp src/EBO.cpp src/InputManager.cpp src/ResourceManager.cpp src/Vector2.cpp src/stb.cpp src/Shader.cpp src/Texture.cpp src/TextureManager.cpp src/VAO.cpp src/VBO.cpp src/Vertex.cpp glad.c -o main.exe -I../library -L ../library -lglfw3 -lgdi32 -lopengl32
 main.exe                
