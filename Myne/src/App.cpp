@@ -24,8 +24,9 @@ App::App()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	//creates window
-	GLFWwindow* window = glfwCreateWindow(WINDOW_X, WINDOW_Y, "Alchemyne", NULL, NULL);
+	//creates openGL window
+	GLFWwindow* window = glfwCreateWindow(WINDOW_X, WINDOW_Y, "Myne Test Window", NULL, NULL);
+	//syncs window to resources
 	resourceManager->setWindow(window);
 
 	if (window == NULL)
