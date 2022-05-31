@@ -1,4 +1,3 @@
-# Alchemyne, the order of the Blue Wings<br>
+# MYNE ENGINE<br>
 # PROJECT FOR SUMMER 2022.<br>
-You are the apprentice to an esteemed alchemist. Gather materials and complete his menial tasks. Will you obey him, or give in to the beckoning of others?<br>
-Take part in turn based combat using the powers of alchemy to gain the upper hand! Come prepared, else those who are will surely take advantage.
+Uses OpenGL to render. Will be used for many upcoming projects.
