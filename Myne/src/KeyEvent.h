@@ -1,10 +1,11 @@
+#pragma once
 #include "Event.h"
 
-class KeyEvent{
+class KeyEvent : public Event{
     public:
     int getKeyCode() const {return keycode; }
 
-    //event class category goes here
+    EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
     protected:
     KeyEvent(int keycode);
@@ -14,7 +15,19 @@ class KeyEvent{
 class KeyPressedEvent : public KeyEvent{
     public:
     KeyPressedEvent(int keycode, int repeatNum);
+    int getRepeatCount() const {return repeatCount; }
+    std::string toString() const override;
 
+    EVENT_CLASS_TYPE(KeyPressed)
     private:
-    int repeatCount;
+    int repeatCount;   
+};
+
+class KeyReleasedEvent : public KeyEvent{
+    public:
+        KeyReleasedEvent(int keycode);
+
+        std::string toString() const override;
+
+        EVENT_CLASS_TYPE(KeyReleased)
 };
