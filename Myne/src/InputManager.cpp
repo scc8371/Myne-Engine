@@ -27,6 +27,9 @@ bool InputManager::isMousePressed(int button){
     return state == GLFW_PRESS;
 }
 
+//returns the current position of the mouse as a Vector2.
+//(x position, y position)
+//takes projection matrix into account... returns pixel location not one that is bound to -1 to 1
 Vector2 InputManager::getMousePosition(){
     double xPos, yPos;
     glfwGetCursorPos(resources->getWindow(), &xPos, &yPos);

@@ -24,6 +24,8 @@ void TextureManager::addTexture(Texture texture, Shader shader)
 	texture.textUnit(shader, "tex0", 0);
 }
 
+//deletes a texture from the list of active textures.. 
+//this method is not tested... will probably need to be tested before implementation
 void TextureManager::removeTexture(Texture* texture)
 {
 	for (int i = 0, size = textures.size(); i < size; i++) {
@@ -34,16 +36,19 @@ void TextureManager::removeTexture(Texture* texture)
 	}
 }
 
+//returns the list of textures
 std::vector<Texture> TextureManager::getTextures()
 {
 	return textures;
 }
 
+//returns the list of active VBOS
 std::vector<VBO> TextureManager::getVBOS()
 {
 	return vbos;
 }
 
+//deletes all textures in the texture manager singleton
 void TextureManager::deleteTextures()
 {
 	for (int i = 0, size = textures.size(); i < size; i++) {
@@ -52,9 +57,11 @@ void TextureManager::deleteTextures()
 	}
 }
 
+//draws all active textures in the textures vertex array
 void TextureManager::draw(VAO vao)
 {
 	for (int i = 0, size = textures.size(); i < size; i++) {
+		//sets num of channels and designates shader information
 		vao.LinkAttrib(vbos[i], 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0);
 		vao.LinkAttrib(vbos[i], 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 

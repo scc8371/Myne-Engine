@@ -13,6 +13,7 @@ GLfloat Vector2::y(){
     return this->yVal;
 }
 
+//normalizes a vector2.. returns a copy
 Vector2* Vector2::normalize(){
     GLfloat mag = magnitude();
 
@@ -25,6 +26,7 @@ Vector2* Vector2::normalize(){
     }
 }
 
+//returns the magnitude of a Vector2
 GLfloat Vector2::magnitude(){
     return sqrtf(powf(xVal, 2) + powf(yVal, 2));
 }
@@ -85,6 +87,7 @@ Vector2 Vector2::operator/=(const GLfloat& scalar){
     return Vector2(x, y);
 }
 
+//sets one vector2 equal to another.
 Vector2& Vector2::operator=(const Vector2& vector){
     if(this == &vector){
         return *this;
@@ -97,6 +100,7 @@ Vector2& Vector2::operator=(const Vector2& vector){
     }
 }
 
+//sets the angle of a vector2
 void Vector2::setAngle(GLfloat radians){
     xVal = cos(radians) * xVal - sin(radians) * yVal;
     yVal = sin(radians) * xVal + cos(radians) * yVal;

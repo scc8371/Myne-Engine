@@ -3,16 +3,19 @@
 
 using namespace glm;
 
+//indices for a texture... should probably be moved in the future.
 GLuint indices[] = {
 		0, 2, 1,
 		0, 3, 2
 };
 
+//window dimentions, can be changed.
 const int WINDOW_X = 1200;
 const int WINDOW_Y = 800;
 
 App::App()
 {
+	//manager classes.. handles what they describe respectively.
 	textureManager = TextureManager::getInstance();
 	resourceManager = ResourceManager::GetInstance();
 	inputManager = InputManager::GetInstance();
@@ -29,6 +32,7 @@ App::App()
 	//syncs window to resources
 	resourceManager->setWindow(window);
 
+	//terminates the GLFW 
 	if (window == NULL)
 	{
 		glfwTerminate();
@@ -100,6 +104,8 @@ App::App()
 	glfwTerminate();
 }
 
+//Resizes the window before anything is drawn to the screen.
+//also handles projection (changes how the coordinate system is handled)
 void App::resizeBuffer(Shader program)
 {
 	glViewport(0, 0, WINDOW_X, WINDOW_Y);
@@ -111,6 +117,7 @@ void App::resizeBuffer(Shader program)
 	glUniformMatrix4fv(projID, 1, GL_FALSE, value_ptr(projection));
 }
 
+//frees memory when the program is terminated
 App::~App(){
 	delete inputManager;
 	delete resourceManager;
