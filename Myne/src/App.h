@@ -19,17 +19,21 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 
+#include "Event.h"
 
 class App
 {
 public:
+	//callback fn
+	using EventCallback = std::function<void>(Event&);
+
 	App();
 	~App();
+	void resizeBuffer(Shader program);
 	private:
 	TextureManager* textureManager;
 	ResourceManager* resourceManager;
 	InputManager* inputManager;
-	void resizeBuffer(Shader program);
-	
 };
+
 

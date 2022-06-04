@@ -43,7 +43,7 @@ class Event{
 
 class EventDispatcher{
     template<typename T>
-    using eventFunct = std::function<bool(t&)>;
+    using eventFunct = std::function<bool(T&)>;
 
     public:
         EventDispatcher(Event& event);
