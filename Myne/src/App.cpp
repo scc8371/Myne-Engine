@@ -10,15 +10,15 @@ GLuint indices[] = {
 };
 
 //window dimentions, can be changed.
-const int WINDOW_X = 1200;
-const int WINDOW_Y = 800;
+int window_X = 1200;
+int window_Y = 800;
 
 App::App()
 {
 	//manager classes.. handles what they describe respectively.
 	textureManager = TextureManager::getInstance();
-	resourceManager = ResourceManager::GetInstance();
 	inputManager = InputManager::GetInstance();
+	eventManager = EventManager::getInstance();
 
 	glfwInit();
 
@@ -28,10 +28,10 @@ App::App()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//creates openGL window
-	GLFWwindow* window = glfwCreateWindow(WINDOW_X, WINDOW_Y, "Myne Test Window", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(window_X, window_Y, "Myne Test Window", NULL, NULL);	
 	//syncs window to resources
-	resourceManager->setWindow(window);
-
+	ResourceManager::GetInstance()->setWindow(window);
+	
 	//terminates the GLFW 
 	if (window == NULL)
 	{
@@ -46,8 +46,10 @@ App::App()
 
 	//creates shader program, must be activated when creating textures
 	Shader shaderProgram("resources/default.vert", "resources/default.frag");
-
+	ResourceManager::GetInstance()->setShader(&shaderProgram);
 	resizeBuffer(shaderProgram);
+
+	eventManager->attachEvent(EventType::Window_Resize, onResize);
 
 	//establishes buffer objects, binds and unbinds them respectively
 	VAO VAO1;
@@ -55,7 +57,7 @@ App::App()
 	//texture stuff goes here...
 	VAO1.Bind();
 
-	//TEXTURE STUFF
+	//TEXTURE LOADING
 	try{
 		textureManager->addTexture(Texture("resources/bearger.png", 
 			Vertex(20.0f, 20.0f, 100.0f)), shaderProgram);
@@ -70,6 +72,8 @@ App::App()
 	EBO EBO1(indices, sizeof(indices));
 
 	VAO1.Unbind();
+
+	eventManager->createCallbacks(window);
 	
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -85,13 +89,12 @@ App::App()
 		textureManager->getInstance()->draw(VAO1);
 
 		glfwSwapBuffers(window);
-
 		glfwPollEvents();
 
-		//testing mouse position tracking
+		// testing mouse position tracking
 		Vector2 mousePos = inputManager->getMousePosition();
 
-		std::cout << mousePos.x() << ", " << mousePos.y() << std::endl;
+		//std::cout << mousePos.x() << ", " << mousePos.y() << std::endl;
 	}
 
 	//deletes objects
@@ -108,8 +111,8 @@ App::App()
 //also handles projection (changes how the coordinate system is handled)
 void App::resizeBuffer(Shader program)
 {
-	glViewport(0, 0, WINDOW_X, WINDOW_Y);
-	mat4x4 projection = ortho(0.0f, (float)WINDOW_X, (float)WINDOW_Y, 0.0f, 1.0f, -1.0f);
+	glViewport(0, 0, window_X, window_Y);
+	mat4x4 projection = ortho(0.0f, (float)window_X, (float)window_Y, 0.0f, 1.0f, -1.0f);
 
 	program.Activate();
 	GLuint projID = glGetUniformLocation(program.ID, "projection");
@@ -120,8 +123,17 @@ void App::resizeBuffer(Shader program)
 //frees memory when the program is terminated
 App::~App(){
 	delete inputManager;
-	delete resourceManager;
 	delete textureManager;
+	delete eventManager;
 }
 
+void App::onResize(void* size){
+	Vector2 windowSize = *(Vector2*)size;	
+
+	window_X = windowSize.x();
+	window_Y = windowSize.y();
+	
+	resizeBuffer(*ResourceManager::GetInstance()->getShader());
+	std::cout << "Resized" << std::endl;
+}
 

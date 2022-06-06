@@ -1,7 +1,10 @@
+#pragma once
 #ifndef VAO_H
 #define VAO_H
 
-#include "../../library/glad/glad.h"
+#include "../library/opengl.h"
+
+
 #include "VBO.h"
 
 class VAO {

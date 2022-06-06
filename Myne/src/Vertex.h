@@ -1,7 +1,8 @@
 #pragma once
-#include "../../library/glad/glad.h"
-#include "../../library/GLFW/include/GLFW/glfw3.h"
-class Vertex
+#include "../library/opengl.h"
+
+
+struct Vertex
 {
 public:
 	Vertex(GLfloat x, GLfloat y, GLfloat z, GLfloat offset);
@@ -18,8 +19,6 @@ private:
 	GLfloat* vertices;
 	int size;
 
-	GLfloat* generateVertices();
-	
-	
+	GLfloat* generateVertices();	
 };
 

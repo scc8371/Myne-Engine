@@ -11,7 +11,7 @@ int main()
 }
 
 /// <summary>
-/// wrapper function for main execution of alchemyne
+/// wrapper function for main execution of Myne
 /// </summary>
 void wrapper() {  
     App app;

@@ -1,11 +1,13 @@
 #pragma once
-#include "../library/GLFW/include/GLFW/glfw3.h"
+#include "../library/opengl.h"
 #include <math.h>
 #include <iostream>
 
 struct Vector2{
     public:
     Vector2(GLfloat x, GLfloat y);
+    Vector2(int x, int y);
+    Vector2(double x, double y);
     GLfloat x();
     GLfloat y();
 

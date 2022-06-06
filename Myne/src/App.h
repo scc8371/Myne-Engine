@@ -1,6 +1,7 @@
 #pragma once
-#include "../../library/glad/glad.h"
-#include "../../library/GLFW/include/GLFW/glfw3.h"
+#define GLFW_INCLUDE_NONE
+
+#include "../library/opengl.h"
 #include "../../library/stb/stb_image.h"
 
 #include "../../library/glm/vec3.hpp" // glm::vec3
@@ -18,22 +19,23 @@
 #include "TextureManager.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
-
-#include "Event.h"
+#include "EventManager.h"
 
 class App
 {
 public:
-	//callback fn
-	using EventCallback = std::function<void>(Event&);
 
 	App();
 	~App();
-	void resizeBuffer(Shader program);
+	
+	static void resizeBuffer(Shader program);
+	static void onResize(void* size);
 	private:
 	TextureManager* textureManager;
-	ResourceManager* resourceManager;
 	InputManager* inputManager;
+	EventManager* eventManager;		
 };
+
+
 
 

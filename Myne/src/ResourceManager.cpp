@@ -8,14 +8,5 @@ ResourceManager* ResourceManager::GetInstance(){
 ResourceManager::ResourceManager()
 {
     window = NULL;
-}
-
-//sets the active window
-void ResourceManager::setWindow(GLFWwindow* window){
-    this->window = window;
-}
-
-//returns the active window
-GLFWwindow* ResourceManager::getWindow(){
-    return window;
+    shader = NULL;
 }

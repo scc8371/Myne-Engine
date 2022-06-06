@@ -1,8 +1,9 @@
+#pragma once
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "../../library/glad/glad.h"
-#include "../../library/stb/stb_image.h"
+#include "../library/opengl.h"
+#include "../library/stb/stb_image.h"
 
 #include "Shader.h"
 #include "Vertex.h"

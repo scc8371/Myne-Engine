@@ -1,7 +1,10 @@
+#pragma once
 #ifndef SHADER_H
 #define SHADER_H
+#endif
 
-#include "../../library/glad/glad.h"
+#include "../library/opengl.h"
+
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -19,4 +22,3 @@ public:
 	void Delete();
 };
 
-#endif

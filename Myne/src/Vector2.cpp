@@ -4,6 +4,15 @@ Vector2::Vector2(GLfloat x, GLfloat y){
     this->xVal = x;
     this->yVal = y;
 }
+Vector2::Vector2(int x, int y){
+    this->xVal = (GLfloat)x;
+    this->yVal = (GLfloat)y;
+}
+
+Vector2::Vector2(double x, double y){
+    this->xVal = (GLfloat)x;
+    this->yVal = (GLfloat)y;
+}
 
 GLfloat Vector2::x(){
         return this->xVal;

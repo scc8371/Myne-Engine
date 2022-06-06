@@ -1,7 +1,9 @@
+#pragma once
 #ifndef EBO_H
 #define EBO_H
 
-#include "../../library/glad/glad.h"
+#include "../library/opengl.h"
+
 
 class EBO {
 public:
