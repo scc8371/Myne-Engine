@@ -25,8 +25,6 @@ GLfloat* Vertex::generateVertices()
 		x + (offset * 2), y, z,					1.0f, 0.0f
 	};
 
-	std::cout << std::endl;
-
 	return vertices;
 }
 
