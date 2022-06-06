@@ -32,7 +32,6 @@ void mouse_callback_click(GLFWwindow* window, int button, int action, int mods){
 }
 
 void window_callback_resize(GLFWwindow* window, int width, int height){
-    std::cout << "callback called" << std::endl;
     Vector2 temp(width, height);
 
     EventManager::getInstance()->
@@ -47,22 +46,18 @@ void EventManager::attachEvent(EventType type, Event event){
     }
     //adds new list to the dictionary
     else{
-        std::cout << "event attached" << std::endl;
         std::vector<Event> eventsList;
         eventsList.push_back(event);
         events.emplace(type, eventsList);
 
         for(int i = 0; i < eventsList.size(); i++){
-            std::cout << &eventsList[i] << std::endl;
         }
     }
 }
 
 void EventManager::sendEvent(EventType type, void* data){
-    std::cout << "send event called" << std::endl;
     if(events.count(type)){        
         for(int i = 0, size = events[type].size(); i < size; i++){
-            std::cout << "send event called" << std::endl;
             events[type][i](data);
         }
     }
@@ -73,8 +68,6 @@ void EventManager::createCallbacks(GLFWwindow* window){
     glfwSetCursorPosCallback(window, mouse_callback_move);
     glfwSetMouseButtonCallback(window, mouse_callback_click);
     glfwSetFramebufferSizeCallback(window, window_callback_resize);
-
-    std::cout << "callbacks attached" << std::endl; 
 }
 
 

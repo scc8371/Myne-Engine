@@ -59,11 +59,12 @@ App::App()
 
 	//TEXTURE LOADING
 	try{
-		textureManager->addTexture(Texture("resources/bearger.png", 
-			Vertex(20.0f, 20.0f, 100.0f)), shaderProgram);
-
-		textureManager->addTexture(Texture("resources/bearger.png", 
-			Vertex(500.0f, 20.0f, 600.0f)), shaderProgram);
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 10; j++){
+				textureManager->addTexture(Texture("resources/bearger.png", 
+					Vertex(20.0f + i * 350, 20.0f + (j * 50), 100.0f)), shaderProgram);
+			}			
+		}	
 	}	
 	catch(int i){
 		std::cout << "Textures not loaded properly." << std::endl;
@@ -93,8 +94,6 @@ App::App()
 
 		// testing mouse position tracking
 		Vector2 mousePos = inputManager->getMousePosition();
-
-		//std::cout << mousePos.x() << ", " << mousePos.y() << std::endl;
 	}
 
 	//deletes objects
@@ -134,6 +133,5 @@ void App::onResize(void* size){
 	window_Y = windowSize.y();
 	
 	resizeBuffer(*ResourceManager::GetInstance()->getShader());
-	std::cout << "Resized" << std::endl;
 }
 
