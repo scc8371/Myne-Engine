@@ -1,6 +1,6 @@
 #pragma once
 #include "../library/opengl.h"
-#include "Shader.h"
+#include "gl/Shader.h"
 
 class ResourceManager{
     public:

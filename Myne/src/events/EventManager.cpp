@@ -1,5 +1,5 @@
 #include "EventManager.h"
-#include "ResourceManager.h"
+
 
 EventManager::EventManager(){
     events = std::map<EventType, std::vector<Event>>();  

@@ -3,7 +3,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include "Vector2.h"
+#include "../utils/Vector2.h"
+#include "../ResourceManager.h"
 
 enum EventType{
     Keyboard_Press, Keyboard_Release,

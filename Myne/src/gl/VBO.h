@@ -1,11 +1,9 @@
 #pragma once
 #ifndef VBO_H
 #define VBO_H
-
-#ifndef IMPORTEDGL
-#define IMPORTEDGL
-#include "../../library/glad/glad.h"
 #endif
+
+#include "../library/glad/glad.h"
 
 class VBO {
 public: 
@@ -16,4 +14,3 @@ public:
 	void Unbind();
 	void Delete();
 };
-#endif

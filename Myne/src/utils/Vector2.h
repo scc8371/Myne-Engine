@@ -25,10 +25,9 @@ struct Vector2{
 
     //vector rotation
     void setAngle(GLfloat radians);
-    private:
-    GLfloat xVal;
-    GLfloat yVal;
-
     Vector2* normalize();
     GLfloat magnitude();
+    private:
+    GLfloat xVal;
+    GLfloat yVal; 
 };

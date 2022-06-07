@@ -10,16 +10,16 @@
 #include "../../library/glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "../../library/glm/gtc/type_ptr.hpp"
 
-#include "Shader.h"
-#include "VBO.h"
-#include "EBO.h"
-#include "VAO.h"
-#include "Texture.h"
-#include "Vertex.h"
-#include "TextureManager.h"
+#include "gl/Shader.h"
+#include "gl/VBO.h"
+#include "gl/EBO.h"
+#include "gl/VAO.h"
+#include "texture/Texture.h"
+#include "gl/Vertex.h"
+#include "texture/TextureManager.h"
 #include "ResourceManager.h"
-#include "InputManager.h"
-#include "EventManager.h"
+#include "events/InputManager.h"
+#include "events/EventManager.h"
 
 class App
 {

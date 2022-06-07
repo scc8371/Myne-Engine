@@ -1,8 +1,8 @@
 #pragma once
 #include "Texture.h"
-#include "VBO.h"
-#include "VAO.h"
-#include "Vertex.h"
+#include "../gl/VBO.h"
+#include "../gl/VAO.h"
+#include "../gl/Vertex.h"
 #include <vector>
 
 class TextureManager {

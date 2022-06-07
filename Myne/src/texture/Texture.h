@@ -5,11 +5,11 @@
 #include "../library/opengl.h"
 #include "../library/stb/stb_image.h"
 
-#include "Shader.h"
-#include "Vertex.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "Vertex.h"
+#include "../gl/Shader.h"
+#include "../gl/Vertex.h"
+#include "../gl/VAO.h"
+#include "../gl/VBO.h"
+#include "../gl/Vertex.h"
 
 class Texture
 {
