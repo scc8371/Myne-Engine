@@ -25,6 +25,13 @@ void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination)
     }
 }
 
+Vertex::Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v){
+    this->x = x;
+    this->y = y;
+    this->u = u;
+    this->v = v;
+}
+
 void SpriteBatch::render(){
     int size = oldEntries.size();
     int qsize = queue.size();
@@ -54,26 +61,43 @@ void SpriteBatch::render(){
        }
     }
 
+    oldEntries.clear();
+
     for(int i = 0; i < qsize; i++){
         queue[i].texture.Bind();
         VBOS[i].Bind();
 
         if(queue[i].isUpdated){
-           glBufferData(GL_ARRAY_BUFFER, queue[i].quads.size() * sizeof(Vertex),
-            &queue[i].quads[0], GL_DYNAMIC_DRAW);
 
-            glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat),
-            NULL);
+           glBufferData(GL_ARRAY_BUFFER, (queue[i].quads.size() + 1) * sizeof(Vertex),
+            &queue[i].quads[0], GL_DYNAMIC_DRAW);                     
         }
+
+        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat),
+            NULL);
+
+        glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE,
+            4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+
+        glEnableVertexAttribArray(1);
+
+        VBOS[i].Unbind();
+
+        glDrawArrays(GL_TRIANGLES, 0, queue[i].quads.size());
+
+        oldEntries.push_back(getHash(queue[i]));
+        queue[i].isUpdated = false;
     }
+
+    queue.clear();
 }
 
 size_t SpriteBatch::getHash(QueueEntry entry){
     size_t result = entry.texture.ID;
     for(int i = 0; i < entry.quads.size(); i++){
-        for(int j = 0; j < 6; j++){
-            result = (result << 1) ^ getHash(entry.quads[i][j]);
-        }
+        result = (result << 1) ^ getHash(entry.quads[i]);
     }
 
     return result;
@@ -83,39 +107,45 @@ size_t SpriteBatch::getHash(QueueEntry entry){
 size_t SpriteBatch::getHash(Vertex vertex){
     size_t result = vertex.x;
     result ^= (size_t)vertex.y << 1;
-    result ^= (size_t)vertex.u << 1;
-    result ^= (size_t)vertex.v << 1;
+    result ^= (size_t)vertex.u << 2;
+    result ^= (size_t)vertex.v << 3;
 
     return result;
 }
 
 SpriteBatch::QueueEntry::QueueEntry(Texture texture) : texture(texture)
 {
-    quads = std::vector<Vertex[6]>();
+    quads = std::vector<Vertex>();
 };
 
 void SpriteBatch::QueueEntry::addEntry(Rectangle source, Rectangle destination){
-    quads.push_back({
-        Vertex{destination.getX(), destination.getY(), 
-            source.getX(), source.getY()},
+
+    
+    Vertex temp[6] = {
+        Vertex(destination.getX(), destination.getY(), 
+            source.getX(), source.getY()),
         
-        Vertex{destination.getX() + destination.getWidth(), destination.getY(), 
-            source.getX() + source.getWidth(), source.getY()},
+        Vertex(destination.getX() + destination.getWidth(), destination.getY(), 
+            source.getX() + source.getWidth(), source.getY()),
        
-        Vertex{destination.getX() + destination.getWidth(), 
+        Vertex(destination.getX() + destination.getWidth(), 
             destination.getY() + destination.getHeight(), 
             source.getX() + source.getWidth(), 
-            source.getY() + source.getHeight()},
+            source.getY() + source.getHeight()),
         
-        Vertex{destination.getX(), destination.getY(),
-            source.getX(), source.getY()},
+        Vertex(destination.getX(), destination.getY(),
+            source.getX(), source.getY()),
         
-        Vertex{destination.getX(), destination.getY() + destination.getHeight(),
-            source.getX(), source.getY() + source.getHeight()},
+        Vertex(destination.getX(), destination.getY() + destination.getHeight(),
+            source.getX(), source.getY() + source.getHeight()),
        
-        Vertex{destination.getX() + destination.getWidth(), 
+        Vertex(destination.getX() + destination.getWidth(), 
             destination.getY() + destination.getHeight(), 
             source.getX() + source.getWidth(), 
-            source.getY() + source.getHeight()},
-    });
+            source.getY() + source.getHeight())
+    };
+
+    for(int i = 0; i < 6; i++){
+        quads.push_back(temp[i]);
+    }
 }

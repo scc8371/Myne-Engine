@@ -3,36 +3,41 @@
 #include <vector>
 #include "../texture/Texture.h"
 #include "../utils/Rectangle.h"
-#include <hash.hpp>
 #include "VBO.h"
 #include "VAO.h"
 
+#include <thread>
+
+struct Vertex{
+            Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v);
+            GLfloat x, y, u, v;
+};
+
 class SpriteBatch{
     
-    struct Vertex{
-        GLfloat x, y, u, v;
-    };
-
 public:
+
     SpriteBatch();
     //source == texture data position
     //destination == where it draws on screen
     void draw(Texture texture, Rectangle source, Rectangle destination);
     void render();
-private:    
+
     struct QueueEntry{
         QueueEntry(Texture texture);
 
         Texture texture;
-        std::vector<Vertex[6]> quads;      
+        std::vector<Vertex> quads;      
         bool isUpdated;
 
-        void addEntry(Rectangle source, Rectangle destination);  
+        void addEntry(Rectangle source, Rectangle destination);          
     };
 
+private:    
+    
     std::vector<size_t> oldEntries;
     std::vector<QueueEntry> queue;
-    std::vector<VBO> VBOS;
+    std::vector<VBO> VBOS;   
 
     VAO vao;
 

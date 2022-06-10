@@ -15,11 +15,13 @@
 #include "gl/EBO.h"
 #include "gl/VAO.h"
 #include "texture/Texture.h"
-#include "gl/Vertex.h"
 #include "texture/TextureManager.h"
 #include "ResourceManager.h"
 #include "events/InputManager.h"
 #include "events/EventManager.h"
+#include "gl/SpriteBatch.h"
+
+#include <random>
 
 class App
 {

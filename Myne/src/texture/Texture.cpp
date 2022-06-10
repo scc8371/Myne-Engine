@@ -1,8 +1,7 @@
 #include "Texture.h"
-Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType, Vertex bounds)
+Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType)
 {
 	type = texType;
-	vertex = bounds;
 
 	int imgWidth;
 	int imgHeight;
@@ -35,8 +34,8 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	glBindTexture(texType, 0);
 }
 
-Texture::Texture(const char* image, Vertex bounds)
-	: Texture(image, GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE, bounds) {}
+Texture::Texture(const char* image)
+	: Texture(image, GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE) {}
 
 
 void Texture::textUnit(Shader& shader, const char* uniform, GLuint unit)
@@ -63,14 +62,4 @@ void Texture::Unbind()
 void Texture::Delete()
 {
 	glDeleteTextures(1, &ID);
-}
-
-GLfloat* Texture::getBounds()
-{
-	return vertex.getVertexMatrix();
-}
-
-int Texture::getSize()
-{
-	return vertex.getSize();
 }

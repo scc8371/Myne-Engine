@@ -15,6 +15,9 @@ int window_Y = 800;
 
 App::App()
 {
+	srand(time(NULL));
+	rand();
+
 	//manager classes.. handles what they describe respectively.
 	textureManager = TextureManager::getInstance();
 	inputManager = InputManager::GetInstance();
@@ -61,8 +64,6 @@ App::App()
 	try{
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 10; j++){
-				textureManager->addTexture(Texture("resources/bearger.png", 
-					Vertex(20.0f + i * 350, 20.0f + (j * 50), 100.0f)), shaderProgram);
 			}			
 		}	
 	}	
@@ -72,10 +73,12 @@ App::App()
 	
 	EBO EBO1(indices, sizeof(indices));
 
-	VAO1.Unbind();
-
 	eventManager->createCallbacks(window);
+
+	SpriteBatch spriteBatch;
 	
+	Texture bearger("resources/bearger.png");
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
@@ -87,7 +90,12 @@ App::App()
 
 		shaderProgram.Activate();
 
-		textureManager->getInstance()->draw(VAO1);
+		for(int i = 1; i < 1000; i++){
+			spriteBatch.draw(bearger, Rectangle(0, 0, 1, 1), Rectangle(1.5 * i, window_Y % i, 100, 100));
+		}
+		
+		
+		spriteBatch.render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
