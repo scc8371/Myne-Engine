@@ -10,6 +10,12 @@ public:
     bool contains(Vector2 pos);
     Vector2 getSize();
     Vector2 getLocation();
+
+    float getX() {return x;}
+    float getY() {return y;}
+
+    float getWidth() {return width;}
+    float getHeight() {return height;}
 private:
-    int x, y, width, height;    
+    float x, y, width, height;    
 };
