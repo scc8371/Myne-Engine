@@ -12,7 +12,6 @@
 
 #include "gl/Shader.h"
 #include "gl/VBO.h"
-#include "gl/EBO.h"
 #include "gl/VAO.h"
 #include "texture/Texture.h"
 #include "texture/TextureManager.h"
@@ -20,8 +19,6 @@
 #include "events/InputManager.h"
 #include "events/EventManager.h"
 #include "gl/SpriteBatch.h"
-
-#include <random>
 
 class App
 {

@@ -2,6 +2,7 @@
 
 InputManager::InputManager(){
     resources = ResourceManager::GetInstance();
+    events = EventManager::getInstance();
     //input setup goes here...
 }
 
@@ -13,6 +14,7 @@ InputManager* InputManager::GetInstance(){
 
 InputManager::~InputManager(){
     delete resources;
+    delete events;
 }
 
 //returns true if a key is pressed down or held

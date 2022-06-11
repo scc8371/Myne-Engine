@@ -3,21 +3,12 @@
 
 using namespace glm;
 
-//indices for a texture... should probably be moved in the future.
-GLuint indices[] = {
-		0, 2, 1,
-		0, 3, 2
-};
-
 //window dimentions, can be changed.
 int window_X = 1200;
 int window_Y = 800;
 
 App::App()
 {
-	srand(time(NULL));
-	rand();
-
 	//manager classes.. handles what they describe respectively.
 	textureManager = TextureManager::getInstance();
 	inputManager = InputManager::GetInstance();
@@ -60,19 +51,6 @@ App::App()
 	//texture stuff goes here...
 	VAO1.Bind();
 
-	//TEXTURE LOADING
-	try{
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 10; j++){
-			}			
-		}	
-	}	
-	catch(int i){
-		std::cout << "Textures not loaded properly." << std::endl;
-	}
-	
-	EBO EBO1(indices, sizeof(indices));
-
 	eventManager->createCallbacks(window);
 
 	SpriteBatch spriteBatch;
@@ -106,7 +84,6 @@ App::App()
 
 	//deletes objects
 	VAO1.Delete();
-	EBO1.Delete();
 	textureManager->getInstance()->deleteTextures();
 	shaderProgram.Delete();
 
