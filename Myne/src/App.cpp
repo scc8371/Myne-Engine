@@ -7,8 +7,12 @@ using namespace glm;
 int window_X = 1200;
 int window_Y = 800;
 
-App::App()
+App::App(Game* game) : game(*game)
 {
+	//dt stuff
+	prevTime = 0.0f;
+	currTime = 0.0f;
+
 	//manager classes.. handles what they describe respectively.
 	textureManager = TextureManager::getInstance();
 	inputManager = InputManager::GetInstance();
@@ -27,7 +31,7 @@ App::App()
 	ResourceManager::GetInstance()->setWindow(window);
 	
 	//terminates the GLFW 
-	if (window == NULL)
+	if (window == NULL || game == NULL)
 	{
 		glfwTerminate();
 		return;
@@ -55,31 +59,22 @@ App::App()
 
 	SpriteBatch spriteBatch;
 	
-	Texture bearger("resources/bearger.png");
-
+	game->initialize();
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		//rendering goes here
-
-		//sets the color of the window.
-		glClearColor(0.15f, 0.115f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		float dt = calcDt();
+		game->update(dt);	
 
 		shaderProgram.Activate();
-
-		for(int i = 1; i < 1000; i++){
-			spriteBatch.draw(bearger, Rectangle(0, 0, 1, 1), Rectangle(1.5 * i, window_Y % i, 100, 100));
-		}
-		
-		
+		game->draw(&spriteBatch);
+			
 		spriteBatch.render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
-		// testing mouse position tracking
-		Vector2 mousePos = inputManager->getMousePosition();
 	}
 
 	//deletes objects
@@ -118,5 +113,19 @@ void App::onResize(void* size){
 	window_Y = windowSize.y();
 	
 	resizeBuffer(*ResourceManager::GetInstance()->getShader());
+}
+
+//returns dt
+float App::calcDt(){
+	//dt
+	prevTime = currTime;
+	currTime = glfwGetTime();
+
+	if(prevTime != 0){
+		return currTime - prevTime;
+	}
+	else{
+		return 0; 
+	}
 }
 

@@ -22,6 +22,7 @@ public:
     //destination == where it draws on screen
     void draw(Texture texture, Rectangle source, Rectangle destination);
     void render();
+    void colorWindow(float r, float g, float b, float a);
 
     struct QueueEntry{
         QueueEntry(Texture texture);

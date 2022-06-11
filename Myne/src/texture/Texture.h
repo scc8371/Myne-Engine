@@ -18,6 +18,7 @@ public:
 		GLenum format, GLenum pixelType);
 
 	Texture(const char* image);
+	Texture();
 	
 	//assigns texture unit to the texture
 	void textUnit(Shader& shader, const char* uniform, GLuint unit);

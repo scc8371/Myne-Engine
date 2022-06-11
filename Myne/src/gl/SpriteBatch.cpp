@@ -149,3 +149,9 @@ void SpriteBatch::QueueEntry::addEntry(Rectangle source, Rectangle destination){
         quads.push_back(temp[i]);
     }
 }
+
+void SpriteBatch::colorWindow(float r, float g, float b, float a){
+	//sets the color of the window.
+	glClearColor(r, g, b, a);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
