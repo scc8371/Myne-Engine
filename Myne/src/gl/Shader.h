@@ -3,7 +3,7 @@
 #define SHADER_H
 #endif
 
-#include "../library/opengl.h"
+#include <opengl/opengl.h>
 
 #include <string>
 #include <fstream>

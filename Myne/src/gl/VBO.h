@@ -3,7 +3,7 @@
 #define VBO_H
 #endif
 
-#include "../library/glad/glad.h"
+#include <glad/glad.h>
 
 class VBO {
 public: 
