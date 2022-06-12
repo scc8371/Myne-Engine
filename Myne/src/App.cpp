@@ -43,7 +43,7 @@ App::App(Game* game) : game(*game)
 	gladLoadGL();
 
 	//creates shader program, must be activated when creating textures
-	Shader shaderProgram("resources/default.vert", "resources/default.frag");
+	Shader shaderProgram("resources/Shader/default.vert", "resources/Shader/default.frag");
 	ResourceManager::GetInstance()->setShader(&shaderProgram);
 	resizeBuffer(shaderProgram);
 
@@ -58,6 +58,8 @@ App::App(Game* game) : game(*game)
 	eventManager->createCallbacks(window);
 
 	SpriteBatch spriteBatch;
+
+	ResourceManager::GetInstance()->setSpriteBatch(&spriteBatch);
 	
 	game->initialize();
 	/* Loop until the user closes the window */

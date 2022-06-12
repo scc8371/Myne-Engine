@@ -16,7 +16,7 @@ public:
     }
     void initialize() override{
         std::cout << "LOADED!" << std::endl;
-        tex = Texture("resources/bearger.png");
+        tex = Texture("resources/content/bearger.png");
     }
     void update(float dt) override
     {

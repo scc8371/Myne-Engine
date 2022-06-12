@@ -9,4 +9,5 @@ ResourceManager::ResourceManager()
 {
     window = NULL;
     shader = NULL;
+    ft = NULL;
 }

@@ -18,6 +18,7 @@ public:
 		GLenum format, GLenum pixelType);
 
 	Texture(const char* image);
+	Texture(int width, int height);
 	Texture();
 	
 	//assigns texture unit to the texture

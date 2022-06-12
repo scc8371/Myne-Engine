@@ -39,6 +39,15 @@ Texture::Texture(const char* image)
 
 Texture::Texture(){}
 
+Texture::Texture(int width, int height){
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &ID);
+	glBindTexture(GL_TEXTURE_2D, ID);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, 0);
+}
+
 void Texture::textUnit(Shader& shader, const char* uniform, GLuint unit)
 {
 	GLuint texUni = glGetUniformLocation(shader.ID, uniform);
