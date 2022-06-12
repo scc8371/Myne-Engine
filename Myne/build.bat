@@ -4,4 +4,5 @@ set ilibs="-I../library -L../library -lglfw3 -lgdi32 -lopengl32"
 g++.exe -s -shared -o cygMyne.dll -Wl,--out-implib=libMyne.dll.a -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--whole-archive %libs% -Wl,--no-whole-archive %ilibs% -static -static-libgcc -static-libstdc++ 
 
 g++.exe %libs% -o main.exe -I../library -L ../library -lglfw3 -lgdi32 -lopengl32
+
 main.exe
