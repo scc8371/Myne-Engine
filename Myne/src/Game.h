@@ -1,5 +1,4 @@
 #pragma once
-#include "../library/opengl.h"
 #include "ResourceManager.h"
 #include "gl/SpriteBatch.h"
 
