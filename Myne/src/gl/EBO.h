@@ -1,8 +1,6 @@
 #pragma once
-#ifndef EBO_H
-#define EBO_H
 
-#include "../library/opengl.h"
+#include <opengl/opengl.h>
 
 
 class EBO {
@@ -14,5 +12,3 @@ public:
 	void Unbind();
 	void Delete();
 };
-
-#endif

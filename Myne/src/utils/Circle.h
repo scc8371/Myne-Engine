@@ -1,4 +1,4 @@
-#include "../library/opengl.h"
+#include <opengl/opengl.h>
 #include "Vector2.h"
 
 class Circle{

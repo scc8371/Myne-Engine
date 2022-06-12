@@ -2,7 +2,7 @@
 #ifndef VAO_H
 #define VAO_H
 
-#include "../library/opengl.h"
+#include <opengl/opengl.h>
 
 
 #include "VBO.h"

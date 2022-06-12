@@ -1,5 +1,5 @@
 #pragma once
-#include "../library/opengl.h"
+#include <opengl/opengl.h>
 #include <vector>
 #include "../texture/Texture.h"
 #include "../utils/Rectangle.h"
