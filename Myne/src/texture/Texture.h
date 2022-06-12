@@ -2,8 +2,8 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "../library/opengl.h"
-#include "../library/stb/stb_image.h"
+#include <opengl/opengl.h>
+#include <stb/stb_image.h>
 
 #include "../gl/Shader.h"
 #include "../gl/VAO.h"
