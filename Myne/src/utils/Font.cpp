@@ -3,12 +3,11 @@
 Font::Font(){}
 
 Font::Font(const char* fontPath, int fontSize){
+
     if(FT_Init_FreeType(ResourceManager::GetInstance()->getFt())){
         std::cout << "Could not instantiate freetype library!" << std::endl;
         return;
     }
-
-    std::cout << "made it here!" << std::endl;
 
     FT_Face face;
 

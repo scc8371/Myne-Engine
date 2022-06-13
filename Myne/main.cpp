@@ -19,7 +19,7 @@ public:
     void initialize() override{
         std::cout << "LOADED!" << std::endl;
         tex = Texture("resources/content/bearger.png");
-        //font = Font("resources/font/barcode.ttf", 24);
+        font = Font("resources/font/barcode.ttf", 100);
     }
     void update(float dt) override
     {
@@ -28,7 +28,7 @@ public:
     {
         _spriteBatch->colorWindow(1.00f, 0.0f, 0.0f, 1.0f);
         _spriteBatch->draw(tex, Rectangle(0, 0, 1, 1), Rectangle(0, 0, 100.0f, 100.0f));
-        font.draw("sus", Vector2(100, 100));
+        font.draw("test for longer strings", Vector2(100, 100));
     };     
 };
 

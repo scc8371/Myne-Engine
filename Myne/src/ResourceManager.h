@@ -8,7 +8,7 @@
 class ResourceManager{
 public:
     static ResourceManager* GetInstance();
-    
+    ~ResourceManager();
     void setWindow(GLFWwindow* window){ this->window = window; }
     GLFWwindow* getWindow() { return window; }
 
