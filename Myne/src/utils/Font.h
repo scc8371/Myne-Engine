@@ -16,7 +16,9 @@ struct CharacterInfo{
     bh,
     b1,
     bt, 
-    tx;
+    tx,
+    tw,
+    th;
 };
 
 struct Point{
@@ -29,11 +31,12 @@ struct Point{
 
 class Font{
 public:
-
+    Font();
     Font(const char* fontPath, int fontSize);
     void draw(const char* text, Vector2 position);
-    int size();
+    //int size();
 
 private:
+    Texture texture;
     CharacterInfo info[128];
 };

@@ -1,11 +1,14 @@
 #include "Font.h"
 
+Font::Font(){}
+
 Font::Font(const char* fontPath, int fontSize){
-    
     if(FT_Init_FreeType(ResourceManager::GetInstance()->getFt())){
         std::cout << "Could not instantiate freetype library!" << std::endl;
         return;
     }
+
+    std::cout << "made it here!" << std::endl;
 
     FT_Face face;
 
@@ -32,7 +35,7 @@ Font::Font(const char* fontPath, int fontSize){
     int atlas_width = w; 
 
     int x = 0;
-    Texture texture = Texture(w, h);
+    this->texture = Texture(w, h);
     texture.Bind();
 
     for(int i = 32; i < 128; i++){
@@ -56,6 +59,8 @@ Font::Font(const char* fontPath, int fontSize){
         info[i].bt = g->bitmap_top;
 
         info[i].tx = (float)x/w;
+        info[i].tw = (float)g->bitmap.width / w;
+        info[i].th = (float)g->bitmap.rows / h;
     }
 
     texture.Unbind();
@@ -63,6 +68,26 @@ Font::Font(const char* fontPath, int fontSize){
 
 void Font::draw(const char* text, Vector2 location){
 
-    // :(
+    Vector2 pos = location;
 
+    //checks if character is within the drawable range of chars
+    for(int i = 0; i < strlen(text); i++){
+        if(text[i] < 32 || text[i] >= 128){
+            continue;
+        }
+
+        CharacterInfo ch = info[(int)text[i]];
+
+        int width = ch.bw;
+        int height = ch.bh;
+        int x = pos.x() + ch.b1; 
+        int y = pos.y() + ch.bt;
+
+        Rectangle source(ch.tx, 0, ch.tw, ch.th);
+        Rectangle bounds(x, y, width, height);
+
+        ResourceManager::GetInstance()->getSpriteBatch()->draw(texture, source, bounds);
+
+        pos += Vector2(ch.ax, 0.0f);
+    }
 }

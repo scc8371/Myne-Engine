@@ -23,6 +23,8 @@
 #include "gl/SpriteBatch.h"
 #include "Game.h"
 
+#include "utils/Font.h"
+
 class App
 {
 public:
