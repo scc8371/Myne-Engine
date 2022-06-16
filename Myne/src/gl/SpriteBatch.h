@@ -7,13 +7,15 @@
 #include "VBO.h"
 #include "VAO.h"
 #include "Shader.h"
+#include "../utils/Color.h"
 
 
 #include <thread>
 
 struct Vertex{
-            Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v);
+            Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v, Color color);
             GLfloat x, y, u, v;
+            GLfloat r, g, b, a;
 };
 
 class SpriteBatch{
@@ -22,7 +24,11 @@ public:
     static SpriteBatch* GetInstance();
     //source == texture data position
     //destination == where it draws on screen
-    void draw(Texture texture, Rectangle source, Rectangle destination, Shader* shader = ResourceManager::GetInstance()->getShader());
+    void draw(Texture texture, Rectangle source, Rectangle destination, Shader* shader = ResourceManager::GetInstance()->getShader(),
+    Color color = Color(1, 1, 1, 1));
+
+    void draw(Texture texture, Rectangle source, Rectangle destination,
+    Color color = Color(1, 1, 1, 1));
     void render();
     static void initialize();
     void colorWindow(float r, float g, float b, float a);
@@ -35,7 +41,7 @@ public:
         bool isUpdated;
         Shader* shader;
 
-        void addEntry(Rectangle source, Rectangle destination);          
+        void addEntry(Rectangle source, Rectangle destination, Color color);          
     };
 
 private:    

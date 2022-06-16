@@ -80,8 +80,6 @@ void Font::draw(const char* text, Vector2 location){
         int x = pos.x + ch.b1; 
         int y = pos.y - ch.bt;
 
-        printf("%f, %f, %f, %f \n", ch.tx, 0, ch.tw, ch.th);
-
         Rectangle source(ch.tx, 0, ch.tw, ch.th);
         Rectangle bounds(x, y, width, height);
 

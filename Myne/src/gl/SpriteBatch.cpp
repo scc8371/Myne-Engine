@@ -18,31 +18,45 @@ void SpriteBatch::initialize(){
     GetInstance()->VBOS = std::vector<VBO>();
 }
 
-void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Shader* shader){
+void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Color color){
+    draw(texture, source, destination, ResourceManager::GetInstance()->getShader(), color);
+}
+
+void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Shader* shader, Color color){
 
     if(queue.size() == 0){
         QueueEntry temp = QueueEntry(texture, shader);
-        temp.addEntry(source, destination);
+        temp.addEntry(source, destination, color);
         queue.push_back(temp);
     }   
     else if(queue.back().texture.ID == texture.ID && shader->ID == queue.back().shader->ID){
         //combines the meshes of the last item in the queue
         //batches the information
-        queue.back().addEntry(source, destination);
+        queue.back().addEntry(source, destination, color);
     }
     else{
         QueueEntry temp = QueueEntry(texture, shader);
-        temp.addEntry(source, destination);
+        temp.addEntry(source, destination, color);
         queue.push_back(temp);
     }
 }
 
 
-Vertex::Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v){
+Vertex::Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v, Color color){
     this->x = x;
     this->y = y;
     this->u = u;
     this->v = v;
+
+    GLfloat* colors = color.toFloats();
+
+    r = colors[0 * sizeof(GLfloat)];
+    g = colors[1 * sizeof(GLfloat)];
+    b = colors[2 * sizeof(GLfloat)];
+    a = colors[3 * sizeof(GLfloat)];
+
+    delete[] colors;
+    colors = nullptr;
 }
 
 void SpriteBatch::render(){
@@ -90,15 +104,20 @@ void SpriteBatch::render(){
             &queue[i].quads[0], GL_DYNAMIC_DRAW);                     
         }     
 
-        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat),
+        glVertexAttribPointer(0, 8, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat),
             NULL);
 
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE,
-            4 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+        glVertexAttribPointer(1, 8, GL_FLOAT, GL_FALSE,
+            8 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
 
         glEnableVertexAttribArray(1);
+
+        glVertexAttribPointer(2, 8, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat),
+            (void*)(4 * sizeof(GLfloat)));
+
+        glEnableVertexAttribArray(2);
 
         VBOS[i].Unbind();
 
@@ -134,31 +153,31 @@ SpriteBatch::QueueEntry::QueueEntry(Texture texture, Shader* shader) : texture(t
     quads = std::vector<Vertex>();
 };
 
-void SpriteBatch::QueueEntry::addEntry(Rectangle source, Rectangle destination){
+void SpriteBatch::QueueEntry::addEntry(Rectangle source, Rectangle destination, Color color){
 
     
     Vertex temp[6] = {
         Vertex(destination.getX(), destination.getY(), 
-            source.getX(), source.getY()),
+            source.getX(), source.getY(), color),
         
         Vertex(destination.getX() + destination.getWidth(), destination.getY(), 
-            source.getX() + source.getWidth(), source.getY()),
+            source.getX() + source.getWidth(), source.getY(), color),
        
         Vertex(destination.getX() + destination.getWidth(), 
             destination.getY() + destination.getHeight(), 
             source.getX() + source.getWidth(), 
-            source.getY() + source.getHeight()),
+            source.getY() + source.getHeight(), color),
         
         Vertex(destination.getX(), destination.getY(),
-            source.getX(), source.getY()),
+            source.getX(), source.getY(), color),
         
         Vertex(destination.getX(), destination.getY() + destination.getHeight(),
-            source.getX(), source.getY() + source.getHeight()),
+            source.getX(), source.getY() + source.getHeight(), color),
        
         Vertex(destination.getX() + destination.getWidth(), 
             destination.getY() + destination.getHeight(), 
             source.getX() + source.getWidth(), 
-            source.getY() + source.getHeight())
+            source.getY() + source.getHeight(), color)
     };
 
     for(int i = 0; i < 6; i++){
