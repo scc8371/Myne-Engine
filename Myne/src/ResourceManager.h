@@ -3,27 +3,29 @@
 #include "gl/Shader.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H  
-#include "gl/SpriteBatch.h"
+
 
 class ResourceManager{
 public:
     static ResourceManager* GetInstance();
     ~ResourceManager();
+
     void setWindow(GLFWwindow* window){ this->window = window; }
     GLFWwindow* getWindow() { return window; }
 
-    void setShader(Shader* shader) {this->shader = shader; }
     Shader* getShader() {return shader; }
 
     FT_Library* getFt() {return ft;}
 
-    void setSpriteBatch(SpriteBatch* spriteBatch) {this->spriteBatch = spriteBatch; }
-    SpriteBatch* getSpriteBatch() {return spriteBatch;}
+    Shader* getFontShader(){ return fontShader; }
+
+    void initialize();
 
 private:
+    static ResourceManager* instance;
     ResourceManager();
     GLFWwindow* window;
     Shader* shader;
+    Shader* fontShader;
     FT_Library* ft;  
-    SpriteBatch* spriteBatch;
 };

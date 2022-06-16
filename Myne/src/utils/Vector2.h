@@ -8,8 +8,8 @@ struct Vector2{
     Vector2(GLfloat x, GLfloat y);
     Vector2(int x, int y);
     Vector2(double x, double y);
-    GLfloat x();
-    GLfloat y();
+    GLfloat x;
+    GLfloat y;
 
     //operation overloads for vector math
     Vector2 operator+(const Vector2& vector);
@@ -27,7 +27,4 @@ struct Vector2{
     void setAngle(GLfloat radians);
     Vector2* normalize();
     GLfloat magnitude();
-    private:
-    GLfloat xVal;
-    GLfloat yVal; 
 };

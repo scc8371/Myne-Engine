@@ -6,7 +6,10 @@
 #include <math.h>
 
 #include "../utils/Vector2.h"
+#include "Rectangle.h"
+#include "../texture/Texture.h"
 #include "../ResourceManager.h"
+#include "../gl/SpriteBatch.h"
 
 struct CharacterInfo{
     float 

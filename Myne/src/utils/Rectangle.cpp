@@ -20,7 +20,7 @@ Vector2 Rectangle::getLocation(){
 
 //checks if a point lies within the rectangle
 bool Rectangle::contains(Vector2 pos){
-    return isColliding(Rectangle(pos.x(), pos.y(), 0, 0));
+    return isColliding(Rectangle(pos.x, pos.y, 0, 0));
 }
 
 //AABB collision method 

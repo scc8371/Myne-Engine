@@ -1,5 +1,5 @@
 #include "App.h"
-#include <vector>
+
 
 using namespace glm;
 
@@ -19,7 +19,7 @@ App::App(Game* game) : game(*game)
 	eventManager = EventManager::getInstance();
 
 	glfwInit();
-
+	
 	//lets compliler know which version of gl I am using
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -42,13 +42,6 @@ App::App(Game* game) : game(*game)
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
 
-	//creates shader program, must be activated when creating textures
-	Shader shaderProgram("resources/Shader/default.vert", "resources/Shader/default.frag");
-	ResourceManager::GetInstance()->setShader(&shaderProgram);
-	resizeBuffer(shaderProgram);
-
-	eventManager->attachEvent(EventType::Window_Resize, onResize);
-
 	//establishes buffer objects, binds and unbinds them respectively
 	VAO VAO1;
 
@@ -57,11 +50,15 @@ App::App(Game* game) : game(*game)
 
 	eventManager->createCallbacks(window);
 
-	SpriteBatch spriteBatch;
+	SpriteBatch::GetInstance()->initialize();
+	ResourceManager::GetInstance()->initialize();
 
-	ResourceManager::GetInstance()->setSpriteBatch(&spriteBatch);
-	
-	game->initialize();
+	resizeBuffer(ResourceManager::GetInstance()->getShader());
+	resizeBuffer(ResourceManager::GetInstance()->getFontShader());
+	eventManager->attachEvent(EventType::Window_Resize, onResize);
+
+	SpriteBatch* spriteBatch = SpriteBatch::GetInstance();	
+	game->initialize();	
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
@@ -69,10 +66,10 @@ App::App(Game* game) : game(*game)
 		float dt = calcDt();
 		game->update(dt);	
 
-		shaderProgram.Activate();
-		game->draw(&spriteBatch);
+		ResourceManager::GetInstance()->getShader()->Activate();
+		game->draw(spriteBatch);
 			
-		spriteBatch.render();
+		spriteBatch->render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -82,7 +79,7 @@ App::App(Game* game) : game(*game)
 	//deletes objects
 	VAO1.Delete();
 	textureManager->getInstance()->deleteTextures();
-	shaderProgram.Delete();
+	ResourceManager::GetInstance()->getShader()->Delete();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
@@ -90,13 +87,13 @@ App::App(Game* game) : game(*game)
 
 //Resizes the window before anything is drawn to the screen.
 //also handles projection (changes how the coordinate system is handled)
-void App::resizeBuffer(Shader program)
+void App::resizeBuffer(Shader* program)
 {
 	glViewport(0, 0, window_X, window_Y);
 	mat4x4 projection = ortho(0.0f, (float)window_X, (float)window_Y, 0.0f, 1.0f, -1.0f);
 
-	program.Activate();
-	GLuint projID = glGetUniformLocation(program.ID, "projection");
+	program->Activate();
+	GLuint projID = glGetUniformLocation(program->ID, "projection");
 
 	glUniformMatrix4fv(projID, 1, GL_FALSE, value_ptr(projection));
 }
@@ -111,10 +108,11 @@ App::~App(){
 void App::onResize(void* size){
 	Vector2 windowSize = *(Vector2*)size;	
 
-	window_X = windowSize.x();
-	window_Y = windowSize.y();
+	window_X = windowSize.x;
+	window_Y = windowSize.y;
 	
-	resizeBuffer(*ResourceManager::GetInstance()->getShader());
+	resizeBuffer(ResourceManager::GetInstance()->getShader());
+	resizeBuffer(ResourceManager::GetInstance()->getFontShader());
 }
 
 //returns dt

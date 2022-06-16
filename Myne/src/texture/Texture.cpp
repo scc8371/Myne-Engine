@@ -40,12 +40,28 @@ Texture::Texture(const char* image)
 Texture::Texture(){}
 
 Texture::Texture(int width, int height){
-	glActiveTexture(GL_TEXTURE0);
+	type = GL_TEXTURE_2D;
+	
+	glActiveTexture(GL_TEXTURE0);	
 	glGenTextures(1, &ID);
 	glBindTexture(GL_TEXTURE_2D, ID);
+
+	//Configures image resizing
+	glTexParameteri(type, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+	glTexParameteri(type, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	//configures repeating textures
+	glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
+
+	glGenerateMipmap(type);
+
+	//Unbinds openGL texture so we cannot accidentally modify it.
+	glBindTexture(type, 0);
 }
 
 void Texture::textUnit(Shader& shader, const char* uniform, GLuint unit)

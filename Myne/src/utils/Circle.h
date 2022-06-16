@@ -1,3 +1,4 @@
+#pragma once
 #include <opengl/opengl.h>
 #include "Vector2.h"
 

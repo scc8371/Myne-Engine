@@ -1,29 +1,42 @@
 #include "SpriteBatch.h"
 
-SpriteBatch::SpriteBatch(){
-    oldEntries = std::vector<size_t>();
-    queue = std::vector<QueueEntry>();
-    VBOS = std::vector<VBO>();
+SpriteBatch* SpriteBatch::instance = NULL;
+
+SpriteBatch::SpriteBatch(){}
+
+SpriteBatch* SpriteBatch::GetInstance(){
+    if(!instance){
+        instance = new SpriteBatch();
+    }
+
+    return instance;
 }
 
-void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination){
+void SpriteBatch::initialize(){
+    GetInstance()->oldEntries = std::vector<size_t>();
+    GetInstance()->queue = std::vector<QueueEntry>();
+    GetInstance()->VBOS = std::vector<VBO>();
+}
+
+void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Shader* shader){
 
     if(queue.size() == 0){
-        QueueEntry temp = QueueEntry(texture);
+        QueueEntry temp = QueueEntry(texture, shader);
         temp.addEntry(source, destination);
         queue.push_back(temp);
     }   
-    else if(queue.back().texture.ID == texture.ID){
+    else if(queue.back().texture.ID == texture.ID && shader->ID == queue.back().shader->ID){
         //combines the meshes of the last item in the queue
         //batches the information
         queue.back().addEntry(source, destination);
     }
     else{
-        QueueEntry temp = QueueEntry(texture);
+        QueueEntry temp = QueueEntry(texture, shader);
         temp.addEntry(source, destination);
         queue.push_back(temp);
     }
 }
+
 
 Vertex::Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v){
     this->x = x;
@@ -33,6 +46,7 @@ Vertex::Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v){
 }
 
 void SpriteBatch::render(){
+    
     int size = oldEntries.size();
     int qsize = queue.size();
 
@@ -64,6 +78,9 @@ void SpriteBatch::render(){
     oldEntries.clear();
 
     for(int i = 0; i < qsize; i++){
+
+        queue[i].shader->Activate();
+
         queue[i].texture.Bind();
         VBOS[i].Bind();
 
@@ -71,7 +88,7 @@ void SpriteBatch::render(){
 
            glBufferData(GL_ARRAY_BUFFER, (queue[i].quads.size() + 1) * sizeof(Vertex),
             &queue[i].quads[0], GL_DYNAMIC_DRAW);                     
-        }
+        }     
 
         glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat),
             NULL);
@@ -90,7 +107,6 @@ void SpriteBatch::render(){
         oldEntries.push_back(getHash(queue[i]));
         queue[i].isUpdated = false;
     }
-
     queue.clear();
 }
 
@@ -113,7 +129,7 @@ size_t SpriteBatch::getHash(Vertex vertex){
     return result;
 }
 
-SpriteBatch::QueueEntry::QueueEntry(Texture texture) : texture(texture)
+SpriteBatch::QueueEntry::QueueEntry(Texture texture, Shader* shader) : texture(texture), shader(shader)
 {
     quads = std::vector<Vertex>();
 };

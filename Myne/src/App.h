@@ -24,6 +24,7 @@
 #include "Game.h"
 
 #include "utils/Font.h"
+#include <vector>
 
 class App
 {
@@ -34,7 +35,7 @@ public:
 
 	Game game;
 	
-	static void resizeBuffer(Shader program);
+	static void resizeBuffer(Shader* program);
 	static void onResize(void* size);
 	private:
 	float calcDt();

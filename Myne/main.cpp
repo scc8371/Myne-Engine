@@ -17,18 +17,20 @@ public:
         std::cout << "loading" << std::endl;
     }
     void initialize() override{
-        std::cout << "LOADED!" << std::endl;
+        
         tex = Texture("resources/content/bearger.png");
-        font = Font("resources/font/barcode.ttf", 100);
+        font = Font("resources/font/font.ttf", 55);
+     
+        std::cout << "LOADED!" << std::endl;
     }
     void update(float dt) override
     {
     };
     void draw(SpriteBatch* _spriteBatch) override 
     {
-        _spriteBatch->colorWindow(1.00f, 0.0f, 0.0f, 1.0f);
-        _spriteBatch->draw(tex, Rectangle(0, 0, 1, 1), Rectangle(0, 0, 100.0f, 100.0f));
-        font.draw("test for longer strings", Vector2(100, 100));
+        _spriteBatch->colorWindow(0, 0, 0, 1.0f);
+        _spriteBatch->draw(tex, Rectangle(0, 0, 1, 1), Rectangle(225, 25, 100, 100));
+        font.draw("loser ->", Vector2(15, 100));
     };     
 };
 

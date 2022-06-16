@@ -31,11 +31,9 @@ Font::Font(const char* fontPath, int fontSize){
         h = std::max(h, (int)g->bitmap.rows);
     }
 
-    int atlas_width = w; 
-
     int x = 0;
     this->texture = Texture(w, h);
-    texture.Bind();
+    this->texture.Bind();
 
     for(int i = 32; i < 128; i++){
         if(FT_Load_Char(face, i, FT_LOAD_RENDER)){
@@ -44,9 +42,7 @@ Font::Font(const char* fontPath, int fontSize){
         }
 
         glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width,
-         g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
-
-        x += g->bitmap.width;
+         g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 
         info[i].ax = g->advance.x >> 6;    
         info[i].ay = g->advance.y >> 6;
@@ -57,12 +53,14 @@ Font::Font(const char* fontPath, int fontSize){
         info[i].b1 = g->bitmap_left;
         info[i].bt = g->bitmap_top;
 
-        info[i].tx = (float)x/w;
+        info[i].tx = (float)x / w;
         info[i].tw = (float)g->bitmap.width / w;
         info[i].th = (float)g->bitmap.rows / h;
+
+        x += g->bitmap.width;
     }
 
-    texture.Unbind();
+    this->texture.Unbind();
 }
 
 void Font::draw(const char* text, Vector2 location){
@@ -79,14 +77,18 @@ void Font::draw(const char* text, Vector2 location){
 
         int width = ch.bw;
         int height = ch.bh;
-        int x = pos.x() + ch.b1; 
-        int y = pos.y() + ch.bt;
+        int x = pos.x + ch.b1; 
+        int y = pos.y - ch.bt;
+
+        printf("%f, %f, %f, %f \n", ch.tx, 0, ch.tw, ch.th);
 
         Rectangle source(ch.tx, 0, ch.tw, ch.th);
         Rectangle bounds(x, y, width, height);
 
-        ResourceManager::GetInstance()->getSpriteBatch()->draw(texture, source, bounds);
+        SpriteBatch::GetInstance()->draw(texture, source, bounds, ResourceManager::GetInstance()->getFontShader());
 
-        pos += Vector2(ch.ax, 0.0f);
+        pos.x += ch.ax;
     }
 }
+
+
