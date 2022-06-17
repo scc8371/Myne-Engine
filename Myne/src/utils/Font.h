@@ -36,7 +36,7 @@ class Font{
 public:
     Font();
     Font(const char* fontPath, int fontSize);
-    void draw(const char* text, Vector2 position);
+    void draw(const char* text, Vector2 position, Color color = Color(255, 255, 255, 255));
     //int size();
 
 private:

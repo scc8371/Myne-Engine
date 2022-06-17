@@ -18,11 +18,7 @@ void SpriteBatch::initialize(){
     GetInstance()->VBOS = std::vector<VBO>();
 }
 
-void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Color color){
-    draw(texture, source, destination, ResourceManager::GetInstance()->getShader(), color);
-}
-
-void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Shader* shader, Color color){
+void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Color color, Shader* shader){
 
     if(queue.size() == 0){
         QueueEntry temp = QueueEntry(texture, shader);
@@ -50,11 +46,11 @@ Vertex::Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v, Color color){
 
     GLfloat* colors = color.toFloats();
 
-    r = colors[0 * sizeof(GLfloat)];
-    g = colors[1 * sizeof(GLfloat)];
-    b = colors[2 * sizeof(GLfloat)];
-    a = colors[3 * sizeof(GLfloat)];
-
+    r = colors[0];
+    g = colors[1];
+    b = colors[2];
+    a = colors[3];
+    
     delete[] colors;
     colors = nullptr;
 }
@@ -104,17 +100,17 @@ void SpriteBatch::render(){
             &queue[i].quads[0], GL_DYNAMIC_DRAW);                     
         }     
 
-        glVertexAttribPointer(0, 8, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat),
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat),
             NULL);
 
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 8, GL_FLOAT, GL_FALSE,
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
             8 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
 
         glEnableVertexAttribArray(1);
 
-        glVertexAttribPointer(2, 8, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat),
+        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat),
             (void*)(4 * sizeof(GLfloat)));
 
         glEnableVertexAttribArray(2);

@@ -2,7 +2,7 @@
 out vec4 FragColor;
 
 in vec2 texCoord;
-int vec4 tint;
+in vec4 tint;
 
 uniform sampler2D tex0;
 

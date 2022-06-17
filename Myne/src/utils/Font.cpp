@@ -63,7 +63,7 @@ Font::Font(const char* fontPath, int fontSize){
     this->texture.Unbind();
 }
 
-void Font::draw(const char* text, Vector2 location){
+void Font::draw(const char* text, Vector2 location, Color color){
 
     Vector2 pos = location;
 
@@ -83,7 +83,7 @@ void Font::draw(const char* text, Vector2 location){
         Rectangle source(ch.tx, 0, ch.tw, ch.th);
         Rectangle bounds(x, y, width, height);
 
-        SpriteBatch::GetInstance()->draw(texture, source, bounds, ResourceManager::GetInstance()->getFontShader());
+        SpriteBatch::GetInstance()->draw(texture, source, bounds, color, ResourceManager::GetInstance()->getFontShader());
 
         pos.x += ch.ax;
     }

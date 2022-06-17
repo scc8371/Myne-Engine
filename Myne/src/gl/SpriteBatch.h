@@ -24,11 +24,8 @@ public:
     static SpriteBatch* GetInstance();
     //source == texture data position
     //destination == where it draws on screen
-    void draw(Texture texture, Rectangle source, Rectangle destination, Shader* shader = ResourceManager::GetInstance()->getShader(),
-    Color color = Color(1, 1, 1, 1));
-
-    void draw(Texture texture, Rectangle source, Rectangle destination,
-    Color color = Color(1, 1, 1, 1));
+    void draw(Texture texture, Rectangle source, Rectangle destination, Color color = Color(255, 255, 255, 255), 
+    Shader* shader = ResourceManager::GetInstance()->getShader());
     void render();
     static void initialize();
     void colorWindow(float r, float g, float b, float a);

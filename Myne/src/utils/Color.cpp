@@ -1,6 +1,6 @@
 #include "Color.h"
 
-Color::Color(char r, char g, char b, char a){
+Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a){
     this->r = r;
     this->g = g;
     this->b = b;
@@ -8,8 +8,8 @@ Color::Color(char r, char g, char b, char a){
 }
 
 GLfloat* Color::toFloats(){
-    GLfloat arr[4] = {r/255, g/255, b/255, a/255};
-    return arr;
+    GLfloat* temp = new GLfloat[4]{(GLfloat)r/255, (GLfloat)g/255, (GLfloat)b/255, (GLfloat)a/255};  
+    return temp;
 }
 
 //lerp function to mix two colors together

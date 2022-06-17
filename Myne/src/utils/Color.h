@@ -1,10 +1,11 @@
 #pragma once
 #include <opengl/opengl.h>
+#include <iostream>
 
 class Color{
 public:
-    Color(char r, char g, char b, char a = 255);
-    char r, g, b, a;
+    Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
+    uint8_t r, g, b, a;
 
     GLfloat* toFloats();
     Color mix(Color other, float ratio);

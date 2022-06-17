@@ -28,9 +28,9 @@ public:
     };
     void draw(SpriteBatch* _spriteBatch) override 
     {
-        _spriteBatch->colorWindow(1, 1, 1, 1.0f);
-        _spriteBatch->draw(tex, Rectangle(0, 0, 1, 1), Rectangle(225, 25, 100, 100), Color(255, 0, 0));
-        font.draw("loser ->", Vector2(15, 100));
+        _spriteBatch->colorWindow(0, 0, 0, 1.0f);
+        _spriteBatch->draw(tex, Rectangle(0, 0, 1, 1), Rectangle(225, 25, 100, 100), Color(2, 102, 34, 200));
+        font.draw("loser ->", Vector2(15, 100), Color(0, 255, 0, 255));
     };     
 };
 
