@@ -6,9 +6,11 @@ using namespace glm;
 //window dimentions, can be changed.
 int window_X = 1200;
 int window_Y = 800;
+Game* App::game = NULL;
 
-App::App(Game* game) : game(*game)
+App::App(Game* game)
 {
+	this->game = game;
 	//dt stuff
 	prevTime = 0.0f;
 	currTime = 0.0f;
@@ -56,6 +58,12 @@ App::App(Game* game) : game(*game)
 	resizeBuffer(ResourceManager::GetInstance()->getShader());
 	resizeBuffer(ResourceManager::GetInstance()->getFontShader());
 	eventManager->attachEvent(EventType::Window_Resize, onResize);
+
+	//input events
+	eventManager->attachEvent(EventType::Keyboard_Press, checkKbPress);
+	eventManager->attachEvent(EventType::Keyboard_Release, checkKbRelease);
+	eventManager->attachEvent(EventType::Mouse_Press, checkMousePress);
+	eventManager->attachEvent(EventType::Mouse_Release, checkMouseRelease);
 
 	SpriteBatch* spriteBatch = SpriteBatch::GetInstance();	
 	game->initialize();	
@@ -113,6 +121,22 @@ void App::onResize(void* size){
 	
 	resizeBuffer(ResourceManager::GetInstance()->getShader());
 	resizeBuffer(ResourceManager::GetInstance()->getFontShader());
+}
+
+void App::checkKbPress(void* data){
+	App::game->kbPress((int*)data);
+}
+
+void App::checkKbRelease(void* data){
+	App::game->kbRelease((int*)data);
+}
+
+void App::checkMousePress(void* data){
+	App::game->mousePress((int*)data);
+}
+
+void App::checkMouseRelease(void* data){
+	App::game->mouseRelease((int*)data);
 }
 
 //returns dt

@@ -17,18 +17,6 @@ InputManager::~InputManager(){
     delete events;
 }
 
-//returns true if a key is pressed down or held
-bool InputManager::isKeyPressed(int key){
-    auto state = glfwGetKey(resources->getWindow(), key);
-    return state == GLFW_PRESS || state == GLFW_REPEAT;
-}
-
-//returns true if a specific button is held down.
-bool InputManager::isMousePressed(int button){
-    auto state = glfwGetMouseButton(resources->getWindow(), button);
-    return state == GLFW_PRESS;
-}
-
 //returns the current position of the mouse as a Vector2.
 //(x position, y position)
 //takes projection matrix into account... returns pixel location not one that is bound to -1 to 1

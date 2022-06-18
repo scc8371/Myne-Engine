@@ -33,11 +33,17 @@ public:
 	App(Game* game);
 	~App();
 
-	Game game;
+	static Game* game;
 	
 	static void resizeBuffer(Shader* program);
 	static void onResize(void* size);
 	private:
+
+	static void checkKbPress(void* data);
+    static void checkKbRelease(void* data);
+    static void checkMousePress(void* data);
+    static void checkMouseRelease(void* data);
+
 	float calcDt();
 	float prevTime;
 	float currTime;
