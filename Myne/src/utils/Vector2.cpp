@@ -33,10 +33,10 @@ GLfloat Vector2::magnitude(){
 }
 
 Vector2 Vector2::operator+(const Vector2& vector){
-    GLfloat x = x + vector.x;
-    GLfloat y = y + vector.y;
+    GLfloat xTemp = x + vector.x;
+    GLfloat yTemp = y + vector.y;
 
-    return Vector2(x, y);
+    return Vector2(xTemp, yTemp);
 }
 
 Vector2 Vector2::operator+=(const Vector2& vector){
@@ -44,10 +44,10 @@ Vector2 Vector2::operator+=(const Vector2& vector){
 }
 
 Vector2 Vector2::operator-(const Vector2& vector){
-    GLfloat x = x - vector.x;
-    GLfloat y = y - vector.y;
+    GLfloat xTemp = x - vector.x;
+    GLfloat yTemp = y - vector.y;
 
-    return Vector2(x, y);
+    return Vector2(xTemp, yTemp);
 }
 
 Vector2 Vector2::operator-=(const Vector2& vector){
@@ -55,10 +55,10 @@ Vector2 Vector2::operator-=(const Vector2& vector){
 }
 
 Vector2 Vector2::operator*(const GLfloat& scalar){
-    GLfloat x = x * scalar;
-    GLfloat y = y * scalar;
+    GLfloat xTemp = x * scalar;
+    GLfloat yTemp = y * scalar;
 
-    return Vector2(x, y);
+    return Vector2(xTemp, yTemp);
 }
 
 Vector2 Vector2::operator*=(const GLfloat& scalar){
@@ -66,10 +66,10 @@ Vector2 Vector2::operator*=(const GLfloat& scalar){
 }
 
 Vector2 Vector2::operator/(const GLfloat& scalar){
-    GLfloat x = x / scalar;
-    GLfloat y = y / scalar;
+    GLfloat xTemp = x / scalar;
+    GLfloat yTemp = y / scalar;
 
-    return Vector2(x, y);
+    return Vector2(xTemp, yTemp);
 }
 
 Vector2 Vector2::operator/=(const GLfloat& scalar){
