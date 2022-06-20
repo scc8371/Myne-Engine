@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdio.h>
+#include <cstring>
 
 class WavReader{
 public:
