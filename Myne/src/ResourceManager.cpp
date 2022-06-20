@@ -22,7 +22,6 @@ void ResourceManager::initialize(){
 }
 
 ResourceManager::~ResourceManager(){
-    delete window;
     delete shader;
     delete ft;
     delete fontShader;
