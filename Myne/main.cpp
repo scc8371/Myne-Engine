@@ -19,15 +19,7 @@ public:
     void initialize() override{
         
         tex = Texture("resources/content/bearger.png");
-        font = Font("resources/font/font.ttf", 55);
-     
-        Vector2 vec1(1, 1);
-        Vector2 vec2(2, 2);
-
-        Vector2 vec3 = vec1 + vec2;
-
-        printf("%f, %f", vec3.x, vec3.y);
-
+        font = Font("resources/font/font.ttf", 55);   
         std::cout << "LOADED!" << std::endl;
     }
     void update(float dt) override
