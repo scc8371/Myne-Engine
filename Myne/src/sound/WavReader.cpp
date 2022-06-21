@@ -99,6 +99,8 @@ WavReader::WavReader(const char* path){
     this->channels = stoi(&numChannels[0]);
     this->size = size;
     this->freq = stoi(&sampleRate[0]);
+
+    reader.close();
 }
 
 WavReader::~WavReader(){
