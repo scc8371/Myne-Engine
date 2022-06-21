@@ -72,10 +72,12 @@ App::App(Game* game)
 	{
 		//rendering goes here
 		float dt = calcDt();
+		SoundManager::getInstance()->updateAudio();
 		game->update(dt);	
 
 		ResourceManager::GetInstance()->getShader()->Activate();
 		game->draw(spriteBatch);
+
 			
 		spriteBatch->render();
 

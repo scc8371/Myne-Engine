@@ -10,6 +10,7 @@ class Game1 : public Game{
 public:
     Texture tex;
     Font font;
+    Sound sound;
 
     Game1() : Game()
     {
@@ -21,10 +22,13 @@ public:
         tex = Texture("resources/content/bearger.png");
         font = Font("resources/font/font.ttf", 55);   
         std::cout << "LOADED!" << std::endl;
+
+        sound = Sound("resources/audio/track5.wav");
+       
+        playSound(sound);
     }
     void update(float dt) override
     {
-       
     };
     void draw(SpriteBatch* _spriteBatch) override 
     {
@@ -35,6 +39,7 @@ public:
 
     void kbPress(int* key) override{
         std::cout << *key << std::endl;
+        playSound(sound);
     }
 };
 

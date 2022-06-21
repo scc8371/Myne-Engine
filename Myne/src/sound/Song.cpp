@@ -18,7 +18,7 @@ Song::Song(const char* path, float loopPoint){
         auto start = (int)(((float)song.size / 4) * loopPoint) * 4;
         
         alGenBuffers(1, &loopBuffer);
-        alBufferData(loopBuffer, AL_FORMAT_STEREO16, (void*)((int)song.data + start), ((ALsizei)(song.size - start)), song.freq);
+        alBufferData(loopBuffer, AL_FORMAT_STEREO16, (void*)((size_t)song.data + start), ((ALsizei)(song.size - start)), song.freq);
     }
     else{
         alGenBuffers(1, &loopBuffer);

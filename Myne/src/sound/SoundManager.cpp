@@ -1,5 +1,7 @@
 #include "SoundManager.h"
+SoundManager* SoundManager::instance = NULL;
 
+// https://www.openal.org/documentation/OpenAL_Programmers_Guide.pdf
 
 SoundManager* SoundManager::getInstance(){
     if(!instance) instance = new SoundManager();
@@ -7,15 +9,17 @@ SoundManager* SoundManager::getInstance(){
 }
 
 SoundManager::SoundManager(){
-
+    
     //audio system init
     device = alcOpenDevice(NULL);
+
     if(device == NULL){
         std::cout << "OpenAL refused to get default device" << std::endl;
         return;
     }
 
     audioContext = alcCreateContext(device, NULL);
+    alcMakeContextCurrent(audioContext);
 
     if(audioContext == NULL){
         std::cout << "OpenAL refused to make current context" << std::endl;
@@ -25,11 +29,11 @@ SoundManager::SoundManager(){
     alGenSources(1, &musicSource);
 
     //generates source for sounds
-    alGenSources(SOURCES, &soundSources[0]);
+    alGenSources(SOURCES, &soundSources[0]);   
 }
 
 void SoundManager::updateAudio(){
-    //used in game to update audio. Supposed to be called every frame
+    //used in game to update audio. Supposed to be called every frame  
 
     ALint state;
 
@@ -45,12 +49,11 @@ void SoundManager::updateAudio(){
 
         //plays the music
         alSourcePlay(musicSource);
-    }
-    
-    auto error = alGetError();
+    }    
 
+    auto error = alGetError();
     if(error != AL_NO_ERROR){
-        printf("OpenAL error: %s", std::to_string(error));
+        printf("OpenAL error: %i\n", error);
     }
 }
 
@@ -67,6 +70,7 @@ void SoundManager::play(Song song){
         alSourceStop(musicSource);
         alSourcei(musicSource, AL_BUFFER, song.get_introBuffer());
         alSourcei(musicSource, AL_LOOPING, 0);
+        alSourcef(musicSource, AL_GAIN, song.volume);
         alSourcePlay(musicSource);
     }
     else{
@@ -79,7 +83,18 @@ void SoundManager::play(Song song){
 
 void SoundManager::play(Sound sound){
     ALint state;
+
+    std::cout << nextSoundSource << std::endl;
     //checks if the source is already playing
-    alGetSourcei(soundSources[nextSoundSource], AL_SOURCE_STATE, &state);
-    alSourcei(soundSources[nextSoundSource], AL_BUFFER, sound.get_buffer());
+    alSourcef(soundSources[nextSoundSource], AL_PITCH, 1.0f);
+    alSourcei(soundSources[nextSoundSource], AL_BUFFER, sound.get_buffer());   
+    //alSourcef(soundSources[nextSoundSource], AL_GAIN, sound.volume);
+
+    alSourcePlay(soundSources[nextSoundSource]);
+    nextSoundSource += 1;
+
+    //loops to beginning if it gets to the end of the sources.
+    if(nextSoundSource == SOURCES){
+        nextSoundSource = 0;
+    }   
 }

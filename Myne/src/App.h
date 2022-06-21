@@ -20,6 +20,7 @@
 #include "ResourceManager.h"
 #include "events/InputManager.h"
 #include "events/EventManager.h"
+#include "sound/SoundManager.h"
 #include "gl/SpriteBatch.h"
 #include "Game.h"
 

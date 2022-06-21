@@ -21,17 +21,17 @@ WavReader::WavReader(const char* path){
     char subChunkID[4];
     reader.read(subChunkID, sizeof(subChunkID));
 
-    char subChunkSize[4];
-    reader.read(subChunkSize, sizeof(subChunkID));
+    uint32_t subChunkSize;
+    reader.read((char*)&subChunkSize, sizeof(subChunkSize));
 
-    char audioFormat[2];
-    reader.read(audioFormat, sizeof(audioFormat));
+    uint16_t audioFormat;
+    reader.read((char*)&audioFormat, sizeof(audioFormat));
 
-    char numChannels[2];
-    reader.read(numChannels, sizeof(numChannels));
+    uint16_t numChannels;
+    reader.read((char*)&numChannels, sizeof(numChannels));
 
-    char sampleRate[4];
-    reader.read(sampleRate, sizeof(sampleRate));
+    uint32_t sampleRate;
+    reader.read((char*)&sampleRate, sizeof(sampleRate));
 
     char byteRate[4];
     reader.read(byteRate, sizeof(byteRate));
@@ -45,64 +45,63 @@ WavReader::WavReader(const char* path){
     char subChunkID2[4];
     reader.read(subChunkID2, sizeof(subChunkID2));
 
-    char subChunkSize2[4];
-    reader.read(subChunkSize2, sizeof(subChunkSize2));
+    uint32_t subChunkSize2;
+    reader.read((char*)&subChunkSize2, sizeof(subChunkSize2));
+    
+    //calculates size for data -- PROBLEM LINE.
+    uint32_t size = subChunkSize2;
 
-    //calculates size for data
-    int size = stoi(&subChunkSize[0]);
     data = malloc(size);
 
     reader.read((char*)data, size);
 
-    if(strcmp(subChunkID2, "LIST") == 0){
+    if(memcmp(subChunkID2, "LIST", 4) == 0){
 
         reader.read(subChunkID2, sizeof(subChunkID2));
-        reader.read(subChunkSize2, sizeof(subChunkSize2));
+        reader.read((char*)&subChunkSize2, sizeof(subChunkSize2));
 
-        delete data;
-        data = nullptr;
-
-        //calculates size for data
-        int size = stoi(&subChunkSize[0]);
-        data = malloc(size);
+        size = subChunkSize2;
+        data = realloc(data, size);
 
         reader.read((char*)data, size);
 
     }
 
+    std::cout << audioFormat << std::endl;
 
-    if(strcmp(chunkID, "RIFF") != 0){
+
+    if(memcmp(chunkID, "RIFF", 4) != 0){
         std::cout << "Invalid audio file: " << path << std::endl; 
         return;
     }
     
-    if(strcmp(format, "WAVE") != 0){
+    if(memcmp(format, "WAVE", 4) != 0){
         std::cout << "File is not .wav: " << path << std::endl;
         return;
     }
 
-    if(strcmp(subChunkID, "fmt ") != 0){
+    if(memcmp(subChunkID, "fmt ", 4) != 0){
         std::cout << "No format specified for audio file: " << path << std::endl;
         return;
     }
 
-    if(stoi(&audioFormat[0]) != 1){
+    if(audioFormat != 1){
         std::cout << "Invalid audio format for audio file: " << path << std::endl;
         return;
     }
 
-    if(strcmp(subChunkID2, "data") != 0){
+    if(memcmp(subChunkID2, "data", 4) != 0){
         std::cout << "No data subchunk for audio file: " << path << std::endl;
         return;
     }
 
-    this->channels = stoi(&numChannels[0]);
+    this->channels = numChannels;
     this->size = size;
-    this->freq = stoi(&sampleRate[0]);
+    this->freq = sampleRate;
 
     reader.close();
 }
 
 WavReader::~WavReader(){
-    delete data;
+    free(data);
 }

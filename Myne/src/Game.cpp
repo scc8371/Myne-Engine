@@ -13,3 +13,11 @@ void Game::mouseRelease(int* button){}
 Vector2 Game::getMousePos(){
     return InputManager::GetInstance()->getMousePosition();
 }
+
+void Game::playSound(Sound sound){
+    SoundManager::getInstance()->play(sound);
+}
+
+void Game::playMusic(Song song){
+    SoundManager::getInstance()->play(song);
+}

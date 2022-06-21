@@ -5,6 +5,10 @@
 #include "events/InputManager.h"
 #include "events/EventManager.h"
 
+#include "sound/Sound.h"
+#include "sound/Song.h"
+#include "sound/SoundManager.h"
+
 class Game{
 public:
     Game();
@@ -17,5 +21,10 @@ public:
     virtual void kbRelease(int* key);
     virtual void mousePress(int* button);
     virtual void mouseRelease(int* button);
+
     Vector2 getMousePos();
+
+    //easy sound management
+    void playSound(Sound sound);
+    void playMusic(Song song);
 };

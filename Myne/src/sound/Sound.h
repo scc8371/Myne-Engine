@@ -1,3 +1,4 @@
+#pragma once
 #include <AL/al.h>
 #include <iostream>
 #include "WavReader.h"
@@ -5,10 +6,11 @@
 class Sound{
 public:
     Sound(const char* path);
-    ~Sound();
+    Sound(){}
 
-    ALuint get_buffer(){ return buffer; }
+    ALuint get_buffer(){ return (ALuint)buffer; }
+    float volume = 1.0f;
 
 private:
-    ALuint buffer;
+    ALint buffer = 0;
 };

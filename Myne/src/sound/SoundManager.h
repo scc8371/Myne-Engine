@@ -26,11 +26,11 @@ private:
     ALCcontext* audioContext;
 
     //sources
-    ALuint musicSource;
+    ALuint musicSource = 0;
     ALuint soundSources[SOURCES];
 
     int nextSoundSource = 0;
-    ALuint loopBuffer;
+    ALuint loopBuffer = 0;
 };
 
 
