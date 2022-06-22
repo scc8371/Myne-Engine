@@ -8,7 +8,7 @@ public:
     Sound(const char* path);
     Sound(){}
 
-    ALuint get_buffer(){ return (ALuint)buffer; }
+    ALint get_buffer(){ return buffer; }
     float volume = 1.0f;
 
 private:
