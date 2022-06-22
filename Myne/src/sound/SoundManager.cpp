@@ -82,9 +82,6 @@ void SoundManager::play(Song song){
 }
 
 void SoundManager::play(Sound sound){
-    ALint state;
-
-    std::cout << nextSoundSource << std::endl;
     //checks if the source is already playing
     alSourcef(soundSources[nextSoundSource], AL_PITCH, 1.0f);
     alSourcei(soundSources[nextSoundSource], AL_BUFFER, sound.get_buffer());   
