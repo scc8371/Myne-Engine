@@ -48,7 +48,7 @@ WavReader::WavReader(const char* path){
     uint32_t subChunkSize2;
     reader.read((char*)&subChunkSize2, sizeof(subChunkSize2));
     
-    //calculates size for data -- PROBLEM LINE.
+    //calculates size for data
     uint32_t size = subChunkSize2;
 
     data = malloc(size);

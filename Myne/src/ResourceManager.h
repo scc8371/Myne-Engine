@@ -7,7 +7,7 @@
 
 class ResourceManager{
 public:
-    static ResourceManager* GetInstance();
+    static ResourceManager* getInstance();
     ~ResourceManager();
 
     void setWindow(GLFWwindow* window){ this->window = window; }

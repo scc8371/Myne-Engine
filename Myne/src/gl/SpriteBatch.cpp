@@ -4,7 +4,7 @@ SpriteBatch* SpriteBatch::instance = NULL;
 
 SpriteBatch::SpriteBatch(){}
 
-SpriteBatch* SpriteBatch::GetInstance(){
+SpriteBatch* SpriteBatch::getInstance(){
     if(!instance){
         instance = new SpriteBatch();
     }
@@ -13,9 +13,9 @@ SpriteBatch* SpriteBatch::GetInstance(){
 }
 
 void SpriteBatch::initialize(){
-    GetInstance()->oldEntries = std::vector<size_t>();
-    GetInstance()->queue = std::vector<QueueEntry>();
-    GetInstance()->VBOS = std::vector<VBO>();
+    getInstance()->oldEntries = std::vector<size_t>();
+    getInstance()->queue = std::vector<QueueEntry>();
+    getInstance()->VBOS = std::vector<VBO>();
 }
 
 void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Color color, Shader* shader){

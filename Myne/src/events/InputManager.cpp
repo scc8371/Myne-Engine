@@ -1,7 +1,7 @@
 #include "InputManager.h"
 
 InputManager::InputManager(){
-    resources = ResourceManager::GetInstance();
+    resources = ResourceManager::getInstance();
     events = EventManager::getInstance();
     //input setup goes here...
 }

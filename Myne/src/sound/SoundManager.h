@@ -14,6 +14,7 @@ public:
     static SoundManager* getInstance();   
     ~SoundManager();
     void updateAudio();
+    void initialize();
     void play(Song song);
     void play(Sound sound);
 

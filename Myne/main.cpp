@@ -11,6 +11,7 @@ public:
     Texture tex;
     Font font;
     Sound sound;
+    Song song;
 
     Game1() : Game()
     {
@@ -24,8 +25,10 @@ public:
         std::cout << "LOADED!" << std::endl;
 
         sound = Sound("resources/audio/track5.wav");
+        song = Song("resources/audio/track5.wav");
        
-        playSound(sound);
+        //playSound(sound);
+        playMusic(song);
     }
     void update(float dt) override
     {
@@ -38,7 +41,6 @@ public:
     };     
 
     void kbPress(int* key) override{
-        std::cout << *key << std::endl;
         playSound(sound);
     }
 };

@@ -13,7 +13,7 @@ public:
 
     float volume = 1.0f;
 private:
-    ALuint introBuffer, loopBuffer;
-    bool hasIntro; 
+    ALuint introBuffer = 0, loopBuffer = 0;
+    bool hasIntro = false; 
 };  
 

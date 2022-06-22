@@ -23,7 +23,8 @@ std::string get_file_contents(const char* filename) {
 	catch(int i){
 		std::cout << "problems reading file contents for shader!" << std::endl;
 	}
-	
+
+	return " ";
 }
 
 Shader::Shader(const char* vertexFile, const char* fragmentFile) {

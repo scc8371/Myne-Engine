@@ -30,7 +30,7 @@ App::App(Game* game)
 	//creates openGL window
 	GLFWwindow* window = glfwCreateWindow(window_X, window_Y, "Myne Test Window", NULL, NULL);	
 	//syncs window to resources
-	ResourceManager::GetInstance()->setWindow(window);
+	ResourceManager::getInstance()->setWindow(window);
 	
 	//terminates the GLFW 
 	if (window == NULL || game == NULL)
@@ -52,11 +52,12 @@ App::App(Game* game)
 
 	eventManager->createCallbacks(window);
 
-	SpriteBatch::GetInstance()->initialize();
-	ResourceManager::GetInstance()->initialize();
+	SpriteBatch::getInstance()->initialize();
+	ResourceManager::getInstance()->initialize();
+	SoundManager::getInstance()->initialize();
 
-	resizeBuffer(ResourceManager::GetInstance()->getShader());
-	resizeBuffer(ResourceManager::GetInstance()->getFontShader());
+	resizeBuffer(ResourceManager::getInstance()->getShader());
+	resizeBuffer(ResourceManager::getInstance()->getFontShader());
 	eventManager->attachEvent(EventType::Window_Resize, onResize);
 
 	//input events
@@ -65,17 +66,17 @@ App::App(Game* game)
 	eventManager->attachEvent(EventType::Mouse_Press, checkMousePress);
 	eventManager->attachEvent(EventType::Mouse_Release, checkMouseRelease);
 
-	SpriteBatch* spriteBatch = SpriteBatch::GetInstance();	
+	SpriteBatch* spriteBatch = SpriteBatch::getInstance();	
 	game->initialize();	
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		//rendering goes here
 		float dt = calcDt();
-		SoundManager::getInstance()->updateAudio();
+		//SoundManager::getInstance()->updateAudio();
 		game->update(dt);	
 
-		ResourceManager::GetInstance()->getShader()->Activate();
+		ResourceManager::getInstance()->getShader()->Activate();
 		game->draw(spriteBatch);
 
 			
@@ -89,7 +90,7 @@ App::App(Game* game)
 	//deletes objects
 	VAO1.Delete();
 	textureManager->getInstance()->deleteTextures();
-	ResourceManager::GetInstance()->getShader()->Delete();
+	ResourceManager::getInstance()->getShader()->Delete();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
@@ -121,8 +122,8 @@ void App::onResize(void* size){
 	window_X = windowSize.x;
 	window_Y = windowSize.y;
 	
-	resizeBuffer(ResourceManager::GetInstance()->getShader());
-	resizeBuffer(ResourceManager::GetInstance()->getFontShader());
+	resizeBuffer(ResourceManager::getInstance()->getShader());
+	resizeBuffer(ResourceManager::getInstance()->getFontShader());
 }
 
 void App::checkKbPress(void* data){

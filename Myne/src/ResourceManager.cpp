@@ -4,7 +4,7 @@
 
 ResourceManager* ResourceManager::instance = NULL;
 
-ResourceManager* ResourceManager::GetInstance(){
+ResourceManager* ResourceManager::getInstance(){
     if(!instance) instance = new ResourceManager();
     return instance;
 }

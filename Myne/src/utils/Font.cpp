@@ -4,14 +4,14 @@ Font::Font(){}
 
 Font::Font(const char* fontPath, int fontSize){
 
-    if(FT_Init_FreeType(ResourceManager::GetInstance()->getFt())){
+    if(FT_Init_FreeType(ResourceManager::getInstance()->getFt())){
         std::cout << "Could not instantiate freetype library!" << std::endl;
         return;
     }
 
     FT_Face face;
 
-    if(FT_New_Face(*ResourceManager::GetInstance()->getFt(), fontPath, 0, &face)){
+    if(FT_New_Face(*ResourceManager::getInstance()->getFt(), fontPath, 0, &face)){
         std::cout << "Failed to load font" << std::endl;
         return;
     }
@@ -83,7 +83,7 @@ void Font::draw(const char* text, Vector2 location, Color color){
         Rectangle source(ch.tx, 0, ch.tw, ch.th);
         Rectangle bounds(x, y, width, height);
 
-        SpriteBatch::GetInstance()->draw(texture, source, bounds, color, ResourceManager::GetInstance()->getFontShader());
+        SpriteBatch::getInstance()->draw(texture, source, bounds, color, ResourceManager::getInstance()->getFontShader());
 
         pos.x += ch.ax;
     }

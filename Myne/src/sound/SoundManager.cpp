@@ -8,8 +8,9 @@ SoundManager* SoundManager::getInstance(){
     return instance;
 }
 
-SoundManager::SoundManager(){
-    
+SoundManager::SoundManager(){}
+
+void SoundManager::initialize(){
     //audio system init
     device = alcOpenDevice(NULL);
 
@@ -31,7 +32,6 @@ SoundManager::SoundManager(){
     //generates source for sounds
     alGenSources(SOURCES, &soundSources[0]);   
 }
-
 void SoundManager::updateAudio(){
     //used in game to update audio. Supposed to be called every frame  
 
@@ -52,9 +52,10 @@ void SoundManager::updateAudio(){
     }    
 
     auto error = alGetError();
+
     if(error != AL_NO_ERROR){
         printf("OpenAL error: %i\n", error);
-    }
+    }   
 }
 
 void SoundManager::play(Song song){
@@ -63,20 +64,24 @@ void SoundManager::play(Song song){
 
     //sets the pitch of the song
     alSourcef(musicSource, AL_PITCH, 1.0f);
-
+    
     //checks if the song has an intro segment
     if(song.get_hasIntro()){
         //stops current track and plays the intro
         alSourceStop(musicSource);
+
         alSourcei(musicSource, AL_BUFFER, song.get_introBuffer());
+
         alSourcei(musicSource, AL_LOOPING, 0);
-        alSourcef(musicSource, AL_GAIN, song.volume);
+        //alSourcef(musicSource, AL_GAIN, song.volume);
         alSourcePlay(musicSource);
     }
     else{
         //does not play intro and immediately starts the loop
         alSourceStop(musicSource);
     }
+
+    
 
     loopBuffer = song.get_loopBuffer();
 }
