@@ -27,9 +27,14 @@
 #include "utils/Font.h"
 #include <vector>
 
+
+
 class App
 {
 public:
+
+	static float window_y;
+	static float window_x;
 
 	App(Game* game);
 	~App();

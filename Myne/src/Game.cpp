@@ -14,10 +14,10 @@ Vector2 Game::getMousePos(){
     return InputManager::GetInstance()->getMousePosition();
 }
 
-void Game::playSound(Sound sound){
+void Game::playAudio(Sound sound){
     SoundManager::getInstance()->play(sound);
 }
 
-void Game::playMusic(Song song){
+void Game::playAudio(Song song){
     SoundManager::getInstance()->play(song);
 }

@@ -7,13 +7,13 @@ class Song{
 public:
     Song(const char* path, float loopPoint = 0);
     Song(){}
-    ALuint get_introBuffer(){ return introBuffer; }
-    ALuint get_loopBuffer(){ return loopBuffer; }
+    ALint get_introBuffer(){ return introBuffer; }
+    ALint get_loopBuffer(){ return loopBuffer; }
     bool get_hasIntro(){ return hasIntro; }
 
     float volume = 1.0f;
 private:
-    ALuint introBuffer = 0, loopBuffer = 0;
+    ALint introBuffer = 0, loopBuffer = 0;
     bool hasIntro = false; 
 };  
 

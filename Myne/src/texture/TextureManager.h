@@ -6,9 +6,7 @@
 
 class TextureManager {
 
-public:
-
-	
+public:	
 	static TextureManager* getInstance();
 	void addTexture(Texture texture, Shader shader);
 	void removeTexture(Texture* texture);

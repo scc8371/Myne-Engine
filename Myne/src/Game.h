@@ -25,6 +25,6 @@ public:
     Vector2 getMousePos();
 
     //easy sound management
-    void playSound(Sound sound);
-    void playMusic(Song song);
+    void playAudio(Sound sound);
+    void playAudio(Song song);
 };

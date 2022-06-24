@@ -49,13 +49,13 @@ void SoundManager::updateAudio(){
 
         //plays the music
         alSourcePlay(musicSource);
-    }    
+    }      
 
     auto error = alGetError();
 
     if(error != AL_NO_ERROR){
         printf("OpenAL error: %i\n", error);
-    }   
+    }
 }
 
 void SoundManager::play(Song song){
@@ -89,7 +89,10 @@ void SoundManager::play(Song song){
 void SoundManager::play(Sound sound){
     //checks if the source is already playing
     alSourcef(soundSources[nextSoundSource], AL_PITCH, 1.0f);
+     
     alSourcei(soundSources[nextSoundSource], AL_BUFFER, sound.get_buffer());   
+
+     
     //alSourcef(soundSources[nextSoundSource], AL_GAIN, sound.volume);
 
     alSourcePlay(soundSources[nextSoundSource]);

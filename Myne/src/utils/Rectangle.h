@@ -6,6 +6,7 @@ class Rectangle{
 
 public:
     Rectangle(float x, float y, float width, float height);
+    Rectangle(){}
     bool isColliding(Rectangle other);
     bool contains(Vector2 pos);
     Vector2 getSize();
@@ -16,6 +17,6 @@ public:
 
     float getWidth() {return width;}
     float getHeight() {return height;}
-private:
-    float x, y, width, height;    
+
+    float x, y, width, height;
 };

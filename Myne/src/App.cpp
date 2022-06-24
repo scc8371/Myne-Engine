@@ -4,8 +4,9 @@
 using namespace glm;
 
 //window dimentions, can be changed.
-int window_X = 1200;
-int window_Y = 800;
+float App::window_x = 1200;
+float App::window_y = 800;
+
 Game* App::game = NULL;
 
 App::App(Game* game)
@@ -28,7 +29,7 @@ App::App(Game* game)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//creates openGL window
-	GLFWwindow* window = glfwCreateWindow(window_X, window_Y, "Myne Test Window", NULL, NULL);	
+	GLFWwindow* window = glfwCreateWindow(App::window_x, App::window_y, "Myne Test Window", NULL, NULL);	
 	//syncs window to resources
 	ResourceManager::getInstance()->setWindow(window);
 	
@@ -72,8 +73,8 @@ App::App(Game* game)
 	while (!glfwWindowShouldClose(window))
 	{
 		//rendering goes here
-		float dt = calcDt();
-		//SoundManager::getInstance()->updateAudio();
+		float dt = calcDt();		
+		SoundManager::getInstance()->updateAudio();
 		game->update(dt);	
 
 		ResourceManager::getInstance()->getShader()->Activate();
@@ -100,8 +101,8 @@ App::App(Game* game)
 //also handles projection (changes how the coordinate system is handled)
 void App::resizeBuffer(Shader* program)
 {
-	glViewport(0, 0, window_X, window_Y);
-	mat4x4 projection = ortho(0.0f, (float)window_X, (float)window_Y, 0.0f, 1.0f, -1.0f);
+	glViewport(0, 0, App::window_x, window_y);
+	mat4x4 projection = ortho(0.0f, (float)window_x, (float)window_y, 0.0f, 1.0f, -1.0f);
 
 	program->Activate();
 	GLuint projID = glGetUniformLocation(program->ID, "projection");
@@ -119,8 +120,8 @@ App::~App(){
 void App::onResize(void* size){
 	Vector2 windowSize = *(Vector2*)size;	
 
-	window_X = windowSize.x;
-	window_Y = windowSize.y;
+	App::window_x = windowSize.x;
+	App::window_y = windowSize.y;
 	
 	resizeBuffer(ResourceManager::getInstance()->getShader());
 	resizeBuffer(ResourceManager::getInstance()->getFontShader());
