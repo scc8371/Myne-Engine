@@ -9,17 +9,17 @@ WavReader::WavReader(const char* path){
         std::cout << "Failed to open source .wav file!" << std::endl;
     }
 
-    char chunkID[4];
-    reader.read(chunkID, sizeof(chunkID));
+    char* chunkID = (char*)malloc(4);
+    reader.read(chunkID, 4);
 
-    char chunkSize[4];
-    reader.read(chunkSize, sizeof(chunkSize));
+    char* chunkSize = (char*)malloc(4);
+    reader.read(chunkSize, 4);
 
-    char format[4];
-    reader.read(format, sizeof(format));
+    char* format = (char*)malloc(4);
+    reader.read(format, 4);
 
-    char subChunkID[4];
-    reader.read(subChunkID, sizeof(subChunkID));
+    char* subChunkID = (char*)malloc(4);
+    reader.read(subChunkID, 4);
 
     uint32_t subChunkSize;
     reader.read((char*)&subChunkSize, sizeof(subChunkSize));
@@ -33,17 +33,17 @@ WavReader::WavReader(const char* path){
     uint32_t sampleRate;
     reader.read((char*)&sampleRate, sizeof(sampleRate));
 
-    char byteRate[4];
-    reader.read(byteRate, sizeof(byteRate));
+    char* byteRate = (char*)malloc(4);
+    reader.read(byteRate, 4);
 
-    char blockAlign[2];
-    reader.read(blockAlign, sizeof(blockAlign));
+    char* blockAlign = (char*)malloc(2);
+    reader.read(blockAlign, 2);
 
-    char bitsPerSample[2];
-    reader.read(bitsPerSample, sizeof(bitsPerSample));
+    char* bitsPerSample = (char*)malloc(2);
+    reader.read(bitsPerSample, 2);
 
-    char subChunkID2[4];
-    reader.read(subChunkID2, sizeof(subChunkID2));
+    char* subChunkID2 = (char*)malloc(4);
+    reader.read(subChunkID2, 4);
 
     uint32_t subChunkSize2;
     reader.read((char*)&subChunkSize2, sizeof(subChunkSize2));
@@ -55,20 +55,23 @@ WavReader::WavReader(const char* path){
 
     reader.read((char*)data, size);
 
-    if(memcmp(subChunkID2, "LIST", 4) == 0){
-        
+    while(subChunkID2 == "LIST"){
+        delete[] subChunkID2; 
+        subChunkID2 = nullptr;
         reader.read(subChunkID2, 4);
-        reader.read((char*)&subChunkSize2, 32);
-
-        size = subChunkSize2;
-
-        data = realloc(data, size);
-
-        reader.read((char*)data, size);
-
-        std::cout << subChunkID2 << std::endl;
+        std::cout << subChunkID2 << std::endl;      
     }
 
+    reader.read((char*)&subChunkSize2, 32);
+
+    size = subChunkSize2;
+
+    data = realloc(data, size);
+
+    reader.read((char*)data, size);
+        
+
+        std::cout << subChunkID2 << std::endl;
     if(memcmp(chunkID, "RIFF", 4) != 0){
         std::cout << "Invalid audio file: " << path << std::endl; 
         return;
@@ -99,7 +102,16 @@ WavReader::WavReader(const char* path){
     this->freq = sampleRate;
 
     reader.close();
-}
+
+    delete[] chunkID;
+    delete[] chunkSize;
+    delete[] format;
+    delete[] subChunkID;
+    delete[] byteRate;
+    delete[] blockAlign;
+    delete[] bitsPerSample;
+    delete[] subChunkID2;
+} 
 
 WavReader::~WavReader(){
     free(data);
