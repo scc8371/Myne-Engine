@@ -1,12 +1,15 @@
 #pragma once 
 #include <AL/al.h>
-#include "AudioFile.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 #include <stdio.h>
 #include <cstring>
 
 class WavReader{
 public:
     WavReader(const char* path);
+    ~WavReader();
     void* data;
-    int size = 0, freq, channels;
+    int size, freq, channels;
 };

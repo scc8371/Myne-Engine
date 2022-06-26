@@ -36,7 +36,7 @@ public:
         std::cout << "LOADED!" << std::endl;
 
 
-        song = Song("resources/audio/track5.wav");
+        //song = Song("resources/audio/track5.wav");
         sound = Sound("resources/audio/boom.wav");
 
         screenBounds = Rectangle(0, 0, App::window_x, App::window_y);
