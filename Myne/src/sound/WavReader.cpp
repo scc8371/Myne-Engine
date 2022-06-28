@@ -89,7 +89,7 @@ WavReader::WavReader(const char* path){
     }
 
     this->channels = numChannels;
-    this->size = size;
+    this->size = subChunkSize2;
     this->freq = sampleRate;
 } 
 
