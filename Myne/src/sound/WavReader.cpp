@@ -2,87 +2,78 @@
 using namespace std;
 
 WavReader::WavReader(const char* path){
-    ifstream reader(path);
+    FILE* file = fopen(path, "rb");
 
     //reader not instantiated properly.
-    if(!reader){
+    if(!file){
         std::cout << "Failed to open source .wav file!" << std::endl;
+        return;
     }
 
-    char* chunkID = (char*)malloc(4);
-    reader.read(chunkID, 4);
+    char chunkID[4];
+    fread(chunkID, sizeof(char), 4, file);
 
-    char* chunkSize = (char*)malloc(4);
-    reader.read(chunkSize, 4);
+    char chunkSize[4];
+    fread(chunkSize, sizeof(char), 4, file);
 
-    char* format = (char*)malloc(4);
-    reader.read(format, 4);
+    char format[4];
+    fread(format, sizeof(char), 4, file);
 
-    char* subChunkID = (char*)malloc(4);
-    reader.read(subChunkID, 4);
+    char subChunkID[4];
+    fread(subChunkID, sizeof(char), 4, file);
 
     uint32_t subChunkSize;
-    reader.read((char*)&subChunkSize, sizeof(subChunkSize));
+    fread(&subChunkSize, sizeof(uint32_t), 1, file);
 
     uint16_t audioFormat;
-    reader.read((char*)&audioFormat, sizeof(audioFormat));
+    fread(&audioFormat, sizeof(uint16_t), 1, file);
 
     uint16_t numChannels;
-    reader.read((char*)&numChannels, sizeof(numChannels));
+    fread(&numChannels, sizeof(uint16_t), 1, file);
 
     uint32_t sampleRate;
-    reader.read((char*)&sampleRate, sizeof(sampleRate));
+    fread(&sampleRate, sizeof(uint32_t), 1, file);
 
-    char* byteRate = (char*)malloc(4);
-    reader.read(byteRate, 4);
+    char byteRate[4];
+    fread(byteRate, sizeof(char), 4, file);
 
-    char* blockAlign = (char*)malloc(2);
-    reader.read(blockAlign, 2);
+    char blockAlign[2];
+    fread(blockAlign, sizeof(char), 2, file);
 
-    char* bitsPerSample = (char*)malloc(2);
-    reader.read(bitsPerSample, 2);
+    char bitsPerSample[2];
+    fread(bitsPerSample, sizeof(char), 2, file);
 
-    char* subChunkID2 = (char*)malloc(4);
-    reader.read(subChunkID2, 4);
+    char subChunkID2[4];
+    fread(subChunkID2, sizeof(char), 4, file);
 
     uint32_t subChunkSize2;
-    reader.read((char*)&subChunkSize2, sizeof(subChunkSize2));
-    
-    //calculates size for data
-    uint32_t size = subChunkSize2;
+    fread(&subChunkSize2, sizeof(uint32_t), 1, file);
 
-    data = malloc(size);
+    fread(data, sizeof(char), subChunkSize2, file);
 
-    reader.read((char*)data, size);
+    if(strcmp(subChunkID2, "LIST")){
 
-    while(subChunkID2 == "LIST"){
-        delete[] subChunkID2; 
-        subChunkID2 = nullptr;
-        reader.read(subChunkID2, 4);
-        std::cout << subChunkID2 << std::endl;      
+        fread(subChunkID2, sizeof(char), 4, file);
+          
+        fread(&subChunkSize2, sizeof(uint32_t), 1, file);
+
+        fread(data, sizeof(char), subChunkSize2, file);
     }
 
-    reader.read((char*)&subChunkSize2, 32);
+   
+    std::cout << subChunkID2 << std::endl;
 
-    size = subChunkSize2;
-
-    data = realloc(data, size);
-
-    reader.read((char*)data, size);
-        
-
-        std::cout << subChunkID2 << std::endl;
-    if(memcmp(chunkID, "RIFF", 4) != 0){
+    if(!strcmp(chunkID, "RIFF")){
         std::cout << "Invalid audio file: " << path << std::endl; 
         return;
     }
-    
-    if(memcmp(format, "WAVE", 4) != 0){
+
+    if(!strcmp(format, "WAVE")){
         std::cout << "File is not .wav: " << path << std::endl;
         return;
     }
 
-    if(memcmp(subChunkID, "fmt ", 4) != 0){
+    if(!strcmp(subChunkID, "fmt")){
         std::cout << "No format specified for audio file: " << path << std::endl;
         return;
     }
@@ -92,7 +83,7 @@ WavReader::WavReader(const char* path){
         return;
     }
 
-    if(memcmp(subChunkID2, "data", 4) != 0){
+    if(!strcmp(subChunkID2, "data")){
         std::cout << "No data subchunk for audio file: " << path << std::endl;
         return;
     }
@@ -100,19 +91,8 @@ WavReader::WavReader(const char* path){
     this->channels = numChannels;
     this->size = size;
     this->freq = sampleRate;
-
-    reader.close();
-
-    delete[] chunkID;
-    delete[] chunkSize;
-    delete[] format;
-    delete[] subChunkID;
-    delete[] byteRate;
-    delete[] blockAlign;
-    delete[] bitsPerSample;
-    delete[] subChunkID2;
 } 
 
 WavReader::~WavReader(){
-    free(data);
+
 }

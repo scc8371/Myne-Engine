@@ -49,13 +49,7 @@ void SoundManager::updateAudio(){
 
         //plays the music
         alSourcePlay(musicSource);
-    }      
-
-    auto error = alGetError();
-
-    if(error != AL_NO_ERROR){
-        printf("OpenAL error: %i\n", error);
-    }
+    }        
 }
 
 void SoundManager::play(Song song){
