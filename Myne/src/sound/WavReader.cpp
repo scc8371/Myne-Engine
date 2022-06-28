@@ -34,15 +34,15 @@ WavReader::WavReader(const char* path){
     uint32_t sampleRate;
     fread(&sampleRate, sizeof(uint32_t), 1, file);
 
-    char byteRate[4];
-    fread(byteRate, sizeof(char), 4, file);
+    uint32_t byteRate;
+    fread(&byteRate, sizeof(uint32_t), 1, file);
 
     char blockAlign[2];
     fread(blockAlign, sizeof(char), 2, file);
 
-    char bitsPerSample[2];
-    fread(bitsPerSample, sizeof(char), 2, file);
-
+    uint16_t bitsPerSample;
+    fread(&bitsPerSample, sizeof(uint16_t), 1, file);
+    
     char subChunkID2[4];
     fread(subChunkID2, sizeof(char), 4, file);
 

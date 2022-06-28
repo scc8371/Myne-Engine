@@ -4,8 +4,11 @@ Sound::Sound(const char* path){
     auto sound = WavReader(path);  
     
     alGenBuffers(1, (ALuint*)(&buffer));
+
+    //size seems WAY too large.
+    printf("%s, %i, %i", sound.data, sound.size, sound.freq);
     
-    //this is the error line. 
+    //this line ise erroring.. bad data??
     alBufferData(buffer, AL_FORMAT_STEREO16, sound.data, sound.size, sound.freq); 
 
     auto error = alGetError();
