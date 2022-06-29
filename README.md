@@ -48,7 +48,7 @@ A Vector2 can be created using the Vector2 constructor, which accepts two float 
 - normalize() -> normalizes the vector (magnitude will be equal to 1)<br>
 - setAngle(float degrees) -> sets the angle of a vector, adjusting the x and y values accordingly<br>
 
-<h2>Sound and Song</h2><br>
+<h2>Sound and Song</h2>
 
 <h3>Sound</h3><br>
 Sounds can be created using the Sound constructor (Sound sound("path to sound");)<br>
