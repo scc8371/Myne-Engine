@@ -36,9 +36,9 @@ Here are some important Rectangles that are used in spriteBatch: <br><br>
 Source Rectangles define where on a texture sheet a sprite is located. If a texture sheet is not being used, this can be defined as Rectangle(0, 0, 1, 1)<br>
 
 <h3>Destination Rectangles</h3><br>
-Destination Rectangles define where a certain texture is rendered at. For example, if I defined a Rectangle(400, 400, 10, 10), the sprite would appear 400px right and 400px down from the top-left of the screen. Also, the texture would be 10px wide and 10px tall.<br>
+Destination Rectangles define where a certain texture is rendered at. For example, if I defined a Rectangle(400, 400, 10, 10), the sprite would appear 400px right and 400px down from the top-left of the screen. Also, the texture would be 10px wide and 10px tall.<br><br>
   
-<em>Vector2</em><br>
+<h2>Vector2</h2><br>
   
 A Vector2 can be created using the Vector2 constructor, which accepts two float or int datatypes.<br>
   
