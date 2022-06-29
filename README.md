@@ -36,7 +36,7 @@ Here are some important Rectangles that are used in spriteBatch: <br><br>
 Source Rectangles define where on a texture sheet a sprite is located. If a texture sheet is not being used, this can be defined as Rectangle(0, 0, 1, 1)<br>
 
 <h3>Destination Rectangles</h3><br>
-Destination Rectangles define where a certain texture is rendered at. For example, if I defined a Rectangle(400, 400, 10, 10), the sprite would appear 400px right and 400px down from the top-left of the screen. Also, the texture would be 10px wide and 10px tall.<br><br>
+Destination Rectangles define where a certain texture is rendered at.<br>For example, if I defined a Rectangle(400, 400, 10, 10), the sprite would appear 400px right and 400px down from the top-left of the screen. Also, the texture would be 10px wide and 10px tall.<br><br>
   
 <h2>Vector2</h2><br>
   
@@ -46,7 +46,25 @@ A Vector2 can be created using the Vector2 constructor, which accepts two float 
   
 - magnitude() -> calculates the magnitude of the vector<br>
 - normalize() -> normalizes the vector (magnitude will be equal to 1)<br>
-- 
+- setAngle(float degrees) -> sets the angle of a vector, adjusting the x and y values accordingly<br>
+
+<h2>Sound and Song</h2><br>
+
+<h3>Sound</h3><br>
+Sounds can be created using the Sound constructor (Sound sound("path to sound");)<br>
+Sounds <b>do not</b> loop.<br>
+
+<h3>Song</h3><br>
+Songs are created using the Song constructor (Song song("path to song", (float)introDuration);)<br>
+Songs can be looped, and the intro duration determines where this loop starts. <br>
+
+<br><br><hr>
+
+More will be added as this engine develops!
+
+  
+                                                                                                     
+                                                                                                
 
 
 
