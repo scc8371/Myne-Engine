@@ -24,12 +24,29 @@ Please include these to allow the engine to work, after properly placing the Myn
 Textures can be made by calling the <b>Texture</b> constructor <br>
 As an example: Texture tex("path as string");<br><br>
 
-textures can be drawn in an overriden draw(SpriteBatch spriteBatch) function.<br>
+Textures can be drawn in an overriden draw(SpriteBatch spriteBatch) function.<br>
 As an example, you would call spriteBatch(tex, sourceRectangle, destinationRectangle, color);<br>
 
-<em>Rectangles</em><br>
+<h2><b>Rectangles</b></h2><br>
 Rectangles are part of the built-in math library of Myne. It allows you to define an area with a top-left x and y position, as well as it's width and height (width increases to the right, while height increases downwards).<br>
 
+Here are some important Rectangles that are used in spriteBatch: <br><br>
+
+<h3>Source Rectangles<h3><br>
+Source Rectangles define where on a texture sheet a sprite is located. If a texture sheet is not being used, this can be defined as Rectangle(0, 0, 1, 1)<br>
+
+<h3>Destination Rectangles<h3><br>
+Destination Rectangles define where a certain texture is rendered at. For example, if I defined a Rectangle(400, 400, 10, 10), the sprite would appear 400px right and 400px down from the top-left of the screen. Also, the texture would be 10px wide and 10px tall.<br>
+  
+<em>Vector2</em><br>
+  
+A Vector2 can be created using the Vector2 constructor, which accepts two float or int datatypes.<br>
+  
+<em>Vector2 functions</em><br>
+  
+- magnitude() -> calculates the magnitude of the vector<br>
+- normalize() -> normalizes the vector (magnitude will be equal to 1)<br>
+- 
 
 
 
