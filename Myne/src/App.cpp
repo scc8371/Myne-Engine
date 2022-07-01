@@ -69,23 +69,25 @@ App::App(Game* game)
 
 	SpriteBatch* spriteBatch = SpriteBatch::getInstance();	
 	game->initialize();	
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		//rendering goes here
 		float dt = calcDt();		
-		SoundManager::getInstance()->updateAudio();
-		game->update(dt);	
+		
+		game->update(dt);	  
 
 		ResourceManager::getInstance()->getShader()->Activate();
+		
 		game->draw(spriteBatch);
 
 			
 		spriteBatch->render();
+		SoundManager::getInstance()->updateAudio();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-
 	}
 
 	//deletes objects

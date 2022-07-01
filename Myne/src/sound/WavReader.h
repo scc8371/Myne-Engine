@@ -11,5 +11,5 @@ public:
     WavReader(const char* path);
     ~WavReader();
     void* data;
-    int size, freq, channels;
+    uint32_t size, freq, channels;
 };

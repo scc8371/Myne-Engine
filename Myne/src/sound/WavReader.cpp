@@ -49,6 +49,8 @@ WavReader::WavReader(const char* path){
     uint32_t subChunkSize2;
     fread(&subChunkSize2, sizeof(uint32_t), 1, file);
 
+    data = malloc(subChunkSize2);
+
     fread(data, sizeof(char), subChunkSize2, file);
 
     if(strcmp(subChunkID2, "LIST")){
@@ -57,11 +59,10 @@ WavReader::WavReader(const char* path){
           
         fread(&subChunkSize2, sizeof(uint32_t), 1, file);
 
+        data = realloc(data, subChunkSize2);
         fread(data, sizeof(char), subChunkSize2, file);
     }
 
-   
-    std::cout << subChunkID2 << std::endl;
 
     if(!strcmp(chunkID, "RIFF")){
         std::cout << "Invalid audio file: " << path << std::endl; 
@@ -91,8 +92,10 @@ WavReader::WavReader(const char* path){
     this->channels = numChannels;
     this->size = subChunkSize2;
     this->freq = sampleRate;
+
+    fflush(file);
 } 
 
 WavReader::~WavReader(){
-
+    free(data);
 }
