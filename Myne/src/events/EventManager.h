@@ -6,12 +6,13 @@
 #include "../utils/Vector2.h"
 #include "../ResourceManager.h"
 
-enum EventType{
-    Keyboard_Press, Keyboard_Release,
-    Mouse_Press, Mouse_Release, Mouse_Moved,
-    App_Update, App_Draw,
-    Window_Resize, Window_Close,
-    Game_Reset
+#define CREATE_EVENT(EVENT_NAME, ID) \
+    static const EventType EVENT_NAME = EventType(ID);
+
+class EventType{
+public:
+    EventType(int id);
+    int id;
 };
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
@@ -31,5 +32,14 @@ class EventManager{
 
     private:
         EventManager();
-        std::map<EventType, std::vector<Event>> events;
+        std::map<int, std::vector<Event>> events;
+        std::vector<int> eventIDs;
 };
+
+CREATE_EVENT(KEYBOARD_PRESS, 1);
+CREATE_EVENT(KEYBOARD_RELEASE, 2);
+CREATE_EVENT(MOUSE_MOVED, 3);
+CREATE_EVENT(MOUSE_PRESS, 4);
+CREATE_EVENT(MOUSE_RELEASE, 5);
+CREATE_EVENT(WINDOW_RESIZE, 6);
+
