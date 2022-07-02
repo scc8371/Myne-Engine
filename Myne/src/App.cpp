@@ -59,13 +59,13 @@ App::App(Game* game)
 
 	resizeBuffer(ResourceManager::getInstance()->getShader());
 	resizeBuffer(ResourceManager::getInstance()->getFontShader());
-	eventManager->attachEvent(EventType::Window_Resize, onResize);
+	eventManager->attachEvent(WINDOW_RESIZE, onResize);
 
 	//input events
-	eventManager->attachEvent(EventType::Keyboard_Press, checkKbPress);
-	eventManager->attachEvent(EventType::Keyboard_Release, checkKbRelease);
-	eventManager->attachEvent(EventType::Mouse_Press, checkMousePress);
-	eventManager->attachEvent(EventType::Mouse_Release, checkMouseRelease);
+	eventManager->attachEvent(KEYBOARD_PRESS, checkKbPress);
+	eventManager->attachEvent(KEYBOARD_RELEASE, checkKbRelease);
+	eventManager->attachEvent(MOUSE_PRESS, checkMousePress);
+	eventManager->attachEvent(MOUSE_RELEASE, checkMouseRelease);
 
 	SpriteBatch* spriteBatch = SpriteBatch::getInstance();	
 	game->initialize();	
@@ -79,7 +79,6 @@ App::App(Game* game)
 		game->update(dt);	  
 
 		ResourceManager::getInstance()->getShader()->Activate();
-		
 		game->draw(spriteBatch);
 
 			

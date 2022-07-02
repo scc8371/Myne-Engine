@@ -47,7 +47,7 @@ public:
         velocity = Vector2(10, 10);
         color = Color(255, 255, 255);
 
-        EventManager::getInstance()->attachEvent(EventType::Window_Resize, onResize);
+        EventManager::getInstance()->attachEvent(WINDOW_RESIZE, onResize);
 
         playAudio(song);   
     }
@@ -80,7 +80,7 @@ public:
     };     
 
     void kbPress(int* key) override{
-        
+        std::cout << *key << std::endl;
     }
 };
 
