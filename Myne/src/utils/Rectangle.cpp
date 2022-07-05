@@ -8,14 +8,26 @@ Rectangle::Rectangle(float x, float y, float width, float height){
     this->height = height;
 }
 
+Rectangle::Rectangle(const Rectangle &other){
+    this->x = other.x;
+    this->y = other.y;
+    this->width = other.width;
+    this->height = other.height;
+}
+
 //returns a vector2 of the rectangle's size
 Vector2 Rectangle::getSize(){
     return Vector2(width, height);
 }
 
-//returns a vector2 of the rectangle's position 
-Vector2 Rectangle::getLocation(){
-    return Vector2(x, y);
+void Rectangle::setLocation(Vector2 location){
+    this->x = location.x;
+    this-> y = location.y;
+}
+
+void Rectangle::setSize(Vector2 size){
+    this->width = size.x;
+    this->height = size.y;
 }
 
 //checks if a point lies within the rectangle
