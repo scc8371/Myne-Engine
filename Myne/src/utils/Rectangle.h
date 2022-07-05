@@ -6,11 +6,16 @@ class Rectangle{
 
 public:
     Rectangle(float x, float y, float width, float height);
+    Rectangle(const Rectangle &other);
     Rectangle(){}
     bool isColliding(Rectangle other);
     bool contains(Vector2 pos);
+
     Vector2 getSize();
-    Vector2 getLocation();
+    void setSize(Vector2 size);
+    
+    Vector2 getLocation() {return Vector2(x, y); }
+    void setLocation(Vector2 location);
 
     float getX() {return x;}
     float getY() {return y;}
