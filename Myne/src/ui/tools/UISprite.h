@@ -7,6 +7,7 @@
 class UISprite : public Sprite{
 public:
     UISprite(Texture texture, Rectangle source, Rectangle center, Vector2 scale);
+    UISprite(){}
 
     void setCenter(Rectangle center);
     void draw(Rectangle destination, Color color = Color(255, 255, 255));

@@ -37,7 +37,6 @@ public:
 	static float window_x;
 
 	App(Game* game);
-	~App();
 
 	static Game* game;
 	
@@ -52,10 +51,7 @@ public:
 
 	float calcDt();
 	float prevTime;
-	float currTime;
-	TextureManager* textureManager;
-	InputManager* inputManager;
-	EventManager* eventManager;		
+	float currTime;		
 };
 
 

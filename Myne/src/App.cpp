@@ -16,11 +16,6 @@ App::App(Game* game)
 	prevTime = 0.0f;
 	currTime = 0.0f;
 
-	//manager classes.. handles what they describe respectively.
-	textureManager = TextureManager::getInstance();
-	inputManager = InputManager::GetInstance();
-	eventManager = EventManager::getInstance();
-
 	glfwInit();
 	
 	//lets compliler know which version of gl I am using
@@ -51,7 +46,7 @@ App::App(Game* game)
 	//texture stuff goes here...
 	VAO1.Bind();
 
-	eventManager->createCallbacks(window);
+	EventManager::getInstance()->createCallbacks(window);
 
 	SpriteBatch::getInstance()->initialize();
 	ResourceManager::getInstance()->initialize();
@@ -59,13 +54,13 @@ App::App(Game* game)
 
 	resizeBuffer(ResourceManager::getInstance()->getShader());
 	resizeBuffer(ResourceManager::getInstance()->getFontShader());
-	eventManager->attachEvent(WINDOW_RESIZE, onResize);
+	EventManager::getInstance()->attachEvent(WINDOW_RESIZE, onResize);
 
 	//input events
-	eventManager->attachEvent(KEYBOARD_PRESS, checkKbPress);
-	eventManager->attachEvent(KEYBOARD_RELEASE, checkKbRelease);
-	eventManager->attachEvent(MOUSE_PRESS, checkMousePress);
-	eventManager->attachEvent(MOUSE_RELEASE, checkMouseRelease);
+	EventManager::getInstance()->attachEvent(KEYBOARD_PRESS, checkKbPress);
+	EventManager::getInstance()->attachEvent(KEYBOARD_RELEASE, checkKbRelease);
+	EventManager::getInstance()->attachEvent(MOUSE_PRESS, checkMousePress);
+	EventManager::getInstance()->attachEvent(MOUSE_RELEASE, checkMouseRelease);
 
 	SpriteBatch* spriteBatch = SpriteBatch::getInstance();	
 	game->initialize();	
@@ -91,7 +86,7 @@ App::App(Game* game)
 
 	//deletes objects
 	VAO1.Delete();
-	textureManager->getInstance()->deleteTextures();
+	TextureManager::getInstance()->deleteTextures();
 	ResourceManager::getInstance()->getShader()->Delete();
 
 	glfwDestroyWindow(window);
@@ -109,13 +104,6 @@ void App::resizeBuffer(Shader* program)
 	GLuint projID = glGetUniformLocation(program->ID, "projection");
 
 	glUniformMatrix4fv(projID, 1, GL_FALSE, value_ptr(projection));
-}
-
-//frees memory when the program is terminated
-App::~App(){
-	delete inputManager;
-	delete textureManager;
-	delete eventManager;
 }
 
 void App::onResize(void* size){

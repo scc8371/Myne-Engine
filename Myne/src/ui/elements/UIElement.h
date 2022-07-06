@@ -20,6 +20,7 @@ public:
     bool isActive;
     bool focused;
 
-private:
+protected:
     UIRectangle bounds; 
+    isDisabled checkDisabled = NULL;
 };

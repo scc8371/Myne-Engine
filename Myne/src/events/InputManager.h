@@ -9,11 +9,6 @@ class InputManager{
     static InputManager* GetInstance();
     Vector2 getMousePosition();
 
-    ~InputManager();
-
     private:
     InputManager();
-    ResourceManager* resources;
-    EventManager* events;
-    
 };

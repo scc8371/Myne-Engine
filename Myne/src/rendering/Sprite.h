@@ -8,6 +8,7 @@ class Sprite{
 public:
     Sprite(Texture texture, Rectangle source);
     Sprite(Texture texture, float x, float y, float width, float height);
+    Sprite(){}
 
     void draw(Rectangle destination, Color color);
 protected:

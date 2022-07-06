@@ -28,10 +28,10 @@ void UISprite::setCenter(Rectangle center){
 /*========================================================
 
     Renders UI in a grid of 9 squares [3][3]. This method 
-    renders each section individually by scaling the individual
-    sections of the texture.
+    renders each section individually by scaling the 
+    individual sections of the texture.
 
-    ========================================================*/
+========================================================*/
 void UISprite::draw(Rectangle destination, Color color){
     //checks if the sprite is too small to draw
     Vector2 minSize = (source.getSize() - center.getSize());
