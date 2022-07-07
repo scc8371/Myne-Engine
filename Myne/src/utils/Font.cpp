@@ -89,4 +89,24 @@ void Font::draw(const char* text, Vector2 location, Color color){
     }
 }
 
+Vector2 Font::size(std::string text){
+
+    Vector2 tempSize = Vector2(0, 0);
+
+    for(int i = 0, size = text.size(); i < size; i++){
+        if(text[i] < 32 || text[i] >= 128){
+            continue;
+        } 
+
+        CharacterInfo ch = info[(int)text[i]];
+        tempSize.x += ch.bw;
+
+        if(ch.bh > tempSize.y){
+            tempSize.y = ch.bh;
+        }
+    }
+
+    return tempSize;
+}
+
 

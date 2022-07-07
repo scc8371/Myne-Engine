@@ -6,14 +6,20 @@
 #include "../../utils/Font.h"
 #include "../tools/UISprite.h"
 
+//defines how thick button borders are (measured in pixels).
+const int BUTTON_BORDER = 10;
+
 class UIButton : public UIElement{
 public:
     UIButton(
-        UISprite* buttonMain,
+        UISprite* buttonActive,
         UISprite* buttonToggle,
-        UISprite* buttonDisabled,
+        UISprite* buttonHover,
+        UISprite* buttonDisable,
         Font font,
-        UIRectangle bounds, 
+        UIRectangle bounds,
+        Color fontColor = Color(255, 255, 255),
+        Color disabledFontColor = Color(255, 0, 0),
         uiAction action = NULL, 
         const char* text = "",
         isDisabled checkDisabled = NULL, 
@@ -22,31 +28,35 @@ public:
         bool toggle = false
         );
 
+    UIButton(
+        UISprite* buttonMain,
+        Font font,
+        UIRectangle bounds
+    );
+
     ~UIButton();
 
 private:
     UISprite* buttonActive;
     UISprite* buttonToggle;
+    UISprite* buttonHover;
     UISprite* buttonDisable;
 
     Font* font;
     uiAction action;
     const char* text;
     uiUpdate textUpdate;
-    Sprite sprite;
-    Sprite toggleSprite;
-    bool hasSprite;
-    bool hasToggleSprite;
-    UISprite normalUI, clickedUI, disabledUI, focusedUI;
+    Sprite* sprite;
+    Sprite* toggleSprite;
     bool toggle;
     bool pressed;
+
     Color color;
+    Color disabledColor;
 
     void checkHover(Rectangle parentRect, Vector2 mousePos) override;
     void update(Rectangle parentRect, Vector2 mousePos, float dt) override;
     void click(int button) override;
     void drag(int button) override;
     void draw(Rectangle parentRect) override;
-    void setTextures();
-
 };
