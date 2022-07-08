@@ -45,7 +45,7 @@ public:
 
         texBounds = Rectangle(0, 0, 200, 200);
         velocity = Vector2(10, 10);
-        color = Color(255, 255, 255);
+        color = Color(255, 255, 255, 1);
 
         EventManager::getInstance()->attachEvent(WINDOW_RESIZE, onResize);
 
@@ -58,14 +58,14 @@ public:
 
         if(texBounds.x < 0 || texBounds.x + texBounds.width > screenBounds.width){
 
-            color = Color(((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255);
+            //color = Color(((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255);
             texBounds.x -= velocity.x * dt * 60;        
             texBounds.y -= velocity.y * dt * 60;
             playAudio(sound);
             velocity.x *= -1;
         }        
         if(texBounds.y < 0 || texBounds.y + texBounds.height > screenBounds.height){
-            color = Color(((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255);
+            //color = Color(((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255);
             texBounds.x -= velocity.x * dt * 60;        
             texBounds.y -= velocity.y * dt * 60 * abs(sinf(texBounds.y));
             playAudio(sound);

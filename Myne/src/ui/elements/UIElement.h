@@ -5,7 +5,7 @@
 #include "../tools/UIRectangle.h"
 
 typedef void (*uiAction)(int i);
-typedef const char* (*uiUpdate)();
+typedef char* (*uiUpdate)();
 typedef bool (*isDisabled)();
 
 class UIElement{

@@ -7,7 +7,7 @@
 #include "Sound.h"
 
 //pre-allocated.. higher numbers = more RAM usage.
-const int SOURCES = 30;
+const int SOURCES = 60;
 
 class SoundManager{
 public:

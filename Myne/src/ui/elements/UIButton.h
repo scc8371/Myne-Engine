@@ -57,6 +57,5 @@ private:
     void checkHover(Rectangle parentRect, Vector2 mousePos) override;
     void update(Rectangle parentRect, Vector2 mousePos, float dt) override;
     void click(int button) override;
-    void drag(int button) override;
     void draw(Rectangle parentRect) override;
 };
