@@ -27,6 +27,8 @@
 #include "utils/Font.h"
 #include <vector>
 
+#include "ui/UIManager.h"
+
 
 
 class App

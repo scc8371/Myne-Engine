@@ -21,3 +21,11 @@ void Game::playAudio(Sound sound){
 void Game::playAudio(Song song){
     SoundManager::getInstance()->play(song);
 }
+
+void Game::addUI(UIElement* element){
+    UIManager::getInstance()->addUIElement(element);
+}
+
+void Game::addUIElements(std::vector<UIElement*> elements){
+    UIManager::getInstance()->addUIElements(elements);
+}

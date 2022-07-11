@@ -55,10 +55,6 @@ void UIText::draw(Rectangle parentRect){
 
         posX = std::max(posX, bounds.x);
         font->draw(text, Vector2(posX, posY), color);
+        posY += font->size(text).y;
     }
-
-    float h = 0;
-
-    float posY = bounds.y + (bounds.height - h) / 2;
-
 }

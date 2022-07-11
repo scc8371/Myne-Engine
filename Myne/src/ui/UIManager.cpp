@@ -12,7 +12,7 @@ UIManager::UIManager(){
 
     //attaches ui events to the event manager
     EventManager::getInstance()->attachEvent(MOUSE_MOVED, uiMouseMove);
-    EventManager::getInstance()->attachEvent(MOUSE_PRESS, uiMouseClick);
+    EventManager::getInstance()->attachEvent(MOUSE_PRESS, uiMousePress);
     EventManager::getInstance()->attachEvent(MOUSE_RELEASE, uiMouseRelease);
     EventManager::getInstance()->attachEvent(WINDOW_RESIZE, uiWindowResize);
 
@@ -100,7 +100,7 @@ void uiMouseMove(void* data){
 //updates ui on mouse press
 //Input: void* data - pointer to the mouse button pressed
 //Output: void
-void uiMouseClick(void* data){
+void uiMousePress(void* data){
     int button = *(int*)data;
     UIManager::getInstance()->setLastButton(button);
 

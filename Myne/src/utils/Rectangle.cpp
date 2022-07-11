@@ -30,6 +30,12 @@ void Rectangle::setSize(Vector2 size){
     this->height = size.y;
 }
 
+Rectangle Rectangle::offset(Vector2 offset){
+    this->x += offset.x;
+    this->y += offset.y;
+    return *this;
+}
+
 //checks if a point lies within the rectangle
 bool Rectangle::contains(Vector2 pos){
     return isColliding(Rectangle(pos.x, pos.y, 0, 0));

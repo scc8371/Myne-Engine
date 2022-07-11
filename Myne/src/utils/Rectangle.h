@@ -20,6 +20,8 @@ public:
     float getX() {return x;}
     float getY() {return y;}
 
+    Rectangle offset(Vector2 offset);
+
     float getWidth() {return width;}
     float getHeight() {return height;}
 

@@ -5,12 +5,12 @@ UIButton::UIButton(
         UISprite* buttonToggle,
         UISprite* buttonHover,
         UISprite* buttonDisable,
-        Font font,
+        Font* font,
         UIRectangle bounds,
         Color fontColor,
         Color disabledColor,
-        uiAction action = NULL, 
-        const char* text = "",
+        uiAction action, 
+        const char* text,
         isDisabled checkDisabled, 
         Sprite* sprite,
         Sprite* toggleSprite,
@@ -21,7 +21,7 @@ UIButton::UIButton(
             this->bounds = bounds;
             this->checkDisabled = checkDisabled;
 
-            this->font = &font;
+            this->font = font;
             this->buttonActive = buttonActive;
             this->buttonToggle = buttonToggle;
             this->buttonHover = buttonHover;   
@@ -40,15 +40,12 @@ UIButton::UIButton(
 
 UIButton::UIButton(
         UISprite* buttonMain,
-        Font font,
+        Font* font,
         UIRectangle bounds) 
         : UIButton(buttonMain, buttonMain, buttonMain, buttonMain,
             font, bounds, Color(255, 255, 255), Color(255, 0, 0),
             NULL, "", NULL, NULL, NULL, false){}
 
-UIButton::~UIButton(){
-    delete text;
-}
 
 //checks if the mouse is inside the bounds of the uiButton
 void UIButton::checkHover(Rectangle parentRect, Vector2 mousePos){
@@ -84,6 +81,7 @@ void UIButton::draw(Rectangle parentRect){
     if(!isActive) return;
 
     Rectangle temp = bounds.toRectangle(parentRect);
+
     UISprite* sprite = buttonActive;
 
     Color tempColor = color;

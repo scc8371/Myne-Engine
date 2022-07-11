@@ -9,6 +9,12 @@
 #include "sound/Song.h"
 #include "sound/SoundManager.h"
 
+#include "ui/elements/UIButton.h"
+#include "ui/elements/UIText.h"
+#include "ui/tools/UISprite.h"
+#include "ui/tools/UIRectangle.h"
+#include "ui/UIManager.h"
+
 class Game{
 public:
     Game();
@@ -27,4 +33,7 @@ public:
     //easy sound management
     void playAudio(Sound sound);
     void playAudio(Song song);
+
+    void addUI(UIElement* element);
+    void addUIElements(std::vector<UIElement*> elements);
 };

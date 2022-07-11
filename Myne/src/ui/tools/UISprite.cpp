@@ -1,5 +1,11 @@
 #include "UISprite.h"
 
+//Creates a new UISprite with the given texture, source rectangle, center rectangle, and scale.
+//Inputs: texture - the texture to use for the sprite.
+//        source - the source rectangle of the sprite.
+//        center - the center rectangle of the sprite.
+//        scale - the scale of the sprite.
+//Returns: a new UISprite with the given texture, source rectangle, center rectangle, and scale.
 UISprite::UISprite(Texture texture, Rectangle source, Rectangle center, Vector2 scale) : Sprite(texture, source){
     this->center = center;
     this->scale = scale;
@@ -25,6 +31,28 @@ void UISprite::setCenter(Rectangle center){
     }
 }
 
+//Draws a section of the sprite to a destination rectangle
+//The section is determined by the point and the destination rectangle
+//The color of the sprite is determined by the color parameter
+//Returns: void
+void UISprite::drawSection(Vector2 point, Rectangle destination, Color color){
+    Rectangle section = renderSections[(int)point.y][(int)point.x];
+
+    //print the variables of section using printf (x, y, width, height) label each variable with the name of the variable
+    printf("x: %f, y: %f, width: %f, height: %f\n", section.x, section.y, section.width, section.height);
+
+
+    Rectangle dest = dest.offset(Vector2(-1, -1));
+
+    //extends the rectangle to help with tearing
+    dest.width += 2;
+    dest.height += 2;
+
+    //Draws the section of the sprite to the destination rectangle
+    SpriteBatch::getInstance()->draw(texture, dest, section, color);
+}
+
+
 /*========================================================
 
     Renders UI in a grid of 9 squares [3][3]. This method 
@@ -41,18 +69,19 @@ void UISprite::draw(Rectangle destination, Color color){
 
     if(destination.width <= minSize.x || destination.height <= minSize.y){
         Sprite::draw(destination, color);
-        printf("UISprite drawn regularly due to its small size.");
+        printf("UISprite drawn regularly due to its small size.\n");
         return;
     }
 
     //center not defined
     if(center.width == 0 || center.height == 0){
-        printf("center not defined for UISprite");
+        printf("center not defined for UISprite\n");
         return;
     } 
 
-    Rectangle temp = renderSections[0][0];
+    
     Rectangle renderTemp(destination);
+
 
     Vector2 corners(
         (renderSections[0][0].getSize() + renderSections[2][2].getSize()).x * scale.x,
@@ -64,6 +93,7 @@ void UISprite::draw(Rectangle destination, Color color){
         renderSections[0][0].getSize().y * scale.y
     );
 
+    Rectangle temp = renderSections[0][0];
     //sets the location of the texture to be drawn
     temp.setLocation(Vector2(renderTemp.x, renderTemp.y));
     //scales the texture
@@ -111,13 +141,6 @@ void UISprite::draw(Rectangle destination, Color color){
     temp.width *= scale.x;
     temp.height *= scale.y;
     drawSection(Vector2(0, 2), temp, color);
-
-    temp = renderSections[1][2];
-    temp.setLocation(Vector2(renderTemp.x + corner.x,
-        (renderTemp.y + renderTemp.height) - renderSections[0][2].height * scale.y));
-    temp.width = renderTemp.width - corners.x;
-    temp.height *= scale.y;
-    drawSection(Vector2(1, 2), temp, color);
 
     temp = renderSections[1][2];
     temp.setLocation(Vector2(renderTemp.x + corner.x,

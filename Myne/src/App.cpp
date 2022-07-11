@@ -65,18 +65,23 @@ App::App(Game* game)
 	SpriteBatch* spriteBatch = SpriteBatch::getInstance();	
 	game->initialize();	
 
+	//resizes for UI
+	Vector2 windowSize = Vector2(window_x, window_y);
+	EventManager::getInstance()->sendEvent(WINDOW_RESIZE, &windowSize);
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		//rendering goes here
 		float dt = calcDt();		
 		
-		game->update(dt);	  
+		game->update(dt);	
+		UIManager::getInstance()->updateUI(dt); 
 
 		ResourceManager::getInstance()->getShader()->Activate();
 		game->draw(spriteBatch);
 
-			
+		UIManager::getInstance()->drawUI();	
 		spriteBatch->render();
 		SoundManager::getInstance()->updateAudio();
 

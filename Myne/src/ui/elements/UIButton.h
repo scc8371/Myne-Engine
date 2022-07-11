@@ -16,7 +16,7 @@ public:
         UISprite* buttonToggle,
         UISprite* buttonHover,
         UISprite* buttonDisable,
-        Font font,
+        Font* font,
         UIRectangle bounds,
         Color fontColor = Color(255, 255, 255),
         Color disabledFontColor = Color(255, 0, 0),
@@ -30,11 +30,9 @@ public:
 
     UIButton(
         UISprite* buttonMain,
-        Font font,
+        Font* font,
         UIRectangle bounds
     );
-
-    ~UIButton();
 
 private:
     UISprite* buttonActive;
