@@ -26,7 +26,7 @@ void onResize(void* data);
     Rectangle(X * SHEET_SCALE_X, Y * SHEET_SCALE_Y, SHEET_SCALE_X, SHEET_SCALE_Y)
 
 #define CENTER_AT(X, Y) \
-    Rectangle((X + EDGE_CENTER) * SHEET_SCALE_X, (Y + CENTER) * SHEET_SCALE_Y, CENTER * SHEET_SCALE_X, CENTER * SHEET_SCALE_Y)
+    Rectangle((X + EDGE_CENTER) * SHEET_SCALE_X, (Y + EDGE_CENTER) * SHEET_SCALE_Y, CENTER * SHEET_SCALE_X, CENTER * SHEET_SCALE_Y)
 
 
 class Game1 : public Game{
@@ -87,15 +87,12 @@ public:
         texBounds.y += velocity.y * dt * 60;
 
         if(texBounds.x < 0 || texBounds.x + texBounds.width > screenBounds.width){
-
-            //color = Color(((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255);
             texBounds.x -= velocity.x * dt * 60;        
             texBounds.y -= velocity.y * dt * 60;
             playAudio(sound);
             velocity.x *= -1;
         }        
         if(texBounds.y < 0 || texBounds.y + texBounds.height > screenBounds.height){
-            //color = Color(((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255, ((float)rand() / RAND_MAX) * 255);
             texBounds.x -= velocity.x * dt * 60;        
             texBounds.y -= velocity.y * dt * 60 * abs(sinf(texBounds.y));
             playAudio(sound);
