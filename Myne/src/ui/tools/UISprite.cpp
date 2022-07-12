@@ -43,7 +43,6 @@ void UISprite::drawSection(Vector2 point, Rectangle destination, Color color){
     //extends the rectangle to help with tearing
     dest.width += 2;
     dest.height += 2;
-    printf("%f, %f, %f, %f\n", section.x, section.y, section.width, section.height);
   
     //Draws the section of the sprite to the destination rectangle
     SpriteBatch::getInstance()->draw(texture, section, destination, color);
