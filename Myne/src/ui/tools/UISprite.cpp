@@ -36,7 +36,7 @@ void UISprite::setCenter(){
 //The color of the sprite is determined by the color parameter
 //Returns: void
 void UISprite::drawSection(Vector2 point, Rectangle destination, Color color){
-    Rectangle section = renderSections[(int)point.y][(int)point.x];
+    Rectangle section = renderSections[(int)point.x][(int)point.y];
 
     Rectangle dest = destination.offset(Vector2(-1, -1));
 
@@ -45,7 +45,7 @@ void UISprite::drawSection(Vector2 point, Rectangle destination, Color color){
     dest.height += 2;
   
     //Draws the section of the sprite to the destination rectangle
-    SpriteBatch::getInstance()->draw(texture, section, destination, color);
+    SpriteBatch::getInstance()->draw(texture, section, dest, color);
 }
 
 
