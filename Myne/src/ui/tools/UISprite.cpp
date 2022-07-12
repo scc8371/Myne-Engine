@@ -9,7 +9,7 @@
 UISprite::UISprite(Texture texture, Rectangle source, Rectangle center, Vector2 scale) : Sprite(texture, source){
     this->center = center;
     this->scale = scale;
-    setCenter(center);
+    setCenter(this->center);
 }
 
 void UISprite::setCenter(Rectangle center){
@@ -37,14 +37,15 @@ void UISprite::setCenter(Rectangle center){
 //Returns: void
 void UISprite::drawSection(Vector2 point, Rectangle destination, Color color){
     Rectangle section = renderSections[(int)point.y][(int)point.x];
-    Rectangle dest = dest.offset(Vector2(-1, -1));
+
+    Rectangle dest = destination.offset(Vector2(-1, -1));
 
     //extends the rectangle to help with tearing
     dest.width += 2;
     dest.height += 2;
 
     //Draws the section of the sprite to the destination rectangle
-    SpriteBatch::getInstance()->draw(texture, dest, section, color);
+    SpriteBatch::getInstance()->draw(texture, section, dest, color);
 }
 
 

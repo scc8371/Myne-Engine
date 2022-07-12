@@ -131,6 +131,7 @@ void UIButton::draw(Rectangle parentRect){
                 draw(Rectangle(posX, temp.y, temp.height, temp.height), tempColor);
         }
 
+        //draws the focused icon if the button is not currently pressed
         if(focused){
             toggleSprite->
                 draw(Rectangle(posX, temp.y, temp.height, temp.height),
@@ -138,6 +139,7 @@ void UIButton::draw(Rectangle parentRect){
         }
     }
 
+    //draw text if there is any
     if(text != ""){
         if(sprite){
             //recenters the text if there is a sprite
@@ -149,9 +151,16 @@ void UIButton::draw(Rectangle parentRect){
     }
 }
 
+//updates the button's state
+//parameters:
+// parentRect: the rectangle of the parent element
+// mousePos: the current mouse position
+//dt: the time since the last update call
 void UIButton::update(Rectangle parentRect, Vector2 mousePos, float dt){
+    //returns if the button is not active
     if(!isActive) return;
-
+    
+    //updates the button's text if textUpdate is true
     if(textUpdate){
         text = textUpdate();
     }
