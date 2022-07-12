@@ -30,10 +30,17 @@ void Rectangle::setSize(Vector2 size){
     this->height = size.y;
 }
 
+//offsets the rectangle by (x, y) 
+//inputs: Vector2(x, y)
+//output: Rectangle
 Rectangle Rectangle::offset(Vector2 offset){
-    this->x += offset.x;
-    this->y += offset.y;
-    return *this;
+    Rectangle temp;
+    
+    temp.x = this->x + offset.x;
+    temp.y = this->y + offset.y;
+    temp.width = this->width;
+    temp.height = this->height;
+    return temp;
 }
 
 //checks if a point lies within the rectangle

@@ -50,6 +50,11 @@ public:
     }
     void initialize() override{
         
+        //print CENTER and CENTER_AT(1, 0) x, y, width, height values
+        std::cout << "CENTER: " << CENTER << std::endl;
+        std::cout << "CENTER_AT(1, 0): " << CENTER_AT(1, 0).x << ", " << CENTER_AT(1, 0).y << ", " << CENTER_AT(1, 0).width << ", " << CENTER_AT(1, 0).height << std::endl;
+
+        
         tex = Texture("resources/content/bearger.png");
         buttonTex = Texture("resources/content/ui.png");
         font = Font("resources/font/font.ttf", 55);   
@@ -63,14 +68,14 @@ public:
 
         screenBounds = Rectangle(0, 0, App::window_x, App::window_y);
 
-        static UISprite normal_sprite(buttonTex, SPRITE_AT(1, 0), CENTER_AT(1, 0), Vector2(7.0f, SHEET_SCALE * 7));
-        static UISprite hover_sprite(buttonTex, SPRITE_AT(3, 0), CENTER_AT(3, 0), Vector2(7.0f, SHEET_SCALE * 7));
-        static UISprite pressed_sprite(buttonTex, SPRITE_AT(3, 0), CENTER_AT(3, 0), Vector2(7.0f, SHEET_SCALE * 7));
-        static UISprite disabled_sprite(buttonTex, SPRITE_AT(7, 0), CENTER_AT(7, 0), Vector2(7.0f, SHEET_SCALE * 7));
+        static UISprite normal_sprite(buttonTex, SPRITE_AT(1, 0), CENTER_AT(1, 0), Vector2(7.0f, SHEET_SCALE * 7.0f));
+        static UISprite hover_sprite(buttonTex, SPRITE_AT(3, 0), CENTER_AT(3, 0), Vector2(7.0f, SHEET_SCALE * 7.0f));
+        static UISprite pressed_sprite(buttonTex, SPRITE_AT(3, 0), CENTER_AT(3, 0), Vector2(7.0f, SHEET_SCALE * 7.0f));
+        static UISprite disabled_sprite(buttonTex, SPRITE_AT(7, 0), CENTER_AT(7, 0), Vector2(7.0f, SHEET_SCALE * 7.0f));
 
         static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, &font,
         UIRectangle(-50, -50, 50, 50, 0.5f, 0.5f, 0.5f, 0.5f), Color(255, 255, 255),
-        Color(255, 0, 0), NULL, "lol noob", NULL, NULL, NULL, false);
+        Color(255, 255, 255), NULL, "", NULL, NULL, NULL, false);
 
         addUI(&button);
 
