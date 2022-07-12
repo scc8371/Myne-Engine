@@ -37,11 +37,6 @@ void UISprite::setCenter(Rectangle center){
 //Returns: void
 void UISprite::drawSection(Vector2 point, Rectangle destination, Color color){
     Rectangle section = renderSections[(int)point.y][(int)point.x];
-
-    //print the variables of section using printf (x, y, width, height) label each variable with the name of the variable
-    printf("x: %f, y: %f, width: %f, height: %f\n", section.x, section.y, section.width, section.height);
-
-
     Rectangle dest = dest.offset(Vector2(-1, -1));
 
     //extends the rectangle to help with tearing
