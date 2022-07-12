@@ -21,6 +21,7 @@ public:
     virtual void initialize();
     virtual void update(float dt);
     virtual void draw(SpriteBatch* _spriteBatch);
+    virtual void onClose();
 
     //input handling
     virtual void kbPress(int* key);

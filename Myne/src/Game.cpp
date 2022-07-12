@@ -9,6 +9,7 @@ void Game::kbPress(int* key){}
 void Game::kbRelease(int* key){}
 void Game::mousePress(int* button){}
 void Game::mouseRelease(int* button){}
+void Game::onClose(){}
 
 Vector2 Game::getMousePos(){
     return InputManager::GetInstance()->getMousePosition();

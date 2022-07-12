@@ -89,6 +89,8 @@ App::App(Game* game)
 		glfwPollEvents();
 	}
 
+	game->onClose();
+
 	//deletes objects
 	VAO1.Delete();
 	TextureManager::getInstance()->deleteTextures();

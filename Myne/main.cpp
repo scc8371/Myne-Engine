@@ -33,7 +33,7 @@ class Game1 : public Game{
 public:
     Texture tex;
     Texture buttonTex;
-    Font font;
+    Font* font;
     Sound sound;
     Song song;
 
@@ -52,7 +52,7 @@ public:
     
         tex = Texture("resources/content/bearger.png");
         buttonTex = Texture("resources/content/ui.png");
-        font = Font("resources/font/font.ttf", 55);   
+        font = new Font("resources/font/font.ttf", 55);   
         std::cout << "LOADED!" << std::endl;
 
 
@@ -75,7 +75,7 @@ public:
         static UISprite disabled_sprite(buttonTex, SPRITE_AT(7, 0), CENTER_AT(7, 0),
             Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
 
-        static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, &font,
+        static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, font,
         UIRectangle(-50, -50, 250, 50, 0.5f, 0.5f, 0.5f, 0.5f), Color(255, 255, 255),
         Color(255, 255, 255), NULL, "test", NULL, NULL, NULL, false);
 
@@ -111,11 +111,15 @@ public:
     {
         _spriteBatch->colorWindow(255, 255, 255, 1.0f);
         _spriteBatch->draw(tex, Rectangle(0, 0, 1, 1), texBounds, color);
-        font.draw("xcvvsfgvsdfqsdfsdafasdfasdfasdfasdfasd", Vector2(50, 50));
+        font->draw("xcvvsfgvsdfqsdfsdafasdfasdfasdfasdfasd", Vector2(50, 50), Color(0, 0, 0));
     };     
 
     void kbPress(int* key) override{
         std::cout << *key << std::endl;
+    }
+
+    void onClose() override{
+        delete font;
     }
 };
 
@@ -128,6 +132,7 @@ void onResize(void* data){
 int main()
 {
     wrapper();
+    
 }
 
 /// <summary>
