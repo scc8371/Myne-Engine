@@ -49,12 +49,7 @@ public:
         std::cout << "loading" << std::endl;
     }
     void initialize() override{
-        
-        //print CENTER and CENTER_AT(1, 0) x, y, width, height values
-        std::cout << "CENTER: " << CENTER << std::endl;
-        std::cout << "CENTER_AT(1, 0): " << CENTER_AT(1, 0).x << ", " << CENTER_AT(1, 0).y << ", " << CENTER_AT(1, 0).width << ", " << CENTER_AT(1, 0).height << std::endl;
-
-        
+    
         tex = Texture("resources/content/bearger.png");
         buttonTex = Texture("resources/content/ui.png");
         font = Font("resources/font/font.ttf", 55);   
