@@ -22,7 +22,7 @@ Vector2 Rectangle::getSize(){
 
 void Rectangle::setLocation(Vector2 location){
     this->x = location.x;
-    this-> y = location.y;
+    this->y = location.y;
 }
 
 void Rectangle::setSize(Vector2 size){

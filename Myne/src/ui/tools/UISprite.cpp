@@ -7,12 +7,13 @@
 //        scale - the scale of the sprite.
 //Returns: a new UISprite with the given texture, source rectangle, center rectangle, and scale.
 UISprite::UISprite(Texture texture, Rectangle source, Rectangle center, Vector2 scale) : Sprite(texture, source){
+    this->source = source;
     this->center = center;
     this->scale = scale;
-    setCenter(this->center);
+    setCenter();
 }
 
-void UISprite::setCenter(Rectangle center){
+void UISprite::setCenter(){
     for(int i = 0; i < 3; i++){
         renderSections[0][i].x = source.x;
         renderSections[0][i].width = center.x - source.x;
@@ -27,7 +28,6 @@ void UISprite::setCenter(Rectangle center){
         renderSections[i][1].height = center.height;
         renderSections[i][2].y = center.y + center.height;
         renderSections[i][2].height = (source.y + source.height) - (center.y + center.height);
-
     }
 }
 
@@ -43,9 +43,10 @@ void UISprite::drawSection(Vector2 point, Rectangle destination, Color color){
     //extends the rectangle to help with tearing
     dest.width += 2;
     dest.height += 2;
-
+    printf("%f, %f, %f, %f\n", section.x, section.y, section.width, section.height);
+  
     //Draws the section of the sprite to the destination rectangle
-    SpriteBatch::getInstance()->draw(texture, section, dest, color);
+    SpriteBatch::getInstance()->draw(texture, section, destination, color);
 }
 
 
@@ -89,67 +90,85 @@ void UISprite::draw(Rectangle destination, Color color){
         renderSections[0][0].getSize().y * scale.y
     );
 
-    Rectangle temp = renderSections[0][0];
-    //sets the location of the texture to be drawn
-    temp.setLocation(Vector2(renderTemp.x, renderTemp.y));
-    //scales the texture
-    temp.width *= scale.x;
-    temp.height *= scale.y;
-    drawSection(Vector2(0, 0), temp, color);
+    {
+      Rectangle temp(renderSections[0][0]);
+      //sets the location of the texture to be drawn
+      temp.setLocation(Vector2(renderTemp.x, renderTemp.y));
+      //scales the texture
+      temp.width *= scale.x;
+      temp.height *= scale.y;
+      drawSection(Vector2(0, 0), temp, color);
+    }
 
-    temp = renderSections[1][0];
-    temp.setLocation(Vector2(renderTemp.x + corner.x, renderTemp.y));
-    temp.width = renderTemp.width - corners.x;
-    temp.height *= scale.y;
-    drawSection(Vector2(1, 0), temp, color);
+    {
+      Rectangle temp(renderSections[1][0]);
+      temp.setLocation(Vector2(renderTemp.x + corner.x, renderTemp.y));
+      temp.width = renderTemp.width - corners.x;
+      temp.height *= scale.y;
+      drawSection(Vector2(1, 0), temp, color);
+    }
 
-    temp = renderSections[2][0];
-    temp.setLocation(Vector2((renderTemp.x + renderTemp.width)
-     - renderSections[2][0].width * scale.x,
-     renderTemp.y));
-    temp.width *= scale.x;
-    temp.height *= scale.y;
-    drawSection(Vector2(2, 0), temp, color);
+    {
+      Rectangle temp(renderSections[2][0]);
+      temp.setLocation(Vector2((renderTemp.x + renderTemp.width)
+       - renderSections[2][0].width * scale.x,
+       renderTemp.y));
+      temp.width *= scale.x;
+      temp.height *= scale.y;
+      drawSection(Vector2(2, 0), temp, color);
+    }
 
-    temp = renderSections[0][1];
-    temp.setLocation(Vector2(renderTemp.x, renderTemp.y + corner.y));
-    temp.width *= scale.x;
-    temp.height = renderTemp.height - corners.y;
-    drawSection(Vector2(0, 1), temp, color);
+    {
+      Rectangle temp(renderSections[0][1]);
+      temp.setLocation(Vector2(renderTemp.x, renderTemp.y + corner.y));
+      temp.width *= scale.x;
+      temp.height = renderTemp.height - corners.y;
+      drawSection(Vector2(0, 1), temp, color);
+    }
 
-    temp = renderSections[1][1];
-    temp.setLocation(Vector2(renderTemp.x + corner.x, renderTemp.y + corner.y));
-    temp.width = renderTemp.width - corners.x;
-    temp.height = renderTemp.height - corners.y;
-    drawSection(Vector2(1, 1), temp, color);
+    {
+      Rectangle temp(renderSections[1][1]);
+      temp.setLocation(Vector2(renderTemp.x + corner.x, renderTemp.y + corner.y));
+      temp.width = renderTemp.width - corners.x;
+      temp.height = renderTemp.height - corners.y;
+      drawSection(Vector2(1, 1), temp, color);
+    }
 
-    temp = renderSections[2][1];
-    temp.setLocation(Vector2((renderTemp.x + renderTemp.width)
-        - renderSections[2][0].width * scale.x,
-        renderTemp.y + corner.y));
-    temp.width *= scale.x;
-    temp.height = renderTemp.height - corners.y;
-    drawSection(Vector2(2, 1), temp, color);
+    {
+      Rectangle temp(renderSections[2][1]);
+      temp.setLocation(Vector2((renderTemp.x + renderTemp.width)
+          - renderSections[2][0].width * scale.x,
+          renderTemp.y + corner.y));
+      temp.width *= scale.x;
+      temp.height = renderTemp.height - corners.y;
+      drawSection(Vector2(2, 1), temp, color);
+    }
 
-    temp = renderSections[0][2];
-    temp.setLocation(Vector2(renderTemp.x,
-        (renderTemp.y + renderTemp.height) - renderSections[0][2].height * scale.y));
-    temp.width *= scale.x;
-    temp.height *= scale.y;
-    drawSection(Vector2(0, 2), temp, color);
+    {
+      Rectangle temp(renderSections[0][2]);
+      temp.setLocation(Vector2(renderTemp.x,
+          (renderTemp.y + renderTemp.height) - renderSections[0][2].height * scale.y));
+      temp.width *= scale.x;
+      temp.height *= scale.y;
+      drawSection(Vector2(0, 2), temp, color);
+    }
 
-    temp = renderSections[1][2];
-    temp.setLocation(Vector2(renderTemp.x + corner.x,
-        (renderTemp.y + renderTemp.height) - renderSections[0][2].height * scale.y));
-    temp.width = renderTemp.width - corners.x;
-    temp.height *= scale.y;
-    drawSection(Vector2(1, 2), temp, color);
+    {
+      Rectangle temp(renderSections[1][2]);
+      temp.setLocation(Vector2(renderTemp.x + corner.x,
+          (renderTemp.y + renderTemp.height) - renderSections[0][2].height * scale.y));
+      temp.width = renderTemp.width - corners.x;
+      temp.height *= scale.y;
+      drawSection(Vector2(1, 2), temp, color);
+    }
 
-    temp = renderSections[2][2];
-    temp.setLocation(Vector2((renderTemp.x + renderTemp.width)
-        - renderSections[2][0].width * scale.x,
-        (renderTemp.y + renderTemp.height) - renderSections[0][2].height * scale.y));
-    temp.width *= scale.x;
-    temp.height *= scale.y;
-    drawSection(Vector2(2, 2), temp, color);
+    {
+      Rectangle temp(renderSections[2][2]);
+      temp.setLocation(Vector2((renderTemp.x + renderTemp.width)
+          - renderSections[2][0].width * scale.x,
+          (renderTemp.y + renderTemp.height) - renderSections[0][2].height * scale.y));
+      temp.width *= scale.x;
+      temp.height *= scale.y;
+      drawSection(Vector2(2, 2), temp, color);
+    }
 }

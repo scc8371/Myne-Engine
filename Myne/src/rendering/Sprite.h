@@ -10,7 +10,7 @@ public:
     Sprite(Texture texture, float x, float y, float width, float height);
     Sprite(){}
 
-    void draw(Rectangle destination, Color color);
+    virtual void draw(Rectangle destination, Color color);
 protected:
     Texture texture;
     Rectangle source;

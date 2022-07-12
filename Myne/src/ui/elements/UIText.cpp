@@ -29,7 +29,7 @@ void UIText::draw(Rectangle parentRect){
     int size = strlen(text);
     char* tempStr = (char*)malloc(size);
 
-    strcpy_s(tempStr, size, text);
+    strcpy(tempStr, text);
 
     float height = 0;
 
