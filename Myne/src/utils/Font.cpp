@@ -17,6 +17,7 @@ Font::Font(const char* fontPath, int fontSize){
     }
 
     FT_Set_Pixel_Sizes(face, 0, fontSize);
+    this->fontSize = (float)fontSize;
 
     FT_GlyphSlot g = face->glyph;
     int w, h = 0;
@@ -99,13 +100,11 @@ Vector2 Font::size(std::string text){
         } 
 
         CharacterInfo ch = info[(int)text[i]];
-        tempSize.x += ch.bw;
 
-        if(ch.bh > tempSize.y){
-            tempSize.y = ch.bh;
-        }
+        tempSize.x += ch.bw;            
     }
 
+    tempSize.y = fontSize;
     return tempSize;
 }
 

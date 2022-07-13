@@ -126,5 +126,6 @@ void uiMouseRelease(void* data){
 //Output: void
 void uiWindowResize(void* data){
     Vector2 size = *(Vector2*)data;
+    if(size.x == 0 || size.y == 0) return;
     UIManager::getInstance()->setSize(size);
 }

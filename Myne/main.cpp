@@ -76,8 +76,8 @@ public:
             Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
 
         static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, font,
-        UIRectangle(-50, -50, 250, 50, 0.5f, 0.5f, 0.5f, 0.5f), Color(255, 255, 255),
-        Color(255, 255, 255), NULL, "test", NULL, NULL, NULL, false);
+        UIRectangle(10, 10, -10, -10, 0, 0, 1, 1), Color(255, 255, 255),
+        Color(255, 255, 255), NULL, "adgkamn", NULL, NULL, NULL, false);
 
         addUI(&button);
 

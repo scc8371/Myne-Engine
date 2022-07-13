@@ -58,6 +58,7 @@ void UIButton::checkHover(Rectangle parentRect, Vector2 mousePos){
     Rectangle temp = bounds.toRectangle(parentRect);
 
     if(temp.contains(mousePos)){
+        printf("focused is true");
         focused = true;
     }
 }
@@ -111,13 +112,9 @@ void UIButton::draw(Rectangle parentRect){
         sprite->draw(temp);
     }
 
-    //centers the text, positions the icon to the left of the text.
-    float posX = temp.x + ((temp.width - temp.height) -
-        font->size(text).x) / 2;
-
-    float posY = temp.y + ((temp.height) - font->size(text).y) / 2;
-
     if(this->sprite){
+        //centers the text, positions the icon to the left of the text.
+        float posX = (temp.x) + ((temp.width - temp.height) - font->size(text).x) / 2;
         //height is put in twice to ensure the icon is drawn as a square
         sprite->
             draw(Rectangle(posX, temp.y, temp.height, temp.height), tempColor);
@@ -126,6 +123,7 @@ void UIButton::draw(Rectangle parentRect){
     //draw focused icon
     if(toggleSprite){
         if(pressed){
+            float posX = ((temp.x) + ((temp.width - temp.height) - font->size(text).x) / 2) - font->size(text).x;
             //height is put in twice to ensure the icon is drawn as a square
             toggleSprite->
                 draw(Rectangle(posX, temp.y, temp.height, temp.height), tempColor);
@@ -133,6 +131,7 @@ void UIButton::draw(Rectangle parentRect){
 
         //draws the focused icon if the button is not currently pressed
         if(focused){
+            float posX = (temp.x) + ((temp.width - temp.height) - font->size(text).x) / 2;
             toggleSprite->
                 draw(Rectangle(posX, temp.y, temp.height, temp.height),
                     Color(tempColor.r, tempColor.g, tempColor.b, tempColor.a/2));
@@ -141,10 +140,13 @@ void UIButton::draw(Rectangle parentRect){
 
     //draw text if there is any
     if(text != ""){
-        if(sprite){
+        float posX = ((temp.x + ((temp.width - font->size(text).x))/ 2));
+        //printf float value
+        float posY = (temp.y + ((temp.height - font->size(text).y) / 2)) + font->size(text).y;
+        if(this->sprite){        
             //recenters the text if there is a sprite
             posX = (temp.x + temp.height + BUTTON_BORDER) +
-                ((temp.width - temp.height) - font->size(text).x) / 2;           
+                (((temp.width - temp.height) - font->size(text).x) / 2);           
         }
 
         font->draw(text, Vector2(posX, posY), tempColor);

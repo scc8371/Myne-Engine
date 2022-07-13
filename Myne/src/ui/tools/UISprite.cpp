@@ -65,7 +65,6 @@ void UISprite::draw(Rectangle destination, Color color){
 
     if(destination.width <= minSize.x || destination.height <= minSize.y){
         Sprite::draw(destination, color);
-        printf("UISprite drawn regularly due to its small size.\n");
         return;
     }
 

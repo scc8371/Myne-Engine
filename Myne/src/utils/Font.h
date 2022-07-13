@@ -40,6 +40,7 @@ public:
     Vector2 size(std::string text);
 
 private:
+    float fontSize;
     Texture texture;
     CharacterInfo info[128];
 };
