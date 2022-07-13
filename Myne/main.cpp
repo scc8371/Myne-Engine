@@ -66,10 +66,10 @@ public:
         static UISprite normal_sprite(buttonTex, SPRITE_AT(1, 0), CENTER_AT(1, 0), 
             Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
 
-        static UISprite hover_sprite(buttonTex, SPRITE_AT(3, 0), CENTER_AT(3, 0),
+        static UISprite hover_sprite(buttonTex, SPRITE_AT(2, 0), CENTER_AT(2, 0),
             Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
 
-        static UISprite pressed_sprite(buttonTex, SPRITE_AT(3, 0), CENTER_AT(3, 0),
+        static UISprite pressed_sprite(buttonTex, SPRITE_AT(2, 0), CENTER_AT(2, 0),
             Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
 
         static UISprite disabled_sprite(buttonTex, SPRITE_AT(7, 0), CENTER_AT(7, 0),

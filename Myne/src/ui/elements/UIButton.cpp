@@ -36,6 +36,8 @@ UIButton::UIButton(
 
             this->color = fontColor;
             this->disabledColor = disabledColor;
+
+            this->focused = false;
         }
 
 UIButton::UIButton(
@@ -49,7 +51,7 @@ UIButton::UIButton(
 
 //checks if the mouse is inside the bounds of the uiButton
 void UIButton::checkHover(Rectangle parentRect, Vector2 mousePos){
-    focused = false;
+    this->focused = false;
 
     if(!isActive) return;
 
@@ -58,8 +60,7 @@ void UIButton::checkHover(Rectangle parentRect, Vector2 mousePos){
     Rectangle temp = bounds.toRectangle(parentRect);
 
     if(temp.contains(mousePos)){
-        printf("focused is true");
-        focused = true;
+        this->focused = true;
     }
 }
 
@@ -88,7 +89,7 @@ void UIButton::draw(Rectangle parentRect){
     Color tempColor = color;
     
     //button is disabled (cannot be clicked)
-    if(checkDisabled){
+    if(checkDisabled){    
         if(checkDisabled()){
             tempColor = disabledColor;
 
@@ -99,24 +100,23 @@ void UIButton::draw(Rectangle parentRect){
         }
 
         else if(focused){
+            
             sprite = buttonHover;
         }
     }
 
-    //button is focused (mouse is hovering over it)
-    else if(focused){
-        sprite = buttonHover;
+    if(focused && buttonHover){
+        buttonHover->draw(temp);
     }
-
-    if(sprite){
-        sprite->draw(temp);
+    else if(buttonActive){
+        buttonActive->draw(temp);
     }
 
     if(this->sprite){
         //centers the text, positions the icon to the left of the text.
         float posX = (temp.x) + ((temp.width - temp.height) - font->size(text).x) / 2;
         //height is put in twice to ensure the icon is drawn as a square
-        sprite->
+        this->sprite->
             draw(Rectangle(posX, temp.y, temp.height, temp.height), tempColor);
     }
 
