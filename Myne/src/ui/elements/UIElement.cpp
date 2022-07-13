@@ -18,3 +18,4 @@ void UIElement::update(Rectangle parentRect, Vector2 mousePos, float dt){
 void UIElement::draw(Rectangle parentRect){
     if(!isActive) return;
 }
+

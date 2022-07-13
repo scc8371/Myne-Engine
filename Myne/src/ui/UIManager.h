@@ -10,17 +10,12 @@ class UIManager{
 public: 
     static UIManager* getInstance();
 
-    void setMousePos(Vector2 pos);
-    Vector2 getMousePos() { return mousePos; }
+    std::vector<UIElement*> elements;
+    Vector2 size;
+    Vector2 mousePos;  
 
-    void setSize(Vector2 size){ this->size = size; }
-    Vector2 getSize() { return size; }
-
-    UIElement* getDrag() { return drag; }
-    void setDrag(UIElement* drag) { this->drag = drag; }
-
-    void setLastButton(int button){ last = button; }
-    int getLastButton() { return last; }
+    UIElement* drag;
+    int last;
 
     std::vector<UIElement*> getElements();
 
@@ -33,14 +28,7 @@ public:
     
 private:
     static UIManager* instance;
-    UIManager();
-
-    std::vector<UIElement*> elements;
-    Vector2 size;
-    Vector2 mousePos;  
-
-    UIElement* drag;
-    int last;
+    UIManager();   
 };
 void uiMouseMove(void* data);
 void uiMousePress(void* data);

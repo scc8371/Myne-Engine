@@ -18,13 +18,6 @@ UIManager::UIManager(){
 
 }
 
-//Set the mouse position
-//Input: Vector2 pos - the new mouse position
-//Output: void
-void UIManager::setMousePos(Vector2 pos){
-    mousePos = pos;
-}
-
 //RETURNS: std::vector<UIElement*> - the list of elements
 //INPUTS: N/A
 std::vector<UIElement*> UIManager::getElements(){
@@ -79,10 +72,10 @@ void uiMouseMove(void* data){
     //get the new mouse position (event data)
     Vector2 pos = *(Vector2*)data;
 
-    Vector2 sizeTemp = UIManager::getInstance()->getSize();
+    Vector2 sizeTemp = UIManager::getInstance()->size;
 
     //update the mouse position
-    UIManager::getInstance()->setMousePos(pos);
+    UIManager::getInstance()->mousePos = pos;
 
     //checks if the mouse is over an element
     for(int i = 0, size = UIManager::getInstance()->getElements().size(); i < size; i++){
@@ -91,9 +84,9 @@ void uiMouseMove(void* data){
     }
 
     //update the active drag element
-    if(UIManager::getInstance()->getDrag() != NULL){
-        UIManager::getInstance()->getDrag()
-            ->drag(UIManager::getInstance()->getLastButton());
+    if(UIManager::getInstance()->drag != NULL){
+        UIManager::getInstance()->drag
+            ->drag(UIManager::getInstance()->last);
     }
 }
 
@@ -102,14 +95,14 @@ void uiMouseMove(void* data){
 //Output: void
 void uiMousePress(void* data){
     int button = *(int*)data;
-    UIManager::getInstance()->setLastButton(button);
+    UIManager::getInstance()->last = button;
 
     for(int i = 0, size = UIManager::getInstance()->getElements().size(); i < size; i++){
         UIElement element = *UIManager::getInstance()->getElements()[i];
 
         if(element.focused){
             element.click(button);
-            UIManager::getInstance()->setDrag(&element);
+            UIManager::getInstance()->drag = &element;
         }
     }
 }
@@ -118,7 +111,7 @@ void uiMousePress(void* data){
 //Input: void* data - pointer to the mouse button released
 //Output: void
 void uiMouseRelease(void* data){
-    UIManager::getInstance()->setDrag(NULL);
+    UIManager::getInstance()->drag = NULL;
 }
 
 //updates ui on window resize
@@ -127,5 +120,5 @@ void uiMouseRelease(void* data){
 void uiWindowResize(void* data){
     Vector2 size = *(Vector2*)data;
     if(size.x == 0 || size.y == 0) return;
-    UIManager::getInstance()->setSize(size);
+    UIManager::getInstance()->size = size;
 }
