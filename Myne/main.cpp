@@ -6,12 +6,12 @@
 
 #include <random>
 
-
-
 using namespace std;
 
 void wrapper();
 void onResize(void* data);
+
+char* helloWorld();
 
 #define SHEET_WIDTH 9.0f
 #define SHEET_HEIGHT 1.0f
@@ -55,7 +55,6 @@ public:
         font = new Font("resources/font/font.ttf", 55);   
         std::cout << "LOADED!" << std::endl;
 
-
         song = Song("resources/audio/track5.wav");
         sound = Sound("resources/audio/boom.wav");
 
@@ -75,12 +74,15 @@ public:
         static UISprite disabled_sprite(buttonTex, SPRITE_AT(7, 0), CENTER_AT(7, 0),
             Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
 
+        static UIText text(font, UIRectangle(5, 5, -5, -5, 0, 0, 1, 1), helloWorld);
+
         static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, font,
         UIRectangle(10, 10, -10, -10, 0, 0, 1, 1), Color(255, 255, 255),
         Color(255, 255, 255), NULL, "adgkamn", NULL, NULL, NULL, false);
 
         addUI(&button);
-
+        addUI(&text);
+        
         texBounds = Rectangle(0, 0, 200, 200);
         velocity = Vector2(10, 10);
         color = Color(255, 255, 255);
@@ -140,6 +142,10 @@ int main()
 /// </summary>
 void wrapper() { 
     App app = App(&game);
+}
+
+char* helloWorld(){
+    return "Hello World";
 }
 
 

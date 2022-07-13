@@ -83,11 +83,14 @@ void uiMouseMove(void* data){
             checkHover(Rectangle(0, 0, sizeTemp.x, sizeTemp.y), pos);
     }
 
+
+    //TODO - FIX DRAG WHEN MORE UI ELEMENTS ARE ADDED
+    
     //update the active drag element
-    if(UIManager::getInstance()->drag != NULL){
-        UIManager::getInstance()->drag
-            ->drag(UIManager::getInstance()->last);
-    }
+    //if(UIManager::getInstance()->drag){
+        //UIManager::getInstance()->drag
+            //->drag(UIManager::getInstance()->last);
+    //}
 }
 
 //updates ui on mouse press
