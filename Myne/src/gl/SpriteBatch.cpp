@@ -136,10 +136,10 @@ size_t SpriteBatch::getHash(QueueEntry entry){
 
 //hashes a vertex.. converts all data to one binary string.
 size_t SpriteBatch::getHash(Vertex vertex){
-    size_t result = vertex.x;
-    result ^= (size_t)vertex.y << 1;
-    result ^= (size_t)vertex.u << 2;
-    result ^= (size_t)vertex.v << 3;
+    size_t result = *(size_t*)&vertex.x;
+    result ^= *(size_t*)&vertex.y << 1;
+    result ^= *(size_t*)&vertex.u << 2;
+    result ^= *(size_t*)&vertex.v << 3;
 
     return result;
 }
