@@ -169,11 +169,16 @@ void App::checkMousePress(void* data){
 	App::game->mousePress((int*)data);
 }
 
+//checks if the mouse is released
+//inputs: data - mouse button
+//outputs: none
 void App::checkMouseRelease(void* data){
 	App::game->mouseRelease((int*)data);
 }
 
 //returns dt
+//inputs: none
+//outputs: float - dt
 float App::calcDt(){
 	//dt
 	prevTime = currTime;
