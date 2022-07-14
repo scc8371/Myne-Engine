@@ -50,6 +50,7 @@ public:
     }
     void initialize() override{
         
+        App::fullscreen(true);
         tex = Texture("resources/content/bearger.png");
         buttonTex = Texture("resources/content/ui.png");
         font = new Font("resources/font/font.ttf", 55);   
@@ -111,9 +112,9 @@ public:
     };
     void draw(SpriteBatch* _spriteBatch) override 
     {
-        _spriteBatch->colorWindow(255, 255, 255, 1.0f);
+        _spriteBatch->colorWindow(255, 0, 0, 1.0f);
         _spriteBatch->draw(tex, Rectangle(0, 0, 1, 1), texBounds, color);
-        font->draw("xcvvsfgvsdfqsdfsdafasdfasdfasdfasdfasd", Vector2(50, 50), Color(0, 0, 0));
+        font->draw("lol", Vector2(50, 50), Color(0, 0, 0));
     };     
 
     void kbPress(int* key) override{

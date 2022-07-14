@@ -39,7 +39,8 @@ public:
 	static float window_x;
 
 	static void changeTitle(const char* title);
-	
+	static void fullscreen(bool value);
+
 	App(Game* game);
 
 	static Game* game;

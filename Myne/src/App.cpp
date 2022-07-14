@@ -135,6 +135,18 @@ void App::onMinimize(void* data)
 	}
 }
 
+void App::fullscreen(bool fullscreen)
+{
+	//true value supplimented - fullscreen
+	if(fullscreen){
+		glfwSetWindowMonitor(ResourceManager::getInstance()->getWindow(), glfwGetPrimaryMonitor(), 0, 0, window_x, window_y, 0);
+	}
+	//sets back to windowed
+	else{
+		glfwSetWindowMonitor(ResourceManager::getInstance()->getWindow(), NULL, 0, 0, window_x, window_y, 0);
+	}
+}
+
 void App::onResize(void* size){
 	Vector2 windowSize = *(Vector2*)size;	
 
