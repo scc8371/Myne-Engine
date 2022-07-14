@@ -33,11 +33,15 @@ void UIText::draw(Rectangle parentRect){
 
     int index = 0;
 
-    while(index != -1) {      
-        index = temp.find_first_of('\n');
-        temp = temp.substr(0, index);
-        temp2 = text.substr(index + 1, text.length());
 
+    
+
+    while(index != -1) {      
+        index = temp.find_first_of("\n");
+
+        temp2 = temp.substr(index + 1, temp.length());
+        temp = temp.substr(0, index);
+    
         height += font->size(temp).y;     
 
         if(index != -1){
@@ -54,11 +58,11 @@ void UIText::draw(Rectangle parentRect){
 
     index = 0;
 
-    while(index != -1){
-        index = temp.find_first_of('\n');
-        temp = temp.substr(0, index);
-        temp2 = text.substr(index + 1, text.length());
+    while(index != -1) {
+        index = temp.find("\n");
 
+        temp2 = temp.substr(index + 1, temp.length());
+        temp = temp.substr(0, index);
         float posX = bounds.x;
 
         switch(align) {

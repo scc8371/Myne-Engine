@@ -144,7 +144,7 @@ void wrapper() {
 }
 
 char* helloWorld(){
-    return "Hello World\nsomething else";
+    return "Hello World\nsomething else\nthird line\nmore stuff\nlolrekt";
 }
 
 
