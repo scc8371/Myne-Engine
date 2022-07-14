@@ -44,6 +44,7 @@ public:
 	
 	static void resizeBuffer(Shader* program);
 	static void onResize(void* size);
+	static void onMinimize(void* data);
 	private:
 
 	static void checkKbPress(void* data);
@@ -54,6 +55,8 @@ public:
 	float calcDt();
 	float prevTime;
 	float currTime;		
+
+	static bool isUpdating;
 };
 
 

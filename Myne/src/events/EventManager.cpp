@@ -25,6 +25,11 @@ void mouse_callback_move(GLFWwindow* window, double xPos, double yPos){
      (void*)&temp);
 }
 
+void window_minimize(GLFWwindow* window, int iconified){
+    EventManager::getInstance()->sendEvent(WINDOW_MINIMIZE,
+     (void*)&iconified);
+}
+
 void mouse_callback_click(GLFWwindow* window, int button, int action, int mods){
     if(action == GLFW_PRESS){
         EventManager::getInstance()->
@@ -66,6 +71,7 @@ void EventManager::createCallbacks(GLFWwindow* window){
     glfwSetCursorPosCallback(window, mouse_callback_move);
     glfwSetMouseButtonCallback(window, mouse_callback_click);
     glfwSetFramebufferSizeCallback(window, window_callback_resize);
+    glfwSetWindowIconifyCallback(window, window_minimize);
 }
 
 EventType::EventType(int id){

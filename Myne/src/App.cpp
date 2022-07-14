@@ -7,6 +7,8 @@ using namespace glm;
 float App::window_x = 1200;
 float App::window_y = 800;
 
+bool App::isUpdating = true;
+
 Game* App::game = NULL;
 
 App::App(Game* game)
@@ -61,6 +63,7 @@ App::App(Game* game)
 	EventManager::getInstance()->attachEvent(KEYBOARD_RELEASE, checkKbRelease);
 	EventManager::getInstance()->attachEvent(MOUSE_PRESS, checkMousePress);
 	EventManager::getInstance()->attachEvent(MOUSE_RELEASE, checkMouseRelease);
+	EventManager::getInstance()->attachEvent(WINDOW_MINIMIZE, onMinimize);
 
 	SpriteBatch* spriteBatch = SpriteBatch::getInstance();	
 	game->initialize();	
@@ -72,19 +75,20 @@ App::App(Game* game)
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
-		//rendering goes here
-		float dt = calcDt();		
-		
-		game->update(dt);	
-		UIManager::getInstance()->updateUI(dt); 
+		float dt = calcDt();
+
+		if(isUpdating){
+			//rendering goes here
+			game->update(dt);	
+			UIManager::getInstance()->updateUI(dt); 
+			SoundManager::getInstance()->updateAudio();
+		}	
 
 		ResourceManager::getInstance()->getShader()->Activate();
 		game->draw(spriteBatch);
-
 		UIManager::getInstance()->drawUI();	
 		spriteBatch->render();
-		SoundManager::getInstance()->updateAudio();
-
+		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -111,6 +115,16 @@ void App::resizeBuffer(Shader* program)
 	GLuint projID = glGetUniformLocation(program->ID, "projection");
 
 	glUniformMatrix4fv(projID, 1, GL_FALSE, value_ptr(projection));
+}
+
+void App::onMinimize(void* data)
+{
+	if(*(int*)data){
+		isUpdating = false;
+	}
+	else if(!*(int*)data){
+		isUpdating = true;
+	}
 }
 
 void App::onResize(void* size){
