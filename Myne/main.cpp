@@ -76,11 +76,11 @@ public:
 
         static UIText text(font, UIRectangle(5, 5, -5, -5, 0, 0, 1, 1), helloWorld);
 
-        static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, font,
-        UIRectangle(10, 10, -10, -10, 0, 0, 1, 1), Color(255, 255, 255),
-        Color(255, 255, 255), NULL, "adgkamn", NULL, NULL, NULL, false);
+        //static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, font,
+        //UIRectangle(10, 10, -10, -10, 0, 0, 1, 1), Color(255, 255, 255),
+        //Color(255, 255, 255), NULL, "adgkamn", NULL, NULL, NULL, false);
 
-        addUI(&button);
+        //addUI(&button);
         addUI(&text);
         
         texBounds = Rectangle(0, 0, 200, 200);
