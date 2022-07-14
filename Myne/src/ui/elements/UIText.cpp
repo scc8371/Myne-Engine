@@ -22,39 +22,39 @@ void UIText::update(Rectangle parentRect, Vector2 mousePos, float dt){
 
 void UIText::draw(Rectangle parentRect){
     if(!isActive) return;
-    if(text == "") return;
+    if(text == NULL) return;
 
     Rectangle bounds = this->bounds.toRectangle(parentRect);
 
-    int size = strlen(text);
-    char* tempStr = (char*)malloc(size);
-
-    strcpy(tempStr, text);
-
     float height = 0;
 
-    while(char* substring = strtok(text, "\n")){
-        height += font->size(text).y;        
+    char* substring = strtok(text, "\n");
+    while(substring != NULL) {
+        height += font->size(substring).y;        
+        substring = strtok(NULL, "\n");
     }
-    
+
     float posY = bounds.y + (bounds.height - height) / 2;
     posY = std::max(posY, bounds.y);
 
     //x positioning
-    while(char* substring = strtok(text, "\n")){
+    substring = strtok(text, "\n");
+    while(substring != NULL){
         float posX = bounds.x;
 
-        switch(align){
+        switch(align) {
             case TextAlign::Center:
-                posX = bounds.x + (bounds.width - font->size(text).x) / 2;
+                posX = bounds.x + (bounds.width - font->size(substring).x) / 2;
             break;
             case TextAlign::Right:
-                posX = bounds.x + bounds.width - font->size(text).x;
+                posX = bounds.x + bounds.width - font->size(substring).x;
             break;
         }
 
         posX = std::max(posX, bounds.x);
-        font->draw(text, Vector2(posX, posY), color);
-        posY += font->size(text).y;
+        font->draw(substring, Vector2(posX, posY), color);
+        posY += font->size(substring).y;
+        
+        substring = strtok(NULL, "\n");  
     }
 }
