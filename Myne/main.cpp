@@ -76,8 +76,8 @@ public:
         static UIText text(font, UIRectangle(5, 5, -5, -5, 0, 0, 1, 1), helloWorld);
 
         //static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, font,
-        //UIRectangle(10, 10, -10, -10, 0, 0, 1, 1), Color(255, 255, 255),
-        //Color(255, 255, 255), NULL, "adgkamn", NULL, NULL, NULL, false);
+        //UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
+        //Color(255, 255, 255), NULL, "lol", NULL, NULL, NULL, false);
 
         //addUI(&button);
         addUI(&text);
@@ -144,7 +144,7 @@ void wrapper() {
 }
 
 char* helloWorld(){
-    return "Hello World";
+    return "Hello World\nsomething else";
 }
 
 

@@ -99,8 +99,7 @@ void UIButton::draw(Rectangle parentRect){
             }
         }
 
-        else if(focused){
-            
+        else if(focused){      
             sprite = buttonHover;
         }
     }

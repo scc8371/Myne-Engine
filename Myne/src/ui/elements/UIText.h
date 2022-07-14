@@ -24,7 +24,7 @@ private:
     TextAlign align;
     Color color;
     uiUpdate updateFunct;
-    char* text = "";
+    std::string text = "";
 
     void update(Rectangle parentRect, Vector2 mousePos, float dt) override;
     void draw(Rectangle parentRect) override;
