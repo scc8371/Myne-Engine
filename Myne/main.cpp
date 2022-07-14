@@ -49,7 +49,7 @@ public:
         std::cout << "loading" << std::endl;
     }
     void initialize() override{
-    
+        
         tex = Texture("resources/content/bearger.png");
         buttonTex = Texture("resources/content/ui.png");
         font = new Font("resources/font/font.ttf", 55);   
