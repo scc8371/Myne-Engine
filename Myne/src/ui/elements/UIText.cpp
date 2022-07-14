@@ -35,12 +35,9 @@ void UIText::draw(Rectangle parentRect){
 
     while(index != -1) {      
         index = temp.find_first_of('\n');
-        std::cout << index << ", ";
         temp = temp.substr(0, index);
         temp2 = text.substr(index + 1, text.length());
 
-        printf("%s, ", temp.c_str());
-        printf("%s\n", temp2.c_str());
         height += font->size(temp).y;     
 
         if(index != -1){
@@ -59,14 +56,8 @@ void UIText::draw(Rectangle parentRect){
 
     while(index != -1){
         index = temp.find_first_of('\n');
-        std::cout << index << ", ";
         temp = temp.substr(0, index);
         temp2 = text.substr(index + 1, text.length());
-
-        printf("%s, ", temp.c_str());
-        printf("%s\n", temp2.c_str());
-
-        printf("made it \n");
 
         float posX = bounds.x;
 
