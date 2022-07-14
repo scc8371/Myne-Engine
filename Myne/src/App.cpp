@@ -27,7 +27,7 @@ App::App(Game* game)
 
 	//creates openGL window
 	GLFWwindow* window = glfwCreateWindow(App::window_x, App::window_y, "Myne Test Window", NULL, NULL);	
-	//syncs window to resources
+	//syncs window to resources]
 	ResourceManager::getInstance()->setWindow(window);
 	
 	//terminates the GLFW 
@@ -102,6 +102,14 @@ App::App(Game* game)
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+//changes the window name
+//inputs: new window name
+//outputs: none
+void App::changeTitle(const char* title)
+{
+	glfwSetWindowTitle(ResourceManager::getInstance()->getWindow(), title);
 }
 
 //Resizes the window before anything is drawn to the screen.

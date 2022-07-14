@@ -38,6 +38,8 @@ public:
 	static float window_y;
 	static float window_x;
 
+	static void changeTitle(const char* title);
+	
 	App(Game* game);
 
 	static Game* game;
