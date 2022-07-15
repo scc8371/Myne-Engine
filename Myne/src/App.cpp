@@ -112,6 +112,12 @@ void App::changeTitle(const char* title)
 	glfwSetWindowTitle(ResourceManager::getInstance()->getWindow(), title);
 }
 
+void App::changeIcon(const char* path){
+	GLFWimage images[1];
+	images[0].pixels = stbi_load(path, &images[0].width, &images[0].height, 0, 4);
+	glfwSetWindowIcon(ResourceManager::getInstance()->getWindow(), 1, images);
+	stbi_image_free(images[0].pixels);
+}
 //Resizes the window before anything is drawn to the screen.
 //also handles projection (changes how the coordinate system is handled)
 void App::resizeBuffer(Shader* program)

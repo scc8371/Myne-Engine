@@ -34,6 +34,7 @@ public:
     Texture tex;
     Texture buttonTex;
     Font* font;
+    Font* buttonFont;
     Sound sound;
     Song song;
 
@@ -53,6 +54,7 @@ public:
         buttonTex = Texture("resources/content/ui.png");
         font = new Font("resources/font/font.ttf", 55);   
         std::cout << "LOADED!" << std::endl;
+        App::changeIcon("resources/myne.png");
 
         song = Song("resources/audio/track5.wav");
         sound = Sound("resources/audio/boom.wav");
@@ -77,11 +79,7 @@ public:
         UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
         Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
         static UIText thirdText(font, UIRectangle(5, 5, -5, -5, 0, 0, 0.75f, 0.75f), helloWorld);
-        
-
-        
-
-        
+          
         addUI(&thirdText);
         addUI(&button);
 

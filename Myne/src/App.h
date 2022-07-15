@@ -48,6 +48,7 @@ public:
 	static void resizeBuffer(Shader* program);
 	static void onResize(void* size);
 	static void onMinimize(void* data);
+	static void changeIcon(const char* path);
 	private:
 
 	static void checkKbPress(void* data);
