@@ -5,7 +5,7 @@ UIButton::UIButton(
         UISprite* buttonToggle,
         UISprite* buttonHover,
         UISprite* buttonDisable,
-        Font* font,
+        Font font,
         UIRectangle bounds,
         Color fontColor,
         Color disabledColor,
@@ -42,7 +42,7 @@ UIButton::UIButton(
 
 UIButton::UIButton(
         UISprite* buttonMain,
-        Font* font,
+        Font font,
         UIRectangle bounds) 
         : UIButton(buttonMain, buttonMain, buttonMain, buttonMain,
             font, bounds, Color(255, 255, 255), Color(255, 0, 0),
@@ -113,7 +113,7 @@ void UIButton::draw(Rectangle parentRect){
 
     if(this->sprite){
         //centers the text, positions the icon to the left of the text.
-        float posX = (temp.x) + ((temp.width - temp.height) - font->size(text).x) / 2;
+        float posX = (temp.x) + ((temp.width - temp.height) - font.size(text).x) / 2;
         //height is put in twice to ensure the icon is drawn as a square
         this->sprite->
             draw(Rectangle(posX, temp.y, temp.height, temp.height), tempColor);
@@ -122,7 +122,7 @@ void UIButton::draw(Rectangle parentRect){
     //draw focused icon
     if(toggleSprite){
         if(pressed){
-            float posX = ((temp.x) + ((temp.width - temp.height) - font->size(text).x) / 2) - font->size(text).x;
+            float posX = ((temp.x) + ((temp.width - temp.height) - font.size(text).x) / 2) - font.size(text).x;
             //height is put in twice to ensure the icon is drawn as a square
             toggleSprite->
                 draw(Rectangle(posX, temp.y, temp.height, temp.height), tempColor);
@@ -130,7 +130,7 @@ void UIButton::draw(Rectangle parentRect){
 
         //draws the focused icon if the button is not currently pressed
         if(focused){
-            float posX = (temp.x) + ((temp.width - temp.height) - font->size(text).x) / 2;
+            float posX = (temp.x) + ((temp.width - temp.height) - font.size(text).x) / 2;
             toggleSprite->
                 draw(Rectangle(posX, temp.y, temp.height, temp.height),
                     Color(tempColor.r, tempColor.g, tempColor.b, tempColor.a/2));
@@ -139,16 +139,16 @@ void UIButton::draw(Rectangle parentRect){
 
     //draw text if there is any
     if(text != ""){
-        float posX = ((temp.x + ((temp.width - font->size(text).x))/ 2));
+        float posX = ((temp.x + ((temp.width - font.size(text).x))/ 2));
         //printf float value
-        float posY = (temp.y + ((temp.height - font->size(text).y) / 2)) + font->size(text).y;
+        float posY = (temp.y + ((temp.height - font.size(text).y) / 2)) + font.size(text).y;
         if(this->sprite){        
             //recenters the text if there is a sprite
             posX = (temp.x + temp.height + BUTTON_BORDER) +
-                (((temp.width - temp.height) - font->size(text).x) / 2);           
+                (((temp.width - temp.height) - font.size(text).x) / 2);           
         }
 
-        font->draw(text, Vector2(posX, posY), tempColor);
+        font.draw(text, Vector2(posX, posY), tempColor);
     }
 }
 

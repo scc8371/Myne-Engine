@@ -33,8 +33,8 @@ Font::Font(const char* fontPath, int fontSize){
     }
 
     int x = 0;
-    this->texture = Texture(w, h);
-    this->texture.Bind();
+    this->texture = new Texture(w, h);
+    this->texture->Bind();
 
     for(int i = 32; i < 128; i++){
         if(FT_Load_Char(face, i, FT_LOAD_RENDER)){
@@ -61,7 +61,7 @@ Font::Font(const char* fontPath, int fontSize){
         x += g->bitmap.width;
     }
 
-    this->texture.Unbind();
+    this->texture->Unbind();
 }
 
 void Font::draw(const char* text, Vector2 location, Color color){
@@ -84,7 +84,7 @@ void Font::draw(const char* text, Vector2 location, Color color){
         Rectangle source(ch.tx, 0, ch.tw, ch.th);
         Rectangle bounds(x, y, width, height);
 
-        SpriteBatch::getInstance()->draw(texture, source, bounds, color, ResourceManager::getInstance()->getFontShader());
+        SpriteBatch::getInstance()->draw(*texture, source, bounds, color, ResourceManager::getInstance()->getFontShader());
 
         pos.x += ch.ax;
     }
@@ -106,6 +106,9 @@ Vector2 Font::size(std::string text){
 
     tempSize.y = fontSize;
     return tempSize;
+}
+
+Font::~Font(){
 }
 
 

@@ -35,12 +35,13 @@ struct Point{
 class Font{
 public:
     Font();
+    ~Font();
     Font(const char* fontPath, int fontSize);
     void draw(const char* text, Vector2 position, Color color = Color(255, 255, 255, 255));
     Vector2 size(std::string text);
 
 private:
     float fontSize;
-    Texture texture;
+    Texture* texture;
     CharacterInfo info[128];
 };

@@ -75,19 +75,19 @@ public:
         static UISprite disabled_sprite(buttonTex, SPRITE_AT(7, 0), CENTER_AT(7, 0),
             Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
         
-        static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, font,
-        UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
-        Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
-        static UIText thirdText(font, UIRectangle(5, 5, -5, -5, 0, 0, 0.75f, 0.75f), helloWorld);
-          
-        addUI(&thirdText);
-        addUI(&button);
-
         texBounds = Rectangle(0, 0, 200, 200);
         velocity = Vector2(10, 10);
         color = Color(255, 255, 255);
 
         EventManager::getInstance()->attachEvent(WINDOW_RESIZE, onResize);
+        static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, *font,
+        UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
+        Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
+        static UIButton button2(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, *font,
+        UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
+        Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
+        static UIText text(*font, UIRectangle(10, 10, 10, 10, 0, 0, 1, 1), helloWorld);
+        addUI(&button);
     }
 
     void update(float dt) override
@@ -121,7 +121,6 @@ public:
     }
 
     void onClose() override{
-        delete font;
     }
 };
 

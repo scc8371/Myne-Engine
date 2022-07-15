@@ -1,7 +1,7 @@
 #include "UIText.h"
 
 //TODO -- LOOK FOR MEMORY LEAKS, COMMENT
-UIText::UIText(Font* font, UIRectangle bounds,
+UIText::UIText(Font font, UIRectangle bounds,
         uiUpdate update, TextAlign align,
         Color color) : UIElement(bounds){
 
@@ -42,7 +42,7 @@ void UIText::draw(Rectangle parentRect){
         temp2 = temp.substr(index + 1, temp.length());
         temp = temp.substr(0, index);
     
-        height += font->size(temp).y;     
+        height += font.size(temp).y;     
 
         if(index != -1){
             temp = temp2;
@@ -67,18 +67,18 @@ void UIText::draw(Rectangle parentRect){
 
         switch(align) {
             case TextAlign::Center:
-                posX = bounds.x + (bounds.width - font->size(temp).x) / 2;
+                posX = bounds.x + (bounds.width - font.size(temp).x) / 2;
             break;
             case TextAlign::Right:
-                posX = bounds.x + bounds.width - font->size(temp).x;
+                posX = bounds.x + bounds.width - font.size(temp).x;
             break;            
         }
      
         const char* cstr = temp.c_str();
 
         posX = std::max(posX, bounds.x);
-        font->draw(cstr, Vector2(posX, posY), color);
-        posY += font->size(temp).y;
+        font.draw(cstr, Vector2(posX, posY), color);
+        posY += font.size(temp).y;
 
         if(index != -1){
             temp = temp2;

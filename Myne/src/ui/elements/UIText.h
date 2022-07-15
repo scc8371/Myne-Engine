@@ -15,12 +15,12 @@ enum TextAlign{
 class UIText : public UIElement{
 
 public:
-    UIText(Font* font, UIRectangle bounds,
+    UIText(Font font, UIRectangle bounds,
         uiUpdate update, TextAlign align = TextAlign::Center,
         Color color = Color(255, 255, 255));
 
 private:
-    Font* font;
+    Font font;
     TextAlign align;
     Color color;
     uiUpdate updateFunct;
