@@ -24,6 +24,7 @@ public:
 
     float getWidth() {return width;}
     float getHeight() {return height;}
-
+    bool intersects(Rectangle other);
+    Rectangle getIntersection(Rectangle other);
     float x, y, width, height;
 };

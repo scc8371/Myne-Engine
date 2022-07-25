@@ -43,6 +43,24 @@ Rectangle Rectangle::offset(Vector2 offset){
     return temp;
 }
 
+bool Rectangle::intersects(Rectangle other){
+    return (this->x < other.x + other.width &&
+            this->x + this->width > other.x &&
+            this->y < other.y + other.height &&
+            this->y + this->height > other.y);
+}
+
+Rectangle Rectangle::getIntersection(Rectangle other){
+    Rectangle temp = Rectangle(0, 0, 0, 0);
+    if(this->intersects(other)){
+        temp.x = std::max(this->x, other.x);
+        temp.y = std::max(this->y, other.y);
+        temp.width = std::min(this->x + this->width, other.x + other.width) - temp.x;
+        temp.height = std::min(this->y + this->height, other.y + other.height) - temp.y;
+    }
+
+    return temp;
+}
 //checks if a point lies within the rectangle
 bool Rectangle::contains(Vector2 pos){
     return isColliding(Rectangle(pos.x, pos.y, 0, 0));

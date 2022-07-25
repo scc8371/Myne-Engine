@@ -86,6 +86,9 @@ public:
         static UIButton button2(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, *font,
         UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
         Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
+        static UIButton button3(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, *font,
+        UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
+        Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
         static UIText text(*font, UIRectangle(10, 10, 10, 10, 0, 0, 1, 1), helloWorld);
         addUI(&button);
     }
