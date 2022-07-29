@@ -1,4 +1,12 @@
 #include "Texture.h"
+
+//Creates a new texture object
+//inputs: const char* image: the path to the image file,
+//        GLenum texType: the type of texture to create,
+//        GLenum slot: the slot to bind the texture to,
+//        GLenum format: the format of the image file,
+//        GLenum pixelType: the type of pixel data in the image file
+//outputs: none
 Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType)
 {
 	type = texType;
@@ -64,6 +72,11 @@ Texture::Texture(int width, int height){
 	glBindTexture(type, 0);
 }
 
+//Binds the texture to the specified shader
+//inputs: Shader* shader: the shader to bind the texture to,
+//        const char* uniform: the name of the uniform variable (in shader file) to bind the texture to,
+//        GLuint unit: the texture unit to bind the texture to
+//outputs: none
 void Texture::textUnit(Shader& shader, const char* uniform, GLuint unit)
 {
 	GLuint texUni = glGetUniformLocation(shader.ID, uniform);
@@ -75,16 +88,25 @@ void Texture::textUnit(Shader& shader, const char* uniform, GLuint unit)
 	glUniform1f(texUni, unit);
 }
 
+//Binds the texture
+//inputs: none
+//outputs: none
 void Texture::Bind()
 {
 	glBindTexture(type, ID);
 }
 
+//Unbinds the texture
+//inputs: none
+//outputs: none
 void Texture::Unbind()
 {
 	glBindTexture(type, 0);
 }
 
+//Deletes the texture
+//inputs: none
+//outputs: none
 void Texture::Delete()
 {
 	glDeleteTextures(1, &ID);

@@ -4,6 +4,9 @@ TextureManager::TextureManager() {
 	textures = std::vector<Texture>();
 }
 
+//returns an instance of the singleton TextureManager
+//inputs: none
+//outputs: TextureManager* - pointer to the singleton TextureManager
 TextureManager* TextureManager::getInstance()
 {
 	static TextureManager instance;

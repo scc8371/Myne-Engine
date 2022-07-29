@@ -93,6 +93,9 @@ void SoundManager::play(Song song){
     loopBuffer = song.get_loopBuffer();
 }
 
+//plays a sound
+//inputs: Sound sound: the sound to play
+//outputs: none
 void SoundManager::play(Sound sound){
     //checks if the source is already playing
     alSourcef(soundSources[nextSoundSource], AL_PITCH, 1.0f);
