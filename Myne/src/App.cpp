@@ -11,6 +11,7 @@ bool App::isUpdating = true;
 
 Game* App::game = NULL;
 
+//initializes main aspects of the game
 App::App(Game* game)
 {
 	this->game = game;
@@ -112,6 +113,9 @@ void App::changeTitle(const char* title)
 	glfwSetWindowTitle(ResourceManager::getInstance()->getWindow(), title);
 }
 
+//changes the window icon of the game
+//inputs: const char* path: the path to the icon
+//outputs: none
 void App::changeIcon(const char* path){
 	GLFWimage images[1];
 	images[0].pixels = stbi_load(path, &images[0].width, &images[0].height, 0, 4);
@@ -131,6 +135,9 @@ void App::resizeBuffer(Shader* program)
 	glUniformMatrix4fv(projID, 1, GL_FALSE, value_ptr(projection));
 }
 
+//Event function that stops the game from updating when the window is minimized
+//inputs: void* data: the data that is sent to the function
+//outputs: none
 void App::onMinimize(void* data)
 {
 	if(*(int*)data){
@@ -141,6 +148,9 @@ void App::onMinimize(void* data)
 	}
 }
 
+//puts the window in fullscreen mode
+//inputs: bool fullscreen: if the window is fullscreen or not
+//outputs: none
 void App::fullscreen(bool fullscreen)
 {
 	//true value supplimented - fullscreen
@@ -153,6 +163,9 @@ void App::fullscreen(bool fullscreen)
 	}
 }
 
+//Event function that properly resizes everything rendered to the screen when the window is resized
+//inputs: void* data: the data that is sent to the function
+//outputs: none
 void App::onResize(void* size){
 	Vector2 windowSize = *(Vector2*)size;	
 
@@ -163,14 +176,23 @@ void App::onResize(void* size){
 	resizeBuffer(ResourceManager::getInstance()->getFontShader());
 }
 
+//Event function that checks if a key is pressed
+//inputs: void* data: the data that is sent to the function
+//outputs: none
 void App::checkKbPress(void* data){
 	App::game->kbPress((int*)data);
 }
 
+//Event function that checks if a key is released
+//inputs: void* data: the data that is sent to the function
+//outputs: none
 void App::checkKbRelease(void* data){
 	App::game->kbRelease((int*)data);
 }
 
+//Event function that checks if a mouse button is pressed
+//inputs: void* data: the data that is sent to the function
+//outputs: none
 void App::checkMousePress(void* data){
 	App::game->mousePress((int*)data);
 }

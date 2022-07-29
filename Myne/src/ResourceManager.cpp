@@ -1,9 +1,8 @@
 #include "ResourceManager.h"
 
-//TODO: nuke this lol
-
 ResourceManager* ResourceManager::instance = NULL;
 
+//returns the singleton instance of the resource manager
 ResourceManager* ResourceManager::getInstance(){
     if(!instance) instance = new ResourceManager();
     return instance;
