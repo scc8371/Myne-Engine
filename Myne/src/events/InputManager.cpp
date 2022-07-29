@@ -1,8 +1,6 @@
 #include "InputManager.h"
 
-InputManager::InputManager(){
-    //input setup goes here...
-}
+InputManager::InputManager(){}
 
 //returns singleton instance of the input manager.
 InputManager* InputManager::GetInstance(){

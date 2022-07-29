@@ -4,6 +4,9 @@ SpriteBatch* SpriteBatch::instance = NULL;
 
 SpriteBatch::SpriteBatch(){}
 
+//gets the instance of the singleton SpriteBatch
+//inputs: none
+//outputs: SpriteBatch* - pointer to the singleton SpriteBatch
 SpriteBatch* SpriteBatch::getInstance(){
     if(!instance){
         instance = new SpriteBatch();
@@ -12,14 +15,24 @@ SpriteBatch* SpriteBatch::getInstance(){
     return instance;
 }
 
+//initializes the SpriteBatch
+//inputs: none
+//outputs: none
 void SpriteBatch::initialize(){
     getInstance()->oldEntries = std::vector<size_t>();
     getInstance()->queue = std::vector<QueueEntry>();
     getInstance()->VBOS = std::vector<VBO>();
 }
 
+//draws a texture to the screen
+//inputs: Texture texture - the texture to draw, 
+//        Rectangle source - the source rectangle of the texture to draw (where it is on the texture sheet)
+//        Rectangle destination - the destination rectangle of the texture to draw (where it is drawn on the screen)
+//        Color color - the color to draw the texture (default is how it is on the texture sheet)
+//        Shader shader - the shader to use to draw the texture (default is the default shader)
 void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination, Color color, Shader* shader){
 
+    //create a new queue entry
     if(queue.size() == 0){
         QueueEntry temp = QueueEntry(texture, shader);
         temp.addEntry(source, destination, color);
@@ -37,43 +50,52 @@ void SpriteBatch::draw(Texture texture, Rectangle source, Rectangle destination,
     }
 }
 
-
+//establishes coordinates for a Vertex object
+//inputs: GLfloat x - the x coordinate, GLfloat y - the y coordinate, Glfloat u - the first UV coordinate, GLfloat v - the second UV coordinate
 Vertex::Vertex(GLfloat x, GLfloat y, GLfloat u, GLfloat v, Color color){
     this->x = x;
     this->y = y;
     this->u = u;
     this->v = v;
 
+    //sets the color
     GLfloat* colors = color.toFloats();
 
     r = colors[0];
     g = colors[1];
     b = colors[2];
     a = colors[3];
-    
+
     delete[] colors;
     colors = nullptr;
 }
 
+//renderer for the SpriteBatch, draws all the textures in the queue
+//inputs: none
+//outputs: none
 void SpriteBatch::render(){
-    
+   
     int size = oldEntries.size();
     int qsize = queue.size();
 
+    //updates the queue if it has changed
     for(int i = 0; i < qsize; i++){
         if(i > size - 1){
             queue[i].isUpdated = true;    
             continue;
         }
 
+        //checks if the queue entry has been updated
         if(oldEntries[i] != getHash(queue[i])){
             queue[i].isUpdated = true;
             continue;
         }     
 
+        //if not, sets the queue entry to not updated
         queue[i].isUpdated = false;
     }
 
+    //establishes VBOs for each queue entry
     while(!(VBOS.size() == queue.size())){
        if(VBOS.size() > queue.size()){
            VBOS.back().Delete();
@@ -85,8 +107,10 @@ void SpriteBatch::render(){
        }
     }
 
+    //deletes the old VBOs
     oldEntries.clear();
 
+    //renders the queue
     for(int i = 0; i < qsize; i++){
 
         queue[i].shader->Activate();
@@ -125,6 +149,9 @@ void SpriteBatch::render(){
     queue.clear();
 }
 
+//hashes the contents of the queue entry to speed up the process of rendering
+//inputs: QueueEntry entry - the queue entry to hash
+//outputs: size_t - the hash of the queue entry
 size_t SpriteBatch::getHash(QueueEntry entry){
     size_t result = entry.texture.ID;
     for(int i = 0; i < entry.quads.size(); i++){
@@ -135,6 +162,8 @@ size_t SpriteBatch::getHash(QueueEntry entry){
 }
 
 //hashes a vertex.. converts all data to one binary string.
+//inputs: Vertex vertex - the vertex to hash
+//outputs: size_t - the hash of the vertex
 size_t SpriteBatch::getHash(Vertex vertex){
     size_t result = *(size_t*)&vertex.x;
     result ^= *(size_t*)&vertex.y << 1;
@@ -144,14 +173,22 @@ size_t SpriteBatch::getHash(Vertex vertex){
     return result;
 }
 
+//Establishes a queue Entry
+//inputs: Texture texture - the texture to draw, Shader* shader - the shader to use to draw the texture
+//outputs: none
 SpriteBatch::QueueEntry::QueueEntry(Texture texture, Shader* shader) : texture(texture), shader(shader)
 {
     quads = std::vector<Vertex>();
 };
 
+//adds an entry to the queue
+//inputs: Rectangle source - the source rectangle of the texture to draw (where it is on the texture sheet)
+//        Rectangle destination - the destination rectangle of the texture to draw (where it is drawn on the screen)
+//        Color color - the color to draw the texture (default is how it is on the texture sheet)
+//outputs: none
 void SpriteBatch::QueueEntry::addEntry(Rectangle source, Rectangle destination, Color color){
 
-    
+    //establishes triangle patterns for the textures (makes a square), adds the coordinates to a quad entry in the queue
     Vertex temp[6] = {
         Vertex(destination.getX(), destination.getY(), 
             source.getX(), source.getY(), color),
@@ -181,6 +218,12 @@ void SpriteBatch::QueueEntry::addEntry(Rectangle source, Rectangle destination, 
     }
 }
 
+//Changes the background color of the window.
+//inputs: float r - the red value of the background color, 
+//        float g - the green value of the background color,
+//        float b - the blue value of the background color
+//        float a - the alpha value of the background color
+//outputs: none
 void SpriteBatch::colorWindow(float r, float g, float b, float a){
 	//sets the color of the window.
 	glClearColor(r, g, b, a);
