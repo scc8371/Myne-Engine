@@ -12,7 +12,7 @@ public:
     void update(float deltaTime);
     void addBody(Body* body);
 
-    std::vector<Body*> checkCollisions(Body* body);
+    void checkCollisions(Body* body);
 private:   
     Vector2 gravity;
     std::vector<Body*> bodies;

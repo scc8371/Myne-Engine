@@ -1,5 +1,8 @@
 #include "Sound.h"
 
+//constructs a new sound object
+//inputs: string path: the path to the sound file
+//outputs: none
 Sound::Sound(const char* path){
     auto sound = WavReader(path);  
     

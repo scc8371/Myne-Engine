@@ -3,6 +3,7 @@ SoundManager* SoundManager::instance = NULL;
 
 // https://www.openal.org/documentation/OpenAL_Programmers_Guide.pdf
 
+//creates an instance of the sound manager singleton
 SoundManager* SoundManager::getInstance(){
     if(!instance) instance = new SoundManager();
     return instance;
@@ -10,6 +11,7 @@ SoundManager* SoundManager::getInstance(){
 
 SoundManager::SoundManager(){}
 
+//intializes the sound manager
 void SoundManager::initialize(){
     //audio system init
     device = alcOpenDevice(NULL);
@@ -32,6 +34,8 @@ void SoundManager::initialize(){
     //generates source for sounds
     alGenSources(SOURCES, &soundSources[0]);   
 }
+
+//updates the audio in the sound manager, should be called in App()->update()
 void SoundManager::updateAudio(){
     //used in game to update audio. Supposed to be called every frame  
 
@@ -58,6 +62,9 @@ void SoundManager::updateAudio(){
     }
 }
 
+//plays a song
+//inputs: Song song: the song to play  
+//outputs: none
 void SoundManager::play(Song song){
     //prevents the song from infinitely repeating.
     if(song.get_loopBuffer() == loopBuffer) return;
