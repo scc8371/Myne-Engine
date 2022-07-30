@@ -2,6 +2,7 @@
 #include "src/App.h"
 #include "src/Game.h"
 #include "src/events/EventManager.h"
+#include "src/texture/SpriteSheetInfo.h"
 #include <math.h>
 
 #include <random>
@@ -38,6 +39,8 @@ public:
     Sound sound;
     Song song;
 
+    SpriteSheetInfo info = SpriteSheetInfo(9, 1, 5, 2.0f/7.0f, 7.0f);
+
     Rectangle screenBounds;
     Rectangle texBounds;
     Vector2 velocity;
@@ -63,30 +66,27 @@ public:
 
         screenBounds = Rectangle(0, 0, App::window_x, App::window_y);
 
-        static UISprite normal_sprite(buttonTex, SPRITE_AT(1, 0), CENTER_AT(1, 0), 
-            Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
+        static UISprite normal_sprite(buttonTex, info.spriteAt(1, 0), info.centerAt(1, 0), 
+            Vector2(info.sheetWidth * info.pixelsPerSprite * info.sheetScale, info.sheetHeight * info.pixelsPerSprite * info.sheetScale));
 
-        static UISprite hover_sprite(buttonTex, SPRITE_AT(2, 0), CENTER_AT(2, 0),
-            Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
+        static UISprite hover_sprite(buttonTex, info.spriteAt(2, 0), info.centerAt(2, 0), 
+            Vector2(info.sheetWidth * info.pixelsPerSprite * info.sheetScale, info.sheetHeight * info.pixelsPerSprite * info.sheetScale));
 
-        static UISprite pressed_sprite(buttonTex, SPRITE_AT(2, 0), CENTER_AT(2, 0),
-            Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
-
-        static UISprite disabled_sprite(buttonTex, SPRITE_AT(7, 0), CENTER_AT(7, 0),
-            Vector2(SHEET_WIDTH * 7.0f * SHEET_SCALE, SHEET_HEIGHT * 7.0f * SHEET_SCALE));
+        static UISprite disabled_sprite(buttonTex, info.spriteAt(7, 0), info.centerAt(7, 0), 
+            Vector2(info.sheetWidth * info.pixelsPerSprite * info.sheetScale, info.sheetHeight * info.pixelsPerSprite * info.sheetScale));
         
         texBounds = Rectangle(0, 0, 200, 200);
         velocity = Vector2(10, 10);
         color = Color(255, 255, 255);
 
         EventManager::getInstance()->attachEvent(WINDOW_RESIZE, onResize);
-        static UIButton button(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, *font,
+        static UIButton button(&normal_sprite, &hover_sprite, &hover_sprite, &disabled_sprite, *font,
         UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
         Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
-        static UIButton button2(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, *font,
+        static UIButton button2(&normal_sprite, &hover_sprite, &hover_sprite, &disabled_sprite, *font,
         UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
         Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
-        static UIButton button3(&normal_sprite, &hover_sprite, &pressed_sprite, &disabled_sprite, *font,
+        static UIButton button3(&normal_sprite, &hover_sprite, &hover_sprite, &disabled_sprite, *font,
         UIRectangle(50.0f, 50.0f, -50.0f, -50.0f, 0.25f, 0.25f, 0.5f, 0.5f), Color(0, 0, 0),
         Color(255, 255, 255), NULL, "start", NULL, NULL, NULL, false);
         static UIText text(*font, UIRectangle(10, 10, 10, 10, 0, 0, 1, 1), helloWorld);

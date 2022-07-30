@@ -8,6 +8,7 @@ ResourceManager* ResourceManager::getInstance(){
     return instance;
 }
 
+//Creates a new ResourceManager object, used within the singleton instance, shouldnt be called directly.
 ResourceManager::ResourceManager()
 {
     window = NULL;
@@ -15,11 +16,13 @@ ResourceManager::ResourceManager()
     ft = new FT_Library();    
 }
 
+//init ResourceManager
 void ResourceManager::initialize(){
     fontShader = new Shader("resources/shader/default.vert", "resources/shader/fontShader.frag");
     shader = new Shader("resources/shader/default.vert", "resources/shader/default.frag");
 }
 
+//destructor to free resources
 ResourceManager::~ResourceManager(){
     delete shader;
     delete ft;
